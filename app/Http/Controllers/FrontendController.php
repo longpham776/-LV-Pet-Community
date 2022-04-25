@@ -14,9 +14,23 @@ class FrontendController extends Controller
     public function index(){
         return view('frontend.index');
     }
-    public function sanpham(){
-        $getSP=sanpham::paginate(3);
-        return view('frontend.sanpham',compact('getSP'));
+    public function sanpham(Request $request){
+        if($request->kw){
+            $getSP=sanpham::search($request->kw);
+            return view('frontend.sanpham',compact('getSP'));
+        }else if(!$request->kw){
+            $getSP=sanpham::paginate(3);
+            return view('frontend.sanpham',compact('getSP'));
+        }
+    }
+    public function chitietsanpham(Request $request){
+        $getSP=sanpham::getById($request->id);
+        $getAll = sanpham::all();
+        return view('frontend.chitietsanpham',compact('getSP','getAll'));
+    }
+    public function timkiem(Request $request){
+        $getSP=sanpham::search($request->id);
+        return view('frontend.chitietsanpham',compact('getSP','getAll'));
     }
     public function logout()
     {

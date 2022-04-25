@@ -166,7 +166,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a class="nav-icon d-none d-lg-inline" href="nhannuoi.php">
+                        <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
                             <i class="fa fa-fw fa-search text-dark mr-2"></i>
                         </a>
                         <a class="nav-icon position-relative text-decoration-none" href="cart.html">
@@ -197,9 +197,9 @@
                 <div class="w-100 pt-1 mb-5 text-right">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="" method="get" class="modal-content modal-body border-0 p-0">
+                <form action="{{route('sanpham')}}" method="get" class="modal-content modal-body border-0 p-0">
                     <div class="input-group mb-2">
-                        <input type="text" class="form-control" id="inputModalSearch" name="q" placeholder="Search ...">
+                        <input type="text" class="form-control" id="inputModalSearch" name="kw" placeholder="Search ...">
                         <button type="submit" class="input-group-text bg-success text-light">
                             <i class="fa fa-fw fa-search text-white"></i>
                         </button>
@@ -305,5 +305,6 @@
         <script src="{{url('public')}}/frontend/assets/js/templatemo.js"></script>
         <script src="{{url('public')}}/frontend/assets/js/custom.js"></script>
         <!-- End Script -->
+        
     </body>
 </html>
