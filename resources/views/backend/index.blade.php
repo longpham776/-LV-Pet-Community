@@ -27,9 +27,9 @@
         </thead>
         <tbody>
           @foreach($getSP as $sp)
-          <form action="#" method="get">
+          <form action="{{route('ad.edit_pro')}}" method="get">
               @csrf
-            <input type="hidden" value="{{ $sp->masp }}" name="masanpham">
+            <input type="hidden" value="{{ $sp->masp }}" name="masp">
             <td>{{$sp->masp}}</td>
             <td><img src="{{url('public')}}/frontend/assets/img/{{$sp->hinh}}" 
                 weight=200px height=200px></td>
@@ -40,8 +40,8 @@
             </td>
             <td><button>Sửa</button></td>
             </form>
-            <td> <form action="#" method="get">
-            <input type="hidden" value="{{ $sp->masp }}" name="masanpham">
+            <td> <form action="{{route('ad.delete_pro')}}" method="get">
+            <input type="hidden" value="{{ $sp->masp }}" name="masp">
             <button>Xóa</button>
                 </form>
             </td>
