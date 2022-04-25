@@ -1,14 +1,14 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use DB;
-class sanpham extends Model
+class loaisp extends Model
 {
     use HasFactory;
-    public static function getAll(){
-        return DB::select('SELECT * FROM sanpham WHERE trangthai=0 ORDER BY masp ASC');
+    public static function getLoai(){
+        return DB::select('SELECT * FROM loaisp ');
     }
 }
-?>

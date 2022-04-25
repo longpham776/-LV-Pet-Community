@@ -113,7 +113,7 @@
                 </div>
                 <!-- <div div="row">
                     <ul class="pagination pagination-lg justify-content-end">
-                        <?php 
+                      <?php 
                         for($i=0;$i<=$totalpage;$i++){
                             ?>
                             <a class="page-link active rounded-0 mr-3 shadow-sm border-top-0 border-left-0" href="?per_page=8&page=<?php echo$i+1 ?>" tabindex="-1"><?php echo $i+1 ?></a>

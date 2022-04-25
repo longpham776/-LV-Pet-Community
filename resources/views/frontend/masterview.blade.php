@@ -173,10 +173,17 @@
                             <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
                             <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">0</span>
                         </a>
-                        <a class="nav-icon position-relative text-decoration-none" href="login.html">
-                            <i class="fa fa-fw fa-user text-dark mr-3"></i>
-                            <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"></span>
-                        </a>
+                        @php if(!isset($_SESSION['user'])){ @endphp
+                            <a class="nav-icon position-relative text-decoration-none" href="{{route('ad.login')}}">
+                    <i class="fa fa-fw fa-user text-dark mr-3"></i>
+                    <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"></span>
+                </a>
+                            @php }else{ @endphp
+                            <div class="header__top__right__auth">
+                                Hello,<a href="#"><i class="fa fa-user"></i>@php if(isset($_SESSION['user'])){foreach($_SESSION['user'] as $a){echo $a->hoten;}} @endphp</a>
+                                <a href="{{route('logout')}}" title="Sign Out" style="text-decoration:none;">Sign Out</a>
+                            </div>
+                            @php } @endphp
                     </div>
                 </div>
 

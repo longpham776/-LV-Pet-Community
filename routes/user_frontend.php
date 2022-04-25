@@ -2,5 +2,8 @@
 Route::group(['namespace'=>'App\Http\Controllers'],function(){
     Route::get('/','FrontendController@index')->name('home');
     Route::get('/sanpham','FrontendController@sanpham')->name('sanpham');
+    Route::get('/logout','FrontendController@logout')->name('logout');
+    Route::get('/register','FrontendController@register')->name('register');
+    Route::post('/postregister','FrontendController@postregister')->name('postregister');
 });
 ?>
