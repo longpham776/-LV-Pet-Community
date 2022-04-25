@@ -17,8 +17,9 @@ class DashboardController extends Controller
         $getSP=sanpham::getAll();
         return view("backend.index",compact('getSP'));
     }
-    public function index2(){
-        return view("backend.index4");
+    public function thuonghieu(){
+        $getTH=thuonghieu::getTH();
+        return view("backend.thuonghieu",compact('getTH'));
     }
     public function login()
     {
@@ -138,6 +139,101 @@ class DashboardController extends Controller
         }
         sanpham::update_product($masp,$tensp,$mota,$congdung,$gia,$hang,$loaisp,$hinh,$trangthai);
         return redirect('/admin');
+    }
+    public function addhang(Request $request){
+        $t=$request->tenhang;
+        $tt="0";
+        thuonghieu::addHang($t,$tt);
+        return redirect('admin/thuonghieu');
+    }
+    public function delete_hang(Request $request){
+        $id=$request->math;
+        thuonghieu::delete_Hang($id);
+        return redirect('admin/thuonghieu');
+    }
+    public function loaisp(){
+        $getLoai=loaisp::getLoai();
+        return view("backend.loaisp",compact('getLoai'));
+    }
+    public function addloai(Request $request){
+        $t=$request->tenloai;
+        $tt="0";
+        loaisp::addLoai($t,$tt);
+        return redirect('admin/loaisp');
+    }
+    public function delete_loai(Request $request){
+        $id=$request->maloai;
+        loaisp::delete_Loai($id);
+        return redirect('admin/loaisp');
+    }
+    public function qlad(){
+       $getAdmin= admin::getAdmin();
+       return view("backend.qlad",compact('getAdmin'));
+    }
+    public function add_ad(){
+        return view('backend.themadmin');
+    }
+    public function insert_ad(Request $request){
+        $request->validate([
+            'username'=>'required|max:20|min:3',
+            'password'=>'required|max:100',
+            'fullname'=>'required|min:5',
+            'email'=>'required|email'
+        ],[
+            'username.required'=>'Vui lòng nhập :attribute',
+            'username.max'=>'Vui lòng nhập dưới :max ký tự',
+            'password.required'=>'Vui lòng nhập :attribute',
+            'password.max'=>'Vui lòng nhập dưới :max ký tự',
+            'fullname.required'=>'Vui lòng nhập :attribute',
+            'fullname.min'=>'Vui lòng nhập hơn :min ký tự',
+            'email.required'=>'Vui lòng nhập :attribute',
+
+        ]);
+        $u=$request->username;
+        $n=$request->fullname;
+        $e=$request->email;
+        $p=$request->password;
+        $q=$request->quyen;
+        $data=admin::getByEmail($e);
+        if($data!=NULL){
+            return view('backend.themadmin');
+        }else{
+           admin::addAdmin($u,$p,$n,$e,$q);
+            return Redirect::to('/admin/qlad');
+        }
+    }
+    public function delete_ad(Request $request){
+        $u=$request->username;
+        admin::delete_Ad($u);
+        return Redirect::to('/admin/qlad');
+    }
+    public function edit_ad(Request $request){
+        $e=$request->email;
+        $getAdmin= admin::getByEmail($e);
+        return view('backend.editadmin',compact('getAdmin'));
+    }
+    public function update_ad(Request $request){
+
+        $request->validate([
+            'username'=>'required|max:20|min:3',
+            'fullname'=>'required|min:5',
+            'email'=>'required|email'
+        ],[
+            'username.required'=>'Vui lòng nhập :attribute',
+            'username.max'=>'Vui lòng nhập dưới :max ký tự',
+            'fullname.required'=>'Vui lòng nhập :attribute',
+            'fullname.min'=>'Vui lòng nhập hơn :min ký tự',
+            'email.required'=>'Vui lòng nhập :attribute',
+
+        ]);
+        $u=$request->username;
+        $n=$request->fullname;
+        $e=$request->email;
+        $q=$request->quyen;
+        
+           admin::update_Ad($u,$n,$e,$q);
+            return Redirect::to('/admin/qlad');
+        
     }
 }
 ?>

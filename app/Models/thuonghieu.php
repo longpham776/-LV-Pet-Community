@@ -11,4 +11,10 @@ class thuonghieu extends Model
     public static function getTH(){
         return DB::select('SELECT * FROM thuonghieu ');
     }
+    public static function addHang($ten,$tt){
+         return DB::select('INSERT INTO thuonghieu(tenth,trangthai) VALUES(?,?)',[$ten,$tt]);
+    }
+    public static function delete_Hang($m){
+        return DB::select('DELETE FROM thuonghieu WHERE math=?',[$m]);
+    }
 }

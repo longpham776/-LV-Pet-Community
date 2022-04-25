@@ -59,13 +59,13 @@
                                     <a href="{{route('ad.home')}}">Sản phẩm</a>
                                 </li>
                                 <li>
-                                    <a href="{{route('ad.index2')}}">Dashboard 2</a>
+                                    <a href="{{route('ad.thuonghieu')}}">Hãng</a>
                                 </li>
                                 <li>
-                                    <a href="index3.html">Dashboard 3</a>
+                                    <a href="{{route('ad.loaisp')}}">Quản lý loại</a>
                                 </li>
                                 <li>
-                                    <a href="index4.html">Dashboard 4</a>
+                                    <a href="{{route('ad.qlad')}}">Quản lý Admin</a>
                                 </li>
                             </ul>
                         </li>
