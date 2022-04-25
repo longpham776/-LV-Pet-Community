@@ -11,35 +11,35 @@
             <section class="panel">
                 <div class="panel-body">
                     <div class=" form">
-                        <form method="post" action="{{route('ad.insert_pro')}}"  enctype="multipart/form-data">
-                        @csrf 
+                        <form method="post" action="{{route('ad.update_pro')}}"  enctype="multipart/form-data">
+                        @csrf
+                        @foreach($getSP as $sp)
                                 <div class="form-group ">
                                     <label class="control-label col-lg-3" >Mã sản phẩm</label>
                                     <div class="col-lg-6">
-                                        <input class="au-input au-input--full"  id="cname" name="masp" minlength="2" type="text" >
-                                        @error('masp')
-                                    <span style="color: red;">{{ $message }}</span>
-                                    @enderror
-                                    </div>
+                                        <input class="au-input au-input--full"  id="cname" name="masp" minlength="2" type="text" value="{{ $sp->masp }}">
+                                     </div>
                                 </div>
                                 <div class="form-group ">
                                     <label class="control-label col-lg-3" >Tên sản phẩm</label>
                                     <div class="col-lg-6">
-                                        <input class="au-input au-input--full"  id="cname" name="tensp" minlength="2" type="text" >
-                                        @error('tensp')
-                                    <span style="color: red;">{{ $message }}</span>
-                                    @enderror
+                                        <input class="au-input au-input--full"  id="cname" name="tensp" minlength="2" type="text" value="{{ $sp->tensp }}">
                                     </div>
                                 </div>
                                 <div class="form-group ">
                                     <label for="cname" class="control-label col-lg-3">Loại sản phẩm</label>
                                     <div class="col-lg-6">
-                                    <select name="loaisp">
-                                            @foreach ($getLoai as $lsp)
-                                                <option value="{{$lsp->maloai }}">
-                                                    {{$lsp->tenloai }} 
-                                                </option>
-                                            @endforeach
+                                    <select name="loaisp" >
+                                        
+                                    @foreach ($getLoai as $lsp)
+                                           
+                                            @if ($lsp->maloai==$sp->loaisp)
+                                                <option value="{{ $lsp->maloai }}">{{ $lsp->tenloai }}</option>
+                                            @endif
+                                        @endforeach
+                                        @foreach ($getLoai as $lsp)
+                                               <option value="{{ $lsp->maloai }}">{{ $lsp->tenloai }}</option>
+                                       @endforeach
                                             </select>
                                     </div>
                                 </div>
@@ -47,6 +47,13 @@
                                     <label for="cname" class="control-label col-lg-3">Hãng</label>
                                     <div class="col-lg-6">
                                     <select name="hang">
+
+                                            @foreach ($getTH as $th)
+                                            
+                                                @if ($th->math==$sp->math)
+                                                    <option value="{{ $th->math }}">{{ $th->tenth }}</option>
+                                                @endif
+                                            @endforeach
                                             @foreach ($getTH as $th)
                                                 <option value="{{$th->math }}">
                                                     {{$th->tenth }} 
@@ -59,10 +66,8 @@
                                 <div class="form-group ">
                                     <label for="cname" class="control-label col-lg-3">Giá sản phẩm</label>
                                     <div class="col-lg-6">
-                                        <input class=" form-control" id="cname" name="gia" minlength="2" type="text" >
-                                        @error('gia')
-                                    <span style="color: red;">{{ $message }}</span>
-                                    @enderror
+                                        <input class=" form-control" id="cname" name="gia" minlength="2" type="text" value="{{ $sp->gia }} ">
+
                                     </div>
                                 </div>
                                 
@@ -70,36 +75,25 @@
                                     <label for="cname" class="control-label col-lg-3">Hình</label>
                                     <div class="col-lg-6">
                                        
-                                        <input type="file" name="img"  id="chooseFile" >
-                                        @error('img')
-                                    <span style="color: red;">{{ $message }}</span>
-                                    @enderror
-                                        
+                                        <input type="file" name="img"  id="chooseFile" value="{{ $sp->hinh }}" >
                                     </div>
                                 </div>
                                 <div class="form-group ">
                                     <label for="cname" class="control-label col-lg-3">Mô tả</label>
                                     <div class="col-lg-6">
-                                        <input class=" form-control" id="cname" name="mota" minlength="2" type="text" >
-                                        @error('mota')
-                                    <span style="color: red;">{{ $message }}</span>
-                                    @enderror
+                                        <input class=" form-control" id="cname" name="mota" minlength="2" type="text" value="{{ $sp->mota }}">
                                     </div>
                                 </div>
                                 <div class="form-group ">
                                     <label for="cname" class="control-label col-lg-3">Công dụng</label>
                                     <div class="col-lg-6">
-                                        <input class=" form-control" id="cname" name="congdung" minlength="2" type="text" >
-                                        @error('congdung')
-                                    <span style="color: red;">{{ $message }}</span>
-                                    @enderror
+                                        <input class=" form-control" id="cname" name="congdung" minlength="2" type="text" value="{{ $sp->congdung }}" >
                                     </div>
                                 </div>
                                 <div class="form-group ">
                                     <label for="cname" class="control-label col-lg-3">Trạng thái</label>
                                     <div class="col-lg-6">
                                     <select name="status">
-                                           
                                                 <option value="0">
                                                    Active
                                                 </option>
@@ -111,9 +105,10 @@
                                 </div>
                                 
                                     <div class="col-lg-offset-3 col-lg-6">
-                                        <button class="btn btn-primary" type="submit">Thêm</button>
+                                        <button class="btn btn-primary" type="submit">cập nhật</button>
                                     </div>
                                 </div>
+                                @endforeach
                         </form>
                     </div>
                 </div>
