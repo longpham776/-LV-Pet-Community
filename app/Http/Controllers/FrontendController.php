@@ -15,7 +15,7 @@ class FrontendController extends Controller
         return view('frontend.index');
     }
     public function sanpham(){
-        $getSP=sanpham::getAll();
+        $getSP=sanpham::paginate(3);
         return view('frontend.sanpham',compact('getSP'));
     }
     public function logout()
