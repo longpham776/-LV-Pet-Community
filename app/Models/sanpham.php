@@ -11,18 +11,20 @@ class sanpham extends Model
         return DB::table('sanphams')->where('masp',$masp)->get();
     }
     public static function search($tensp){
-        return DB::table('sanphams')->where('tensp','regexp',$tensp)->paginate(3);
+        return DB::table('sanphams')->where('tensp','regexp',$tensp)->paginate(4);
     }
     public static function addProduct($m,$t,$mt,$c,$g,$th,$l,$h,$tt){
-        return DB::select('INSERT INTO sanpham(masp,tensp,mota,congdung,gia,math,loaisp,hinh,trangthai) VALUES (?,?,?,?,?,?,?,?,?)',[$m,$t,$mt,$c,$g,$th,$l,$h,$tt]);
+        return DB::select('INSERT INTO sanphams(masp,tensp,mota,congdung,gia,math,loaisp,hinh,trangthai) VALUES (?,?,?,?,?,?,?,?,?)',[$m,$t,$mt,$c,$g,$th,$l,$h,$tt]);
     }
-    public static function deleteProduct($m){
-        return DB::select('DELETE FROM sanpham WHERE masp=?',[$m]);
+    public static function deleteProduct($tt,$m){
+        return DB::select('UPDATE sanphams SET trangthai=?
+        WHERE sanphams.masp =?',
+        [$tt,$m]);
     }
-    public static function update_product($m,$t,$mt,$c,$g,$th,$l,$h,$tt){
-        return DB::select('UPDATE sanpham SET masp=?, tensp=?, mota=?, congdung=?, gia=?, math=?, loaisp=?, hinh=?, trangthai=?
-                           WHERE sanpham.masp =?',
-                           [$m,$t,$mt,$c,$g,$th,$l,$h,$tt,$m]);
+    public static function update_product($m,$t,$mt,$c,$g,$th,$l,$tt){
+        return DB::select('UPDATE sanphams SET masp=?, tensp=?, mota=?, congdung=?, gia=?, math=?, loaisp=?,  trangthai=?
+                           WHERE sanphams.masp =?',
+                           [$m,$t,$mt,$c,$g,$th,$l,$tt,$m]);
     }
 }
 ?>

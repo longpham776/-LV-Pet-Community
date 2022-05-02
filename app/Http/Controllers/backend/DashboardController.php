@@ -13,10 +13,27 @@ session_start();
 class DashboardController extends Controller
 {
   
-    public function index(){
-        $getSP=sanpham::getAll();
-        return view("backend.index",compact('getSP'));
+    public function index(Request $request){
+        if(isset( $_SESSION['admin']))
+        {
+            if($request->kw){
+                $getSP=sanpham::search($request->kw);
+                return view('backend.index',compact('getSP'));
+            }else if(!$request->kw){
+            $getSP=sanpham::where('trangthai','regexp',0)->paginate(5);
+            
+            return view("backend.index",compact('getSP'));
+            }
+        }else {
+            return Redirect::to('/');
+        }
+        
     }
+    public function listdelete(){
+        $getSP=sanpham::where('trangthai','regexp',1)->paginate(5);
+        return view("backend.listdelete",compact('getSP'));
+    }
+    
     public function thuonghieu(){
         $getTH=thuonghieu::getTH();
         return view("backend.thuonghieu",compact('getTH'));
@@ -44,7 +61,7 @@ class DashboardController extends Controller
         //dd($data);
         if($data==NULL){
             //Session::flash('fail', 'Đăng nhập không thành công. tên tài khoản hoặc mật khẩu không đúng');
-            return redirect()->route('login')->with('fail', 'Đăng nhập không thành công. tên tài khoản hoặc mật khẩu không đúng');
+            return redirect()->route('ad.login')->with('fail', 'Đăng nhập không thành công. tên tài khoản hoặc mật khẩu không đúng');
             
         } 
         
@@ -60,6 +77,7 @@ class DashboardController extends Controller
      }
     public function logout()
     {
+        unset($_SESSION['admin']);
         return view('frontend.index');
     }
     public function addsp(){
@@ -110,8 +128,15 @@ class DashboardController extends Controller
     }
     public function delete_pro(Request $request){
         $m=$request->masp;
-        sanpham::deleteProduct($m);
+        $tt="1";
+        sanpham::deleteProduct($tt,$m);
         return redirect('/admin');
+    }
+    public function remove_pro(Request $request){
+        $m=$request->masp;
+        $tt="0";
+        sanpham::deleteProduct($tt,$m);
+        return redirect('/admin/listdelete');
     }
     public function edit_pro(Request $request){
         $id=$request->masp;
@@ -121,23 +146,26 @@ class DashboardController extends Controller
         return view("backend.editsp",compact('getSP','getLoai','getTH'));
     }
     public function update_pro(Request $request){
+      
+        
         $masp=$request->masp;
         $tensp=$request->tensp;
         $loaisp=$request->loaisp;
         $hang=$request->hang;
         $gia=$request->gia;
-        $hinh="";
+       // $hinh="";
         $mota=$request->mota;
         $congdung=$request->congdung;
         $trangthai=$request->status;
-        if($request->hasFile('img'))
-        {
+        // if($request->hasFile('img'))
+        // {
             
-            if ($_FILES['img']['error']==0) 
-                $hinh = $_FILES['img']['name'];
-                move_uploaded_file($_FILES['img']['tmp_name'], "public/frontend/assets/img/$hinh");
-        }
-        sanpham::update_product($masp,$tensp,$mota,$congdung,$gia,$hang,$loaisp,$hinh,$trangthai);
+        //     if ($_FILES['img']['error']==0) 
+        //         $hinh = $_FILES['img']['name'];
+        //         move_uploaded_file($_FILES['img']['tmp_name'], "public/frontend/assets/img/$hinh");
+        // }
+        
+        sanpham::update_product($masp,$tensp,$mota,$congdung,$gia,$hang,$loaisp,$trangthai);
         return redirect('/admin');
     }
     public function addhang(Request $request){

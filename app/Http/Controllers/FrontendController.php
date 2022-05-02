@@ -19,7 +19,7 @@ class FrontendController extends Controller
             $getSP=sanpham::search($request->kw);
             return view('frontend.sanpham',compact('getSP'));
         }else if(!$request->kw){
-            $getSP=sanpham::paginate(3);
+            $getSP=sanpham::where('trangthai','regexp',0)->paginate(4);
             return view('frontend.sanpham',compact('getSP'));
         }
     }

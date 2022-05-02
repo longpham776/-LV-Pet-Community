@@ -21,6 +21,8 @@ Route::group(['prefix'=>'admin','namespace'=>'App\Http\Controllers\backend'],fun
     Route::get('/edit_ad','DashboardController@edit_ad')->name('ad.edit_ad');
     Route::post('/insert_ad','DashboardController@insert_ad')->name('ad.insert_ad');
     Route::post('/update_ad','DashboardController@update_ad')->name('ad.update_ad');
+    Route::get('/listdelete','DashboardController@listdelete')->name('ad.listdelete');
+    Route::get('/remove_pro','DashboardController@remove_pro')->name('ad.remove_pro');
    
 });
 

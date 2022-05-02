@@ -4,7 +4,7 @@
 <section id="main-content">
 	<section class="wrapper">
 		<div class="table-agile-info">
-  <div class="panel panel-default">
+  <div class="container py-5">
     <div class="panel-heading">
       <span class="tools pull-right">
       <form action="{{route('ad.addhang')}}" method="get">

@@ -1,5 +1,4 @@
 @extends('backend.masterview')
-
 @section('content')
 <div class="main-content">
 <section id="main-content">
@@ -8,12 +7,8 @@
   <div class="panel panel-default">
     <div class="panel-heading">
     
-      <span class="tools pull-right">
-      <a class="btn btn-primary" href="{{route('ad.listdelete')}}">Sản phẩm đã xóa</a>
-    </span>
-    <span class="tools pull-left">
-      <a class="btn btn-primary" href="{{route('ad.addsp')}}">Thêm</a>
-    </span>
+     <h3>Danh sách sản phẩm đã xóa</h3>
+
     </div>
     <div class="table-responsive">
       <table class="table table-striped b-t b-light">
@@ -24,14 +19,13 @@
             <th>Tên sản phẩm</th>
             <th>Giá</th>
             <th>Nội dung</th>
-            <th>Sửa</th>
-            <th>Xóa</th>
+            <th>Khôi phục</th>
           </tr>
 
         </thead>
         <tbody>
           @foreach($getSP as $sp)
-          <form action="{{route('ad.edit_pro')}}" method="get">
+          <form action="{{route('ad.remove_pro')}}" method="get">
               @csrf
             <input type="hidden" value="{{ $sp->masp }}" name="masp">
             <td>{{$sp->masp}}</td>
@@ -42,13 +36,9 @@
             <td>
               {{$sp->mota}}
             </td>
-            <td><button>Sửa</button></td>
+            <td><button>Khôi phục</button></button></td>
             </form>
-            <td> <form action="{{route('ad.delete_pro')}}" method="get">
-            <input type="hidden" value="{{ $sp->masp }}" name="masp">
-            <button>Xóa</button>
-                </form>
-            </td>
+           
           </tr>
           
           <tr>

@@ -3,7 +3,7 @@
 <div class="main-content">
 <section id="main-content">
 	<section class="wrapper">
-		<div class="table-agile-info">
+		<div class="container py-5">
   <div class="panel panel-default">
     <div class="panel-heading">
       <span class="tools pull-right">

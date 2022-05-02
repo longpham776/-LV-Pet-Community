@@ -4,13 +4,14 @@
 <section id="main-content">
 	<section class="wrapper">
 		<div class="table-agile-info">
-  <div class="panel panel-default">
+  <div class="container py-5">
  
     <div class="row">
         <div class="col-lg-12">
             <section class="panel">
                 <div class="panel-body">
                     <div class=" form">
+                       
                         <form method="post" action="{{route('ad.update_pro')}}"  enctype="multipart/form-data">
                         @csrf
                         @foreach($getSP as $sp)
