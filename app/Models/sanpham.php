@@ -11,7 +11,7 @@ class sanpham extends Model
         return DB::table('sanphams')->where('masp',$masp)->get();
     }
     public static function search($tensp){
-        return DB::table('sanphams')->where('tensp','regexp',$tensp)->paginate(4);
+        return DB::table('sanphams')->where('tensp','regexp',$tensp)->where('trangthai','regexp','0')->paginate(4);
     }
     public static function addProduct($m,$t,$mt,$c,$g,$th,$l,$h,$tt){
         return DB::select('INSERT INTO sanphams(masp,tensp,mota,congdung,gia,math,loaisp,hinh,trangthai) VALUES (?,?,?,?,?,?,?,?,?)',[$m,$t,$mt,$c,$g,$th,$l,$h,$tt]);
