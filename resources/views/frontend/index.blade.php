@@ -84,23 +84,51 @@
         </div>
     </div>
     <section class="services  service-service" id="service-service-0">
-        <ul class="services-list">
-            <form action="">
-            <li class="col-12 col-md-4 p-5 mt-3">
-                <a href="#"><img class="" src="" alt="" /></a>
-                <hr>
-                <h3>name</h3>
-                <hr>
-                <i class="fas fa-h2"></i>
-                <div class="text"><hr></div>
-                <i class="fas fa-h2"></i>
-                <div class="text"><hr></div>
-                <i class="fas fa-h2"></i>
-                <br><br>
-                <a class="btn btn-secondary" href="#" target="_blank" rel="noreferrer" aria-label="Xem" aria-labelledby="Xem">Xem</a>
-            </li>
-            </form>
-        </ul>
+    <div class="row">
+                    @foreach($getSP as $sp)
+                        <div class="col-md-4">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="card-img rounded-0 img-fluid" src="{{url('public')}}/frontend/assets/img/{{$sp->hinh}}">
+                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                        <ul class="list-unstyled">
+                                            <form action="#" method="post">
+                                                <li><i class="btn btn-success text-white mt-2 far fa-heart"><input type="submit" class="btn btn-success far fa-heart" name="submit" value="Thích"></i></li>
+                                            </form>
+                                            <form action="#" method="post">
+                                                <input type="text" name="math" hidden value="{{$sp->math}}">
+                                                <input type="text" name="masp" hidden value="{{$sp->masp}}">
+                                                <li><i class="btn btn-success text-white mt-2 far fa-eye"><input type="submit" class="btn btn-success far fa-eye" name="submit" value="Xem"></i></li>
+                                            </form>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <a href="{{route('chitietsanpham',['id'=>$sp->masp])}}" class="h3 text-decoration-none">{{$sp->tensp}}</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                                        <li class="pt-2">
+                                            <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                                            <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                                            <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                                            <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                                            <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                                        </li>
+                                    </ul>
+                                    <ul class="list-unstyled d-flex justify-content-center mb-1">
+                                        <li>
+                                            <i class="text-warning fa fa-star"></i>
+                                            <i class="text-warning fa fa-star"></i>
+                                            <i class="text-warning fa fa-star"></i>
+                                            <i class="text-warning fa fa-star"></i>
+                                            <i class="text-warning fa fa-star"></i>
+                                        </li>
+                                    </ul>
+                                    <p class="text-center mb-0">{{$sp->gia}}<u>đ</u></p>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
     </section>
 </section>
 <!-- End Categories of The Month -->

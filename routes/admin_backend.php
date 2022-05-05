@@ -23,6 +23,8 @@ Route::group(['prefix'=>'admin','namespace'=>'App\Http\Controllers\backend'],fun
     Route::post('/update_ad','DashboardController@update_ad')->name('ad.update_ad');
     Route::get('/listdelete','DashboardController@listdelete')->name('ad.listdelete');
     Route::get('/remove_pro','DashboardController@remove_pro')->name('ad.remove_pro');
+    Route::get('/donhang','DashboardController@donhang')->name('ad.donhang');
+    Route::get('/chitietDH','DashboardController@chitietDH')->name('ad.chitietDH');
    
 });
 

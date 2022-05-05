@@ -37,7 +37,8 @@
                                     <span style="color: red;">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                
+                                @foreach($_SESSION['admin'] as $a)
+                                @if($a->quyen == 3)
                                 <div class="form-group">
                                 <label>Level</label>
                                 <select name="quyen">
@@ -50,6 +51,9 @@
                                            </option>
                                        </select>
                                 </div> 
+                                @endif
+
+                                @endforeach
                                 
                                 <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">Update</button>
                                @endforeach

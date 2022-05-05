@@ -1,5 +1,5 @@
 @extends('backend.masterview')
-
+@section('title','Quản lý sản phẩm')
 @section('content')
 <div class="main-content">
 <section id="main-content">
@@ -19,6 +19,7 @@
       <table class="table table-striped b-t b-light">
         <thead>
         <tr>
+           
             <th>ID</th>
             <th>Hình</th>
             <th>Tên sản phẩm</th>
@@ -34,6 +35,7 @@
           <form action="{{route('ad.edit_pro')}}" method="get">
               @csrf
             <input type="hidden" value="{{ $sp->masp }}" name="masp">
+            
             <td>{{$sp->masp}}</td>
             <td><img src="{{url('public')}}/frontend/assets/img/{{$sp->hinh}}" 
                 weight=200px height=200px></td>

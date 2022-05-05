@@ -10,7 +10,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Dashboard</title>
+    @yield('title')
   
 
     <!-- Fontfaces CSS-->
@@ -54,7 +54,7 @@
                     <ul class="list-unstyled navbar__list">
                         <li class="active has-sub">
                             <a class="js-arrow" href="#">
-                                <i class="fas fa-tachometer-alt"></i>Dashboard</a>
+                                <i class="fas fa-tachometer-alt"></i>Quản lý cửa hàng</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
                                 <li>
                                     <a href="{{route('ad.home')}}">Sản phẩm</a>
@@ -66,13 +66,14 @@
                                     <a href="{{route('ad.loaisp')}}">Quản lý loại</a>
                                 </li>
                                 <li>
-                                    <a href="{{route('ad.qlad')}}">Quản lý Admin</a>
+                                    <a href="{{route('ad.donhang')}}">Quản đơn hàng</a>
                                 </li>
+                                
                             </ul>
                         </li>
                         <li>
-                            <a href="chart.html">
-                                <i class="fas fa-chart-bar"></i>Charts</a>
+                            <a href="{{route('ad.qlad')}}">
+                                <i class="zmdi zmdi-account"></i>Quản lý Admin</a>
                         </li>
                         <li>
                             <a href="table.html">

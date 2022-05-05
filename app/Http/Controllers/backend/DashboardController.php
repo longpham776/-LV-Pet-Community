@@ -9,6 +9,8 @@ use App\Models\admin;
 use App\Models\sanpham;
 use App\Models\loaisp;
 use App\Models\thuonghieu;
+use App\Models\donhang;
+use App\Models\chitietdonhang;
 session_start();
 class DashboardController extends Controller
 {
@@ -21,7 +23,6 @@ class DashboardController extends Controller
                 return view('backend.index',compact('getSP'));
             }else if(!$request->kw){
             $getSP=sanpham::where('trangthai','regexp',0)->paginate(5);
-            
             return view("backend.index",compact('getSP'));
             }
         }else {
@@ -71,14 +72,14 @@ class DashboardController extends Controller
           
             }else{
                 $_SESSION['user']=$data;
-                return view('frontend.index');
+                return Redirect::to('');
             }
             
      }
     public function logout()
     {
         unset($_SESSION['admin']);
-        return view('frontend.index');
+        return Redirect::to('');
     }
     public function addsp(){
         $getLoai=loaisp::getLoai();
@@ -262,6 +263,15 @@ class DashboardController extends Controller
            admin::update_Ad($u,$n,$e,$q);
             return Redirect::to('/admin/qlad');
         
+    }
+    public function donhang(){
+        $getDH= donhang::all();
+        return view("backend.donhang",compact('getDH'));
+    }
+    public function chitietDH(Request $request){
+        
+        $getCTD=chitietdonhang::getById($request->id);
+        return view("backend.chitietDH", compact('getCTD'));
     }
 }
 ?>

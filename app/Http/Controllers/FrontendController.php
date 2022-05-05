@@ -12,7 +12,8 @@ use App\Models\diachi;
 class FrontendController extends Controller
 {
     public function index(){
-        return view('frontend.index');
+        $getSP=sanpham::where('trangthai','regexp',0)->paginate(6);
+        return view('frontend.index',compact('getSP'));
     }
     public function sanpham(Request $request){
         if($request->kw){
@@ -36,7 +37,7 @@ class FrontendController extends Controller
     {
         unset($_SESSION['user']);
         
-        return view('frontend.index');
+        return Redirect::to('');
     }
     public function register(){
         return view('backend.register');
