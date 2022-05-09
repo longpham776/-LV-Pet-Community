@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -6,16 +5,25 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="apple-touch-icon" href="{{url('public')}}/frontend/assets/img/apple-icon.png">
-        <link rel="shortcut icon" type="image/x-icon" href="{{url('public')}}/frontend/assets/img/PET.png">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+        <!-- Bootstrap Font Icon CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
-        <link rel="stylesheet" href="{{url('public')}}/frontend/assets/css/bootstrap.min.css">
-        <link rel="stylesheet" href="{{url('public')}}/frontend/assets/css/templatemo.css">
-        <link rel="stylesheet" href="{{url('public')}}/frontend/assets/css/custom.css">
+        <link rel="apple-touch-icon" href="{{url('public')}}/frontend/img/apple-icon.png">
+        <link rel="shortcut icon" type="image/x-icon" href="{{url('public')}}/frontend/img/PET.png">
+        
+        <link rel="stylesheet" href="{{url('public')}}/frontend/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{url('public')}}/frontend/css/templatemo.css">
+        <link rel="stylesheet" href="{{url('public')}}/frontend/css/custom.css">
 
         <!-- Load fonts style after rendering the layout styles -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
-        <link rel="stylesheet" href="{{url('public')}}/frontend/assets/css/fontawesome.min.css">
+        <link rel="stylesheet" href="{{url('public')}}/frontend/css/fontawesome.min.css">
+
+        <!-- Slick -->
+        <link rel="stylesheet" type="text/css" href="{{url('public')}}/frontend/css/slick.min.css">
+        <link rel="stylesheet" type="text/css" href="{{url('public')}}/frontend/css/slick-theme.css">
         <style>
             .services .services-list {margin: 0 -1px}
             .services .services-list:after {
@@ -141,9 +149,6 @@
                                 <a class="nav-link" href="{{route('home')}}">Trang chủ</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="nhannuoi.html">Nhận Nuôi</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link" href="ungho.html">Ủng Hộ</a>
                             </li>
                             <li class="nav-item">
@@ -169,7 +174,7 @@
                         <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
                             <i class="fa fa-fw fa-search text-dark mr-2"></i>
                         </a>
-                        <a class="nav-icon position-relative text-decoration-none" href="cart.html">
+                        <a class="nav-icon position-relative text-decoration-none" href="{{route('giohang')}}">
                             <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
                             <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">0</span>
                         </a>
@@ -180,7 +185,16 @@
                 </a>
                             @php }else{ @endphp
                             <div class="header__top__right__auth">
-                                Hello,<a href="#"><i class="fa fa-user"></i>@php if(isset($_SESSION['user'])){foreach($_SESSION['user'] as $a){echo $a->hoten;}} @endphp</a>
+                                <i class="fa fa-user">
+                                    Hello,
+                                    <a href="#" style="text-decoration:none;">
+                                        @if(isset($_SESSION['user']))
+                                            @foreach($_SESSION['user'] as $a)
+                                                {{$a->hoten}}|
+                                            @endforeach
+                                        @endif
+                                    </a>
+                                </i>
                                 <a href="{{route('logout')}}" title="Sign Out" style="text-decoration:none;">Sign Out</a>
                             </div>
                             @php } @endphp
@@ -299,12 +313,46 @@
         <!-- End Footer -->
 
         <!-- Start Script -->
-        <script src="{{url('public')}}/frontend/assets/js/jquery-1.11.0.min.js"></script>
-        <script src="{{url('public')}}/frontend/assets/js/jquery-migrate-1.2.1.min.js"></script>
-        <script src="{{url('public')}}/frontend/assets/js/bootstrap.bundle.min.js"></script>
-        <script src="{{url('public')}}/frontend/assets/js/templatemo.js"></script>
-        <script src="{{url('public')}}/frontend/assets/js/custom.js"></script>
+        <script src="{{url('public')}}/frontend/js/jquery-1.11.0.min.js"></script>
+        <script src="{{url('public')}}/frontend/js/jquery-migrate-1.2.1.min.js"></script>
+        <script src="{{url('public')}}/frontend/js/bootstrap.bundle.min.js"></script>
+        <script src="{{url('public')}}/frontend/js/templatemo.js"></script>
+        <script src="{{url('public')}}/frontend/js/custom.js"></script>
         <!-- End Script -->
-        
+
+        <!-- Start Slider Script -->
+        <script src="{{url('public')}}/frontend/js/slick.min.js"></script>
+        <script>
+            $('#carousel-related-product').slick({
+                infinite: true,
+                arrows: false,
+                slidesToShow: 4,
+                slidesToScroll: 3,
+                dots: true,
+                responsive: [{
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 3
+                        }
+                    },
+                    {
+                        breakpoint: 600,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 3
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 3
+                        }
+                    }
+                ]
+            });
+        </script>
+        <!-- End Slider Script -->
     </body>
 </html>

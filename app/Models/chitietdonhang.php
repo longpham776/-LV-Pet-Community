@@ -11,4 +11,15 @@ class chitietdonhang extends Model
     public static function getById($id){
         return DB::table('chitietdonhang')->where('madon',$id)->get();
     }
+    public static function addOrder($masp,$tensp,$gia,$hinh,$soluong,$thanhtien,$madon){
+        return DB::table('chitietdonhangs')->insert([
+            'masp' => $masp,
+            'tensp' => $tensp,
+            'gia' => $gia,
+            'hinh' => $hinh,
+            'soluong' => $soluong,
+            'thanhtien' => $thanhtien,
+            'madon' => $madon,
+        ]);
+    }
 }

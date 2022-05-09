@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 session_start();
+use Cart;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -9,6 +10,8 @@ use App\Http\Controllers\Controller;
 use App\Models\admin;
 use App\Models\sanpham;
 use App\Models\diachi;
+use App\Models\donhang;
+use App\Models\chitietdonhang;
 class FrontendController extends Controller
 {
     public function index(){
@@ -77,7 +80,80 @@ class FrontendController extends Controller
             diachi::addAddress($u,$ph,$dc);
             return Redirect::to('/admin/login');
         }
-
+    }
+    public function giohang(){
+        return view('frontend.giohang');
+    }
+    public function postcart(Request $request){
+        
+        $masp=$request->masp;
+        $sl=$request->soluong;
+        if(($sl==0) || ($sl>=5)){
+            $getSP=sanpham::getById($masp);
+            $getAll= sanpham::all();
+            return view('frontend.chitietsanpham',compact('getSP','getAll'));
+        }
+        $spdetail=sanpham::getById($masp);
+        Cart::add([
+            'id' => $spdetail[0]->masp, 
+            'name' => $spdetail[0]->tensp, 
+            'qty' => $sl, 
+            'price' => $spdetail[0]->gia, 
+            'weight' => 1, 
+            'options' => ['images' => $spdetail[0]->hinh]
+        ]);
+        return view('frontend.giohang');
+    }
+    public function delcart($rowId)
+    {
+        Cart::remove($rowId);
+        return Redirect::to('/giohang');
+    }
+    public function destroycart()
+    {
+        Cart::destroy();
+        return Redirect::to('/giohang');
+    }
+    public function upcart($id,$qty)
+    {
+        dd($id,$qty);
+        for($i=0;$i<Cart::count();$i++){
+            Cart::update($data[$id]->id,$data[$qty]->qty);
+        }
+        return Redirect::to('/cart');
+    }
+    public function checkout()
+    {
+        if(!isset($_SESSION['user'])){ return redirect()->route('ad.login');}
+        return view('frontend.donhang');
+    }
+    public function postcheckout(Request $request)
+    {
+        if(!isset($_SESSION['user'])){ 
+            return redirect()->route('ad.login');
+        }
+        $hoten=$request->hoten;
+        $diachi=$request->diachi;
+        $dienthoai=$request->dienthoai;
+        $email=$request->email;
+        $pttt=$request->pttt;
+        $thanhtien=Cart::pricetotal();
+        $content= Cart::content();
+        donhang::addBill($_SESSION['user'][0]->username,$hoten,$diachi,$dienthoai,$email,$pttt,$thanhtien);
+        $lastId=donhang::lastId();
+        foreach($content as $sp){
+            chitietdonhang::addOrder(
+                $sp->id,
+                $sp->name,
+                $sp->price,
+                $sp->options->images,
+                $sp->qty,
+                $thanhtien,
+                $lastId->madon
+            );
+        }
+        Cart::destroy();
+        return view('frontend.donhang');
     }
 } 
 ?>

@@ -61,7 +61,6 @@
                             <select class="form-control">
                                 <option>Nổi bật</option>
                                 <option>A to Z</option>
-                                <option>Item</option>
                             </select>
                         </div>
                     </div>
@@ -71,16 +70,20 @@
                         <div class="col-md-4">
                             <div class="card mb-4 product-wap rounded-0">
                                 <div class="card rounded-0">
-                                    <img class="card-img rounded-0 img-fluid" src="{{url('public')}}/frontend/assets/img/{{$sp->hinh}}">
+                                    <img class="card-img rounded-0 img-fluid" src="{{url('public')}}/frontend/img/{{$sp->hinh}}">
                                     <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                         <ul class="list-unstyled">
                                             <form action="#" method="post">
                                                 <li><i class="btn btn-success text-white mt-2 far fa-heart"><input type="submit" class="btn btn-success far fa-heart" name="submit" value="Thích"></i></li>
                                             </form>
-                                            <form action="#" method="post">
-                                                <input type="text" name="math" hidden value="{{$sp->math}}">
-                                                <input type="text" name="masp" hidden value="{{$sp->masp}}">
+                                            <form action="{{route('chitietsanpham',['id'=>$sp->masp])}}" method="get">
                                                 <li><i class="btn btn-success text-white mt-2 far fa-eye"><input type="submit" class="btn btn-success far fa-eye" name="submit" value="Xem"></i></li>
+                                            </form>
+                                            <form action="{{route('postcart')}}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="soluong" value="1">
+                                                <input type="hidden" name="masp" value="{{$sp->masp}}">
+                                                <li><i class="btn btn-success text-white mt-2 fas fa-cart-plus"><input type="submit" class="btn btn-success fas fa-cart-plus" name="submit" value="Thêm"></i></li>
                                             </form>
                                         </ul>
                                     </div>

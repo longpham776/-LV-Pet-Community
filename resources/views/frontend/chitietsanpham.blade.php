@@ -119,12 +119,10 @@
                                 <li>{{$sp->congdung}}</li>
                             </ul>
 
-                            <form action="cart.php" method="post">
+                            <form action="{{route('postcart')}}" method="post">
+                                @csrf
                                 <input type="hidden" name="product-title" value="">
                                 <input type="hidden" name="masp" value=" {{$sp->masp}} "/>
-                                <input type="hidden" name="tensp" value=" {{$sp->tensp}} "/>
-                                <input type="hidden" name="gia" value=" {{$sp->gia}} "/>
-                                <input type="hidden" name="hinh" value=" {{$sp->hinh}} "/>
                                 <div class="row">
                                     <div class="col-auto">
                                         <ul class="list-inline pb-3">
@@ -173,17 +171,17 @@
                             <img class="card-img rounded-0 img-fluid" src="{{url('public')}}/frontend/assets/img/{{$sp1->hinh}}">
                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                 <ul class="list-unstyled">
-                                    <form action="shop-single.php" method="post">
+                                    <form action="#" method="post">
                                         <input type="text" name="math" hidden value="{{$sp1->math}}">
                                         <input type="text" name="masp" hidden value="{{$sp1->masp}}">
                                         <li><i class="btn btn-success text-white mt-2 far fa-heart"><input type="submit" class="btn btn-success far fa-heart" name="submit" value="Thích"></i></li>
                                     </form>
-                                    <form action="shop-single.php" method="post">
+                                    <form action="{{route('chitietsanpham',['id'=>$sp1->masp])}}" method="get">
                                         <input type="text" name="math" hidden value="{{$sp1->math}}">
                                         <input type="text" name="masp" hidden value="{{$sp1->masp}}">
                                         <li><i class="btn btn-success text-white mt-2 far fa-eye"><input type="submit" class="btn btn-success far fa-eye" name="submit" value="Xem"></i></li>
                                     </form>
-                                    <form action="shop-single.php" method="post">
+                                    <form action="#" method="post">
                                         <input type="text" name="masp" hidden value="{{$sp1->masp}} ">
                                         <li><i class="btn btn-success text-white mt-2 fas fa-cart-plus"><input type="submit" class="btn btn-success fas fa-cart-plus" name="submit" value="Thêm"></i></li>
                                     </form>
@@ -191,7 +189,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <a href="shop-single.html" class="h3 text-decoration-none">{{$sp1->tensp}}</a>
+                            <a href="{{route('chitietsanpham',['id'=>$sp1->masp])}}" class="h3 text-decoration-none">{{$sp1->tensp}}</a>
                             <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
                                 <!-- <li>M/L/X/XL</li> -->
                                 <li class="pt-2">
@@ -220,38 +218,4 @@
     </div>
 </section>
 <!-- End Article -->
-<!-- Start Slider Script -->
-<script src="{{url('public')}}/frontend/assets/js/slick.min.js"></script>
-<script>
-    $('#carousel-related-product').slick({
-        infinite: true,
-        arrows: false,
-        slidesToShow: 4,
-        slidesToScroll: 3,
-        dots: true,
-        responsive: [{
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 3
-                }
-            },
-            {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 3
-                }
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 3
-                }
-            }
-        ]
-    });
-</script>
-<!-- End Slider Script -->
 @stop
