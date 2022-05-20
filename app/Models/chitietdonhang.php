@@ -9,7 +9,7 @@ class chitietdonhang extends Model
 {
     use HasFactory;
     public static function getById($id){
-        return DB::table('chitietdonhang')->where('madon',$id)->get();
+        return DB::table('chitietdonhangs')->where('madon',$id)->get();
     }
     public static function addOrder($masp,$tensp,$gia,$hinh,$soluong,$thanhtien,$madon){
         return DB::table('chitietdonhangs')->insert([

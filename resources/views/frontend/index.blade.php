@@ -12,7 +12,7 @@
             <div class="container">
                 <div class="row p-5">
                     <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                        <img class="img-fluid" src="{{url('public')}}/frontend/assets/img/banner_img_01.png" alt="">
+                        <img class="img-fluid" src="{{url('public')}}/frontend/img/banner_img_01.png" alt="">
                     </div>
                     <div class="col-lg-6 mb-0 d-flex align-items-center">
                         <div class="text-align-left align-self-center">
@@ -31,7 +31,7 @@
             <div class="container">
                 <div class="row p-5">
                     <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                        <img class="img-fluid" src="{{url('public')}}/frontend/assets/img/banner_img_02.png" alt="">
+                        <img class="img-fluid" src="{{url('public')}}/frontend/img/banner_img_02.png" alt="">
                     </div>
                     <div class="col-lg-6 mb-0 d-flex align-items-center">
                         <div class="text-align-left">
@@ -49,7 +49,7 @@
             <div class="container">
                 <div class="row p-5">
                     <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                        <img class="img-fluid" src="{{url('public')}}/frontend/assets/img/banner_img_03.png" alt="">
+                        <img class="img-fluid" src="{{url('public')}}/frontend/img/banner_img_03.png" alt="">
                     </div>
                     <div class="col-lg-6 mb-0 d-flex align-items-center">
                         <div class="text-align-left">
@@ -89,7 +89,7 @@
                         <div class="col-md-4">
                             <div class="card mb-4 product-wap rounded-0">
                                 <div class="card rounded-0">
-                                    <img class="card-img rounded-0 img-fluid" src="{{url('public')}}/frontend/assets/img/{{$sp->hinh}}">
+                                    <img class="card-img rounded-0 img-fluid" src="{{url('public')}}/frontend/img/{{$sp->hinh}}">
                                     <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                         <ul class="list-unstyled">
                                             <form action="#" method="post">

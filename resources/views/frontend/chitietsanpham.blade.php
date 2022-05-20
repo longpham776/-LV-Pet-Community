@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-lg-5 mt-5">
                     <div class="card mb-3">
-                        <img class="card-img img-fluid" src="{{url('public')}}/frontend/assets/img/{{$sp->hinh}}" alt="Card image cap" id="product-detail">
+                        <img class="card-img img-fluid" src="{{url('public')}}/frontend/img/{{$sp->hinh}}" alt="Card image cap" id="product-detail">
                     </div>
                     <div class="row">
                         <!--Start Controls-->
@@ -28,17 +28,17 @@
                                     <div class="row">
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="{{url('public')}}/frontend/assets/img/{{$sp->hinh}}" alt="Product Image 1">
+                                                <img class="card-img img-fluid" src="{{url('public')}}/frontend/img/{{$sp->hinh}}" alt="Product Image 1">
                                             </a>
                                         </div>
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="{{url('public')}}/frontend/assets/img/{{$sp->hinh}}" alt="Product Image 2">
+                                                <img class="card-img img-fluid" src="{{url('public')}}/frontend/img/{{$sp->hinh}}" alt="Product Image 2">
                                             </a>
                                         </div>
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="{{url('public')}}/frontend/assets/img/{{$sp->hinh}}" alt="Product Image 3">
+                                                <img class="card-img img-fluid" src="{{url('public')}}/frontend/img/{{$sp->hinh}}" alt="Product Image 3">
                                             </a>
                                         </div>
                                     </div>
@@ -50,17 +50,17 @@
                                     <div class="row">
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="{{url('public')}}/frontend/assets/img/{{$sp->hinh}}" alt="Product Image 4">
+                                                <img class="card-img img-fluid" src="{{url('public')}}/frontend/img/{{$sp->hinh}}" alt="Product Image 4">
                                             </a>
                                         </div>
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="{{url('public')}}/frontend/assets/img/{{$sp->hinh}}" alt="Product Image 5">
+                                                <img class="card-img img-fluid" src="{{url('public')}}/frontend/img/{{$sp->hinh}}" alt="Product Image 5">
                                             </a>
                                         </div>
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="{{url('public')}}/frontend/assets/img/{{$sp->hinh}}" alt="Product Image 6">
+                                                <img class="card-img img-fluid" src="{{url('public')}}/frontend/img/{{$sp->hinh}}" alt="Product Image 6">
                                             </a>
                                         </div>
                                     </div>
@@ -168,7 +168,7 @@
                 <div class="p-2 pb-3">
                     <div class="product-wap card rounded-0">
                         <div class="card rounded-0">
-                            <img class="card-img rounded-0 img-fluid" src="{{url('public')}}/frontend/assets/img/{{$sp1->hinh}}">
+                            <img class="card-img rounded-0 img-fluid" src="{{url('public')}}/frontend/img/{{$sp1->hinh}}">
                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                 <ul class="list-unstyled">
                                     <form action="#" method="post">
@@ -181,7 +181,9 @@
                                         <input type="text" name="masp" hidden value="{{$sp1->masp}}">
                                         <li><i class="btn btn-success text-white mt-2 far fa-eye"><input type="submit" class="btn btn-success far fa-eye" name="submit" value="Xem"></i></li>
                                     </form>
-                                    <form action="#" method="post">
+                                    <form action="{{route('postcart')}}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="soluong" id="product-quanity" value="1">
                                         <input type="text" name="masp" hidden value="{{$sp1->masp}} ">
                                         <li><i class="btn btn-success text-white mt-2 fas fa-cart-plus"><input type="submit" class="btn btn-success fas fa-cart-plus" name="submit" value="Thêm"></i></li>
                                     </form>

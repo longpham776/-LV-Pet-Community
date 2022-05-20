@@ -22,4 +22,7 @@ class donhang extends Model
     public static function lastId(){
         return DB::table('donhangs')->orderBy('madon','desc')->first();
     }
+    public static function lastIdWithUser($username){
+        return DB::table('donhangs')->where('username',$username)->orderBy('madon','desc')->first();
+    }
 }

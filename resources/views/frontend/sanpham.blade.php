@@ -157,16 +157,16 @@
                                 <div class="carousel-item active">
                                     <div class="row">
                                         <div class="col-3 p-md-5">
-                                            <a href="#"><img class="img-fluid brand-img" src="{{url('public')}}/frontend/assets/img/logo_brand_1.png" alt="Brand Logo"></a>
+                                            <a href="#"><img class="img-fluid brand-img" src="{{url('public')}}/frontend/img/logo_brand_1.png" alt="Brand Logo"></a>
                                         </div>
                                         <div class="col-3 p-md-5">
-                                            <a href="#"><img class="img-fluid brand-img" src="{{url('public')}}/frontend/assets/img/logo_brand_2.png" alt="Brand Logo"></a>
+                                            <a href="#"><img class="img-fluid brand-img" src="{{url('public')}}/frontend/img/logo_brand_2.png" alt="Brand Logo"></a>
                                         </div>
                                         <div class="col-3 p-md-5">
-                                            <a href="#"><img class="img-fluid brand-img" src="{{url('public')}}/frontend/assets/img/logo_brand_3.png" alt="Brand Logo"></a>
+                                            <a href="#"><img class="img-fluid brand-img" src="{{url('public')}}/frontend/img/logo_brand_3.png" alt="Brand Logo"></a>
                                         </div>
                                         <div class="col-3 p-md-5">
-                                            <a href="#"><img class="img-fluid brand-img" src="{{url('public')}}/frontend/assets/img/logo_brand_4.png" alt="Brand Logo"></a>
+                                            <a href="#"><img class="img-fluid brand-img" src="{{url('public')}}/frontend/img/logo_brand_4.png" alt="Brand Logo"></a>
                                         </div>
                                     </div>
                                 </div>
@@ -176,16 +176,16 @@
                                 <div class="carousel-item">
                                     <div class="row">
                                         <div class="col-3 p-md-5">
-                                            <a href="#"><img class="img-fluid brand-img" src="{{url('public')}}/frontend/assets/img/logo_brand_5.png" alt="Brand Logo"></a>
+                                            <a href="#"><img class="img-fluid brand-img" src="{{url('public')}}/frontend/img/logo_brand_5.png" alt="Brand Logo"></a>
                                         </div>
                                         <div class="col-3 p-md-5">
-                                            <a href="#"><img class="img-fluid brand-img" src="{{url('public')}}/frontend/assets/img/logo_brand_6.png" alt="Brand Logo"></a>
+                                            <a href="#"><img class="img-fluid brand-img" src="{{url('public')}}/frontend/img/logo_brand_6.png" alt="Brand Logo"></a>
                                         </div>
                                         <div class="col-3 p-md-5">
-                                            <a href="#"><img class="img-fluid brand-img" src="{{url('public')}}/frontend/assets/img/logo_brand_7.png" alt="Brand Logo"></a>
+                                            <a href="#"><img class="img-fluid brand-img" src="{{url('public')}}/frontend/img/logo_brand_7.png" alt="Brand Logo"></a>
                                         </div>
                                         <div class="col-3 p-md-5">
-                                            <a href="#"><img class="img-fluid brand-img" src="{{url('public')}}/frontend/assets/img/logo_brand_8.png" alt="Brand Logo"></a>
+                                            <a href="#"><img class="img-fluid brand-img" src="{{url('public')}}/frontend/img/logo_brand_8.png" alt="Brand Logo"></a>
                                         </div>
                                     </div>
                                 </div>
@@ -195,16 +195,16 @@
                                 <div class="carousel-item">
                                     <div class="row">
                                         <div class="col-3 p-md-5">
-                                            <a href="#"><img class="img-fluid brand-img" src="{{url('public')}}/frontend/assets/img/logo_brand_9.png" alt="Brand Logo"></a>
+                                            <a href="#"><img class="img-fluid brand-img" src="{{url('public')}}/frontend/img/logo_brand_9.png" alt="Brand Logo"></a>
                                         </div>
                                         <div class="col-3 p-md-5">
-                                            <a href="#"><img class="img-fluid brand-img" src="{{url('public')}}/frontend/assets/img/logo_brand_10.png" alt="Brand Logo"></a>
+                                            <a href="#"><img class="img-fluid brand-img" src="{{url('public')}}/frontend/img/logo_brand_10.png" alt="Brand Logo"></a>
                                         </div>
                                         <div class="col-3 p-md-5">
-                                            <a href="#"><img class="img-fluid brand-img" src="{{url('public')}}/frontend/assets/img/logo_brand_11.png" alt="Brand Logo"></a>
+                                            <a href="#"><img class="img-fluid brand-img" src="{{url('public')}}/frontend/img/logo_brand_11.png" alt="Brand Logo"></a>
                                         </div>
                                         <div class="col-3 p-md-5">
-                                            <a href="#"><img class="img-fluid brand-img" src="{{url('public')}}/frontend/assets/img/logo_brand_12.png" alt="Brand Logo"></a>
+                                            <a href="#"><img class="img-fluid brand-img" src="{{url('public')}}/frontend/img/logo_brand_12.png" alt="Brand Logo"></a>
                                         </div>
                                     </div>
                                 </div>

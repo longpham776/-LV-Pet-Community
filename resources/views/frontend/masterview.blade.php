@@ -20,7 +20,7 @@
         <!-- Load fonts style after rendering the layout styles -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
         <link rel="stylesheet" href="{{url('public')}}/frontend/css/fontawesome.min.css">
-
+        
         <!-- Slick -->
         <link rel="stylesheet" type="text/css" href="{{url('public')}}/frontend/css/slick.min.css">
         <link rel="stylesheet" type="text/css" href="{{url('public')}}/frontend/css/slick-theme.css">
@@ -158,7 +158,7 @@
                                 <a class="nav-link" href="{{route('sanpham')}}">Sản Phẩm</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="contact.html">Liên Hệ</a>
+                                <a class="nav-link" href="{{route('contact')}}">Liên Hệ</a>
                             </li>
                         </ul>
                     </div>
@@ -176,7 +176,7 @@
                         </a>
                         <a class="nav-icon position-relative text-decoration-none" href="{{route('giohang')}}">
                             <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
-                            <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">0</span>
+                            <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">{{Cart::count()}}</span>
                         </a>
                         @php if(!isset($_SESSION['user'])){ @endphp
                             <a class="nav-icon position-relative text-decoration-none" href="{{route('ad.login')}}">

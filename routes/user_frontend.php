@@ -13,6 +13,10 @@ Route::group(['namespace'=>'App\Http\Controllers'],function(){
     Route::get('/upcart/{id}/{qty}','FrontendController@upcart')->name('upcart');
     Route::get('/checkout','FrontendController@checkout')->name('checkout');
     Route::post('/postcheckout','FrontendController@postcheckout')->name('postcheckout');
+    Route::get('/contact','FrontendController@contact')->name('contact');
+    Route::post('/sendmail','FrontendController@sendmail')->name('sendmail');
+    Route::post('/momo_payment','FrontendController@momo_payment')->name('momo_payment');
+    Route::post('/vn_payment','FrontendController@vn_payment')->name('vn_payment');
 });
 
 ?>

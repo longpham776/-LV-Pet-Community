@@ -12,11 +12,43 @@ use App\Models\sanpham;
 use App\Models\diachi;
 use App\Models\donhang;
 use App\Models\chitietdonhang;
+use App\Mail\contactMail;
+use Illuminate\Support\Facades\Mail;
 class FrontendController extends Controller
 {
     public function index(){
         $getSP=sanpham::where('trangthai','regexp',0)->paginate(6);
         return view('frontend.index',compact('getSP'));
+    }
+    public function contact(){
+        return view('frontend.lienhe');
+    }
+    public function sendmail(Request $request){
+        $request->validate([
+            'hoten'=>'required|max:30|min:10',
+            'email'=>'required|max:30|min:15',
+            'tieude'=>'required|min:15',
+            'noidung'=>'required'
+        ],[
+            'hoten.required'=>'Vui lòng nhập họ tên',
+            'hoten.max'=>'Vui lòng nhập dưới :max ký tự',
+            'hoten.min'=>'Vui lòng nhập trên :min ký tự',
+            'email.required'=>'Vui lòng nhập E-mail',
+            'email.max'=>'Vui lòng nhập dưới :max ký tự',
+            'email.min'=>'Vui lòng nhập trên :min ký tự',
+            'tieude.required'=>'Vui lòng nhập tiêu đề',
+            'tieude.min'=>'Vui lòng nhập hơn :min ký tự',
+            'noidung.required'=>'Vui lòng nhập nội dung'
+        ]);
+        $data['hoten'] = $request->hoten;
+        $data['email'] = $request->email;
+        $data['tieude'] = $request->tieude;
+        $data['noidung'] = $request->noidung;
+        $mailable = new contactMail($data);
+        Mail::to('lpham776@gmail.com')->send($mailable);
+        // dd($mailable);
+        // Mail::to($email)->send();
+        return redirect()->to('contact')->with('success', 'Đã gửi ý kiến của bạn đến chúng mình!');
     }
     public function sanpham(Request $request){
         if($request->kw){
@@ -82,10 +114,12 @@ class FrontendController extends Controller
         }
     }
     public function giohang(){
-        return view('frontend.giohang');
+        $getDC=diachi::findAddress($_SESSION['user'][0]->username);
+        //dd($getDC);
+        return view('frontend.giohang',compact('getDC'));
     }
     public function postcart(Request $request){
-        
+        $getDC=diachi::findAddress($_SESSION['user'][0]->username);
         $masp=$request->masp;
         $sl=$request->soluong;
         if(($sl==0) || ($sl>=5)){
@@ -102,7 +136,7 @@ class FrontendController extends Controller
             'weight' => 1, 
             'options' => ['images' => $spdetail[0]->hinh]
         ]);
-        return view('frontend.giohang');
+        return view('frontend.giohang',compact('getDC'));
     }
     public function delcart($rowId)
     {
@@ -131,6 +165,9 @@ class FrontendController extends Controller
     {
         if(!isset($_SESSION['user'])){ 
             return redirect()->route('ad.login');
+        }else if(Cart::count()==0){
+            $getSP=sanpham::where('trangthai','regexp',0)->paginate(4);
+            return view('frontend.sanpham',compact('getSP'));
         }
         $hoten=$request->hoten;
         $diachi=$request->diachi;
@@ -152,8 +189,145 @@ class FrontendController extends Controller
                 $lastId->madon
             );
         }
-        Cart::destroy();
-        return view('frontend.donhang');
+        $thongtin['hoten']=$hoten;
+        $thongtin['diachi']=$diachi;
+        $thongtin['dienthoai']=$dienthoai;
+        $thongtin['email']=$email;
+        if($pttt==1) $thongtin['pttt']= 'Thanh Toán Online';
+        else $thongtin['pttt']='Thanh Toán Khi Nhận Hàng';
+        $lastIdWithUser=donhang::lastIdWithUser($_SESSION['user'][0]->username);
+        $SpDonhang=chitietdonhang::getById($lastIdWithUser->madon);
+        return view('frontend.donhang',compact('thongtin','SpDonhang'));
+    }
+    public function execPostRequest($url, $data)
+    {
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen($data))
+        );
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+        //execute post
+        $result = curl_exec($ch);
+        //close connection
+        curl_close($ch);
+        return $result;
+    }
+    public function momo_payment(Request $request){
+
+        $endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
+
+
+        $partnerCode = 'MOMOBKUN20180529';
+        $accessKey = 'klm05TvNBzhg7h7j';
+        $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
+        $orderInfo = "Thanh toán qua ATM MoMo";
+        $amount = "10000";
+        $orderId = time() . "";
+        $redirectUrl = "http://localhost/-LV-Pet-Community/giohang";
+        $ipnUrl = "http://localhost/-LV-Pet-Community/giohang";
+        $extraData = "";
+
+
+        $requestId = time() . "";
+        $requestType = "payWithATM";
+        // $extraData = ($_POST["extraData"] ? $_POST["extraData"] : "");
+        //before sign HMAC SHA256 signature
+        $rawHash = "accessKey=" . $accessKey . "&amount=" . $amount . "&extraData=" . $extraData . "&ipnUrl=" . $ipnUrl . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&partnerCode=" . $partnerCode . "&redirectUrl=" . $redirectUrl . "&requestId=" . $requestId . "&requestType=" . $requestType;
+        $signature = hash_hmac("sha256", $rawHash, $secretKey);
+        $data = array('partnerCode' => $partnerCode,
+            'partnerName' => "Test",
+            "storeId" => "MomoTestStore",
+            'requestId' => $requestId,
+            'amount' => $amount,
+            'orderId' => $orderId,
+            'orderInfo' => $orderInfo,
+            'redirectUrl' => $redirectUrl,
+            'ipnUrl' => $ipnUrl,
+            'lang' => 'vi',
+            'extraData' => $extraData,
+            'requestType' => $requestType,
+            'signature' => $signature);
+        $result = $this->execPostRequest($endpoint, json_encode($data));
+        $jsonResult = json_decode($result, true);  // decode json
+        dd($result);
+        //Just a example, please check more in there
+
+        // header('Location: ' . $jsonResult['payUrl']);
+    }
+    public function vn_payment(Request $request){
+        $id = rand(0000,9999);
+        $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+        $vnp_Returnurl = "http://localhost/-LV-Pet-Community/giohang";
+        $vnp_TmnCode = "1AXLM0YG";//Mã website tại VNPAY 
+        $vnp_HashSecret = "DKPERIOVZTXETSJBIFAQESBKGUNMEDSP"; //Chuỗi bí mật
+
+        $vnp_TxnRef = $id; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
+        $vnp_OrderInfo = 'Thanh toán đơn hàng test';
+        $vnp_OrderType = 'billpayment';
+        $vnp_Amount = (int)Cart::total() * 100000;
+        $vnp_Locale = 'vn';
+        $vnp_BankCode = 'NCB';
+        $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
+        //Add Params of 2.0.1 Version
+        // $vnp_ExpireDate = $_POST['txtexpire'];
+        //Billing
+        $inputData = array(
+            "vnp_Version" => "2.1.0",
+            "vnp_TmnCode" => $vnp_TmnCode,
+            "vnp_Amount" => $vnp_Amount,
+            "vnp_Command" => "pay",
+            "vnp_CreateDate" => date('YmdHis'),
+            "vnp_CurrCode" => "VND",
+            "vnp_IpAddr" => $vnp_IpAddr,
+            "vnp_Locale" => $vnp_Locale,
+            "vnp_OrderInfo" => $vnp_OrderInfo,
+            "vnp_OrderType" => $vnp_OrderType,
+            "vnp_ReturnUrl" => $vnp_Returnurl,
+            "vnp_TxnRef" => $vnp_TxnRef
+        );
+
+        if (isset($vnp_BankCode) && $vnp_BankCode != "") {
+            $inputData['vnp_BankCode'] = $vnp_BankCode;
+        }
+        if (isset($vnp_Bill_State) && $vnp_Bill_State != "") {
+            $inputData['vnp_Bill_State'] = $vnp_Bill_State;
+        }
+
+        //var_dump($inputData);
+        ksort($inputData);
+        $query = "";
+        $i = 0;
+        $hashdata = "";
+        foreach ($inputData as $key => $value) {
+            if ($i == 1) {
+                $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
+            } else {
+                $hashdata .= urlencode($key) . "=" . urlencode($value);
+                $i = 1;
+            }
+            $query .= urlencode($key) . "=" . urlencode($value) . '&';
+        }
+
+        $vnp_Url = $vnp_Url . "?" . $query;
+        if (isset($vnp_HashSecret)) {
+            $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret);//  
+            $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
+        }
+        $returnData = array('code' => '00'
+            , 'message' => 'success'
+            , 'data' => $vnp_Url);
+            if (isset($_POST['redirect'])) {
+                header('Location: ' . $vnp_Url);
+                die();
+            } else {
+                echo json_encode($returnData);
+            }
+            // vui lòng tham khảo thêm tại code demo
     }
 } 
 ?>
