@@ -85,6 +85,7 @@
                                     <a href="{{route('register')}}">Sign Up Here</a>
                                 </p>
                             </div>
+                            
                         </div>
                     </div>
                 </div>

@@ -12,8 +12,8 @@ class admin extends Model
         $tk= DB::select('SELECT * FROM quantri   ');
         return $tk;
     }
-    public static function getLogin($e,$p){
-        return DB::select('SELECT * FROM quantri WHERE email=? AND password=? ',[$e,$p]);
+    public static function getLogin($e){
+        return DB::select('SELECT * FROM quantri WHERE email=?  ',[$e]);
     }
     public static function getByEmail($e){
         return DB::select('SELECT * FROM quantri WHERE email=?  ',[$e]);

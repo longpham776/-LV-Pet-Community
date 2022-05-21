@@ -103,7 +103,7 @@ class FrontendController extends Controller
         $e=$request->email;
         $ph=$request->phone;
         $dc=$request->address;
-        $p=$request->password;
+        $p=md5($request->password);
         $data=admin::getByEmail($e);
         if($data!=NULL){
             return view('backend.register');

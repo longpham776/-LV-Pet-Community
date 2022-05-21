@@ -47,7 +47,7 @@ class DashboardController extends Controller
     public function postlogin(Request $request)
     {
         $request->validate([
-            'email'=>'required|max:20',
+            'email'=>'required|max:60',
             'password'=>'required|max:100'
         ],[
             'email.required'=>'Vui lòng email tài khoản',
@@ -56,13 +56,13 @@ class DashboardController extends Controller
             'password.max'=>'Vui lòng nhập dưới 100 ký tự'
         ]);
         $e=$request->email;
-        $p=$request->password;
-        $data=admin::getLogin($e,$p);
+        $p=md5($request->password);
+        $data=admin::getLogin($e);
         
-        //dd($data);
-        if($data==NULL){
-            //Session::flash('fail', 'Đăng nhập không thành công. tên tài khoản hoặc mật khẩu không đúng');
-            return redirect()->route('ad.login')->with('fail', 'Đăng nhập không thành công. tên tài khoản hoặc mật khẩu không đúng');
+        //dd($p);
+        if($data==NULL || $data[0]->password!=$p){
+            
+            return redirect()->route('ad.login')->with('fail', 'Đăng nhập không thành công. Email hoặc mật khẩu không đúng');
             
         } 
         

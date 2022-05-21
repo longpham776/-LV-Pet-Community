@@ -29,5 +29,15 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    'facebook' => [
+        'client_id' => '392703166103703', //USE FROM FACEBOOK DEVELOPER ACCOUNT
+        'client_secret' => '92ae84da4ecd8cad82561833863c4447', //USE FROM FACEBOOK DEVELOPER ACCOUNT
+        'redirect' => 'http://localhost/LV-Pet-Community/facebook/callback/'
+    ],
+    'google' => [
+        'client_id'     => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect'      => env('GOOGLE_REDIRECT')
+    ],
 
 ];
