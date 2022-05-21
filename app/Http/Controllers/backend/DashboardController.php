@@ -122,7 +122,7 @@ class DashboardController extends Controller
             
             if ($_FILES['img']['error']==0) 
                 $hinh = $_FILES['img']['name'];
-                move_uploaded_file($_FILES['img']['tmp_name'], "public/frontend/assets/img/$hinh");
+                move_uploaded_file($_FILES['img']['tmp_name'], "public/frontend/img/$hinh");
         }
         sanpham::addProduct($masp,$tensp,$mota,$congdung,$gia,$hang,$loaisp,$hinh,$trangthai);
         return redirect('/admin');

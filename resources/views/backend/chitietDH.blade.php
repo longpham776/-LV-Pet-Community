@@ -17,7 +17,7 @@
             <th>Hình</th>
             <th>Số Lượng</th>
             <th>Thành tiền</th>
-            <th>Trạng thái</th>
+            <!-- <th>Trạng thái</th> -->
           </tr>
 
         </thead>
@@ -30,17 +30,17 @@
             <td>{{$ct->masp}}</td>
             <td>{{$ct->tensp}}</td>
             <td>{{$ct->gia}}VNĐ</td>
-            <td><img src="{{url('public')}}/frontend/assets/img/{{$ct->hinh}}" 
+            <td><img src="{{url('public')}}/frontend/img/{{$ct->hinh}}" 
                 weight=200px height=200px></td>
              <td>
               {{$ct->soluong}}
             </td>
             <td>{{$ct->thanhtien}}</td>
-            @if($ct->trangthai == 0)
+            <!-- @if($ct->trangthai == 0)
             <td>Chưa chuẩn bị</td>
             @elseif($ct->trangthai == 1)
             <td>Đã chuẩn bị</td>
-            @endif
+            @endif -->
             
             </form>
             

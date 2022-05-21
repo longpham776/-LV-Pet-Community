@@ -29,7 +29,7 @@
               @csrf
             <input type="hidden" value="{{ $sp->masp }}" name="masp">
             <td>{{$sp->masp}}</td>
-            <td><img src="{{url('public')}}/frontend/assets/img/{{$sp->hinh}}" 
+            <td><img src="{{url('public')}}/frontend/img/{{$sp->hinh}}" 
                 weight=200px height=200px></td>
             <td>{{$sp->tensp}}</td>
             <td>{{$sp->gia}}VNĐ</td>
