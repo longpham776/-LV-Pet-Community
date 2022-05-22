@@ -19,6 +19,7 @@
             <th>Tổng tiền</th>
             <th>Trạng thái đơn</th>
             <th>Xem chi tiết</th>
+            <th>Cập nhật trạng thái</th>
             
           </tr>
 
@@ -50,13 +51,27 @@
             @endif
             <td><button class="btn btn-primary">Chi tiết đơn</button></td>
           </form>
+          <form action="{{route('ad.Update-trangthaidon')}}" method="get" >
           <td>
-          @foreach($getDH as $dh)
-            <form >
-
-            </form>
-            @endforeach
+            @csrf
+            <input type="hidden" value="{{ $dh->madon }}" name="id">
+            <select name="status">
+              <option value="0">
+              Chờ xác nhận
+              </option>
+              <option value="1">
+              Chờ lấy hàng
+              </option>
+              <option value="2">
+              Đang giao
+               </option>
+               <option value="3">
+               Đã giao
+               </option>
+               </select>
           </td>
+          <td><button class="btn btn-danger">Cập nhật</button></td>
+        </form>
           </tr>
           
 

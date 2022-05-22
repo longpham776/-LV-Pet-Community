@@ -31,7 +31,7 @@
             <td>{{$ct->tensp}}</td>
             <td>{{$ct->gia}}VNĐ</td>
             <td><img src="{{url('public')}}/frontend/img/{{$ct->hinh}}" 
-                weight=200px height=200px></td>
+                style="width: 100px;"></td>
              <td>
               {{$ct->soluong}}
             </td>

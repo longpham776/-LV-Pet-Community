@@ -25,4 +25,9 @@ class donhang extends Model
     public static function lastIdWithUser($username){
         return DB::table('donhangs')->where('username',$username)->orderBy('madon','desc')->first();
     }
+    public static function updateStatus($id,$status){
+        DB::table('donhangs')
+              ->where('madon', $id)
+              ->update(['trangthai' => $status]);
+    }
 }

@@ -273,5 +273,9 @@ class DashboardController extends Controller
         $getCTD=chitietdonhang::getById($request->id);
         return view("backend.chitietDH", compact('getCTD'));
     }
+    public function Updatetrangthaidon(Request $request){
+        donhang::updateStatus($request->id, $request->status);
+        return Redirect::to('/admin/donhang');
+    }
 }
 ?>
