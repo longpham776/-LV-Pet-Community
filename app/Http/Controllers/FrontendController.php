@@ -114,29 +114,53 @@ class FrontendController extends Controller
         }
     }
     public function giohang(){
-        $getDC=diachi::findAddress($_SESSION['user'][0]->username);
+        if(isset($_SESSION['user'])){
+            $getDC=diachi::findAddress($_SESSION['user'][0]->username);
         //dd($getDC);
         return view('frontend.giohang',compact('getDC'));
+        }
+        return view('frontend.giohang');
+        
     }
     public function postcart(Request $request){
-        $getDC=diachi::findAddress($_SESSION['user'][0]->username);
-        $masp=$request->masp;
-        $sl=$request->soluong;
-        if(($sl==0) || ($sl>=5)){
-            $getSP=sanpham::getById($masp);
-            $getAll= sanpham::all();
-            return view('frontend.chitietsanpham',compact('getSP','getAll'));
+        if(isset($_SESSION['user'])){
+            $getDC=diachi::findAddress($_SESSION['user'][0]->username);
+            $masp=$request->masp;
+            $sl=$request->soluong;
+            if(($sl==0) || ($sl>=5)){
+                $getSP=sanpham::getById($masp);
+                $getAll= sanpham::all();
+                return view('frontend.chitietsanpham',compact('getSP','getAll'));
+            }
+            $spdetail=sanpham::getById($masp);
+            Cart::add([
+                'id' => $spdetail[0]->masp, 
+                'name' => $spdetail[0]->tensp, 
+                'qty' => $sl, 
+                'price' => $spdetail[0]->gia, 
+                'weight' => 1, 
+                'options' => ['images' => $spdetail[0]->hinh]
+            ]);
+            return view('frontend.giohang',compact('getDC'));
         }
-        $spdetail=sanpham::getById($masp);
-        Cart::add([
-            'id' => $spdetail[0]->masp, 
-            'name' => $spdetail[0]->tensp, 
-            'qty' => $sl, 
-            'price' => $spdetail[0]->gia, 
-            'weight' => 1, 
-            'options' => ['images' => $spdetail[0]->hinh]
-        ]);
-        return view('frontend.giohang',compact('getDC'));
+        $masp=$request->masp;
+            $sl=$request->soluong;
+            if(($sl==0) || ($sl>=5)){
+                $getSP=sanpham::getById($masp);
+                $getAll= sanpham::all();
+                return view('frontend.chitietsanpham',compact('getSP','getAll'));
+            }
+            $spdetail=sanpham::getById($masp);
+            Cart::add([
+                'id' => $spdetail[0]->masp, 
+                'name' => $spdetail[0]->tensp, 
+                'qty' => $sl, 
+                'price' => $spdetail[0]->gia, 
+                'weight' => 1, 
+                'options' => ['images' => $spdetail[0]->hinh]
+            ]);
+            return view('frontend.giohang');
+
     }
     public function delcart($rowId)
     {
