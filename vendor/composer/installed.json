@@ -124,17 +124,17 @@
         },
         {
             "name": "bumbummen99/shoppingcart",
-            "version": "4.1.1",
-            "version_normalized": "4.1.1.0",
+            "version": "4.2.0",
+            "version_normalized": "4.2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bumbummen99/LaravelShoppingcart.git",
-                "reference": "71dfa94ba8b509e4e3d541963ea53b1129d373a1"
+                "reference": "1c50fb564826b6ee748d2d9afad7447b6884166e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bumbummen99/LaravelShoppingcart/zipball/71dfa94ba8b509e4e3d541963ea53b1129d373a1",
-                "reference": "71dfa94ba8b509e4e3d541963ea53b1129d373a1",
+                "url": "https://api.github.com/repos/bumbummen99/LaravelShoppingcart/zipball/1c50fb564826b6ee748d2d9afad7447b6884166e",
+                "reference": "1c50fb564826b6ee748d2d9afad7447b6884166e",
                 "shasum": ""
             },
             "require": {
@@ -151,7 +151,7 @@
             "suggest": {
                 "gloudemans/notify": "Simple flash notifications for Laravel"
             },
-            "time": "2022-04-27T14:48:35+00:00",
+            "time": "2022-05-15T15:32:38+00:00",
             "type": "library",
             "extra": {
                 "laravel": {
@@ -192,7 +192,7 @@
             ],
             "support": {
                 "issues": "https://github.com/bumbummen99/LaravelShoppingcart/issues",
-                "source": "https://github.com/bumbummen99/LaravelShoppingcart/tree/4.1.1"
+                "source": "https://github.com/bumbummen99/LaravelShoppingcart/tree/4.2.0"
             },
             "install-path": "../bumbummen99/shoppingcart"
         },

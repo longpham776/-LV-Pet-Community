@@ -1,6 +1,8 @@
 <?php
 Route::group(['namespace'=>'App\Http\Controllers'],function(){
     Route::get('/','FrontendController@index')->name('home');
+    Route::get('/ungho','FrontendController@donate')->name('donate');
+    Route::get('/thongtin','FrontendController@about')->name('about');
     Route::get('/sanpham','FrontendController@sanpham')->name('sanpham');
     Route::get('/chitietsanpham/{id}','FrontendController@chitietsanpham')->name('chitietsanpham');
     Route::get('/giohang','FrontendController@giohang')->name('giohang');
@@ -17,7 +19,6 @@ Route::group(['namespace'=>'App\Http\Controllers'],function(){
     Route::post('/sendmail','FrontendController@sendmail')->name('sendmail');
     Route::post('/momo_payment','FrontendController@momo_payment')->name('momo_payment');
     Route::post('/vn_payment','FrontendController@vn_payment')->name('vn_payment');
-    
 });
 
 

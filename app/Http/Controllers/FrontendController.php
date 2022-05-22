@@ -20,6 +20,12 @@ class FrontendController extends Controller
         $getSP=sanpham::where('trangthai','regexp',0)->paginate(6);
         return view('frontend.index',compact('getSP'));
     }
+    public function donate(){
+        return view('frontend.ungho');
+    }
+    public function about(){
+        return view('frontend.about');
+    }
     public function contact(){
         return view('frontend.lienhe');
     }
