@@ -149,10 +149,10 @@
                                 <a class="nav-link" href="{{route('home')}}">Trang chủ</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="ungho.html">Ủng Hộ</a>
+                                <a class="nav-link" href="{{route('donate')}}">Ủng Hộ</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="about.html">About Us</a>
+                                <a class="nav-link" href="{{route('about')}}">About Us</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('sanpham')}}">Sản Phẩm</a>

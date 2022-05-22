@@ -534,7 +534,6 @@ class ComposerStaticInit3e3ac6f51ab2a647ceadb0845e100005
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
-        'App\\Http\\Controllers\\FaceBookController' => __DIR__ . '/../..' . '/app/Http/Controllers/FaceBookController.php',
         'App\\Http\\Controllers\\FrontendController' => __DIR__ . '/../..' . '/app/Http/Controllers/FrontendController.php',
         'App\\Http\\Controllers\\backend\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/backend/DashboardController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
