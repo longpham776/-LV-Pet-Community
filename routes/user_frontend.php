@@ -19,6 +19,8 @@ Route::group(['namespace'=>'App\Http\Controllers'],function(){
     Route::post('/sendmail','FrontendController@sendmail')->name('sendmail');
     Route::post('/momo_payment','FrontendController@momo_payment')->name('momo_payment');
     Route::post('/vn_payment','FrontendController@vn_payment')->name('vn_payment');
+    route::get('/account','FrontendController@account')->name('account');
+    route::get('/chitietDH','FrontendController@chitietDH')->name('chitietDH');
 });
 
 

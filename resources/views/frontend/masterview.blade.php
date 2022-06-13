@@ -24,6 +24,8 @@
         <!-- Slick -->
         <link rel="stylesheet" type="text/css" href="{{url('public')}}/frontend/css/slick.min.css">
         <link rel="stylesheet" type="text/css" href="{{url('public')}}/frontend/css/slick-theme.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+   
         <style>
             .services .services-list {margin: 0 -1px}
             .services .services-list:after {
@@ -104,6 +106,7 @@
             -webkit-text-decoration-line: line-through; /* Safari */
             text-decoration-line: line-through; 
             }
+            
         </style>
     </head>
 
@@ -134,7 +137,7 @@
         <nav class="navbar navbar-expand-lg navbar-light shadow">
             <div class="container d-flex justify-content-between align-items-center">
 
-                <a class="navbar-brand text-success logo h1 align-self-center" href="index.html">
+                <a class="navbar-brand text-success logo h1 align-self-center" href="{{route('home')}}">
                     PET
                 </a>
 
@@ -187,7 +190,7 @@
                             <div class="header__top__right__auth">
                                 <i class="fa fa-user">
                                     Hello,
-                                    <a href="#" style="text-decoration:none;">
+                                    <a href="{{route('account')}}" style="text-decoration:none;">
                                         @if(isset($_SESSION['user']))
                                             @foreach($_SESSION['user'] as $a)
                                                 {{$a->hoten}}|
@@ -383,6 +386,8 @@
                 ]
             });
         </script>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <!-- End Slider Script -->
     </body>
 </html>

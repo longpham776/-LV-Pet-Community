@@ -258,8 +258,8 @@ class FrontendController extends Controller
         $orderInfo = "Thanh toán qua ATM MoMo";
         $amount = "10000";
         $orderId = time() . "";
-        $redirectUrl = "http://localhost/-LV-Pet-Community/giohang";
-        $ipnUrl = "http://localhost/-LV-Pet-Community/giohang";
+        $redirectUrl = "http://localhost/LV-Pet-Community/giohang";
+        $ipnUrl = "http://localhost/LV-Pet-Community/giohang";
         $extraData = "";
 
 
@@ -292,7 +292,7 @@ class FrontendController extends Controller
     public function vn_payment(Request $request){
         $id = rand(0000,9999);
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_Returnurl = "http://localhost/-LV-Pet-Community/giohang";
+        $vnp_Returnurl = "http://localhost/LV-Pet-Community/giohang";
         $vnp_TmnCode = "1AXLM0YG";//Mã website tại VNPAY 
         $vnp_HashSecret = "DKPERIOVZTXETSJBIFAQESBKGUNMEDSP"; //Chuỗi bí mật
 
@@ -357,7 +357,21 @@ class FrontendController extends Controller
             } else {
                 echo json_encode($returnData);
             }
-            // vui lòng tham khảo thêm tại code demo
+           
+
+    }
+    public function account(){
+        $user=$_SESSION['user'][0]->username;
+       $diachi= diachi::findAddress($user);
+       $donhang= donhang::findDH($user);
+      // dd($donhang);
+        return view('frontend.account',compact('diachi','donhang'));
+    }
+    public function chitietDH(Request $request){
+        $user=$_SESSION['user'][0]->username;
+        $diachi= diachi::findAddress($user);
+        $getCTD=chitietdonhang::getById($request->id);
+        return view("frontend.chitietDH", compact('diachi','getCTD'));
     }
 } 
 ?>

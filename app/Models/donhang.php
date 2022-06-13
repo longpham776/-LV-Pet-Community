@@ -30,4 +30,7 @@ class donhang extends Model
               ->where('madon', $id)
               ->update(['trangthai' => $status]);
     }
+    public static function findDH($id){
+        return DB::select('SELECT * FROM donhangs WHERE username=?  ',[$id]);    
+    }
 }
