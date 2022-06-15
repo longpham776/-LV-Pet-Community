@@ -364,14 +364,47 @@ class FrontendController extends Controller
         $user=$_SESSION['user'][0]->username;
        $diachi= diachi::findAddress($user);
        $donhang= donhang::findDH($user);
+       $dataUser = admin::getByUser($user);
       // dd($donhang);
-        return view('frontend.account',compact('diachi','donhang'));
+        return view('frontend.account',compact('diachi','donhang','dataUser'));
     }
     public function chitietDH(Request $request){
         $user=$_SESSION['user'][0]->username;
         $diachi= diachi::findAddress($user);
         $getCTD=chitietdonhang::getById($request->id);
-        return view("frontend.chitietDH", compact('diachi','getCTD'));
+        $dataUser = admin::getByUser($user);
+        return view("frontend.chitietDH", compact('diachi','getCTD','dataUser'));
+    }
+    public function editAccount(Request $request){
+        $user=$_SESSION['user'][0]->username;
+        $diachi= diachi::findAddress($user);
+        $dataUser = admin::getByUser($user);
+        return view('frontend.edit_account',compact('diachi','dataUser'));
+    }
+    public function updateAddress(Request $request){
+        $request->validate([
+            'fullname'=>'required|min:5',
+            'email'=>'required|email',
+            'phone'=>'required',
+            'address'=>'required|min:10'
+        ],[
+            'phone.required'=>'Vui lòng nhập :attribute',
+            'fullname.required'=>'Vui lòng nhập :attribute',
+            'fullname.min'=>'Vui lòng nhập hơn :min ký tự',
+            'email.required'=>'Vui lòng nhập :attribute',
+            'address.required'=>'Vui lòng nhập :attribute',
+            'address.min'=>'Vui lòng nhập hơn :min ký tự',
+
+        ]);
+        $user=$request->username;
+        $email=$request->email;
+        $fullname=$request->fullname;
+        $phone=$request->phone;
+        $address=$request->address;
+        diachi::updateAddress($user,$phone, $address);
+        admin::updateuser($user,$fullname,$email);
+        return Redirect::to('/account');
+
     }
 } 
 ?>

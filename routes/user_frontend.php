@@ -21,6 +21,8 @@ Route::group(['namespace'=>'App\Http\Controllers'],function(){
     Route::post('/vn_payment','FrontendController@vn_payment')->name('vn_payment');
     route::get('/account','FrontendController@account')->name('account');
     route::get('/chitietDH','FrontendController@chitietDH')->name('chitietDH');
+    route::get('/edit-account','FrontendController@editAccount')->name('edit-account');
+    route::post('/update-address','FrontendController@updateAddress')->name('update-address');
 });
 
 

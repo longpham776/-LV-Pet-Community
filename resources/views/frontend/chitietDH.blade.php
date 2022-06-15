@@ -81,18 +81,21 @@
 						<div class="block-account">
 							<div class="block-title-account"><h5>Tài khoản của tôi</h5></div>
 							<div class="block-content form-signup">
-                            @foreach($diachi as $dc)
-								<p>Tên tài khoản: <strong style="line-height: 20px;">     @foreach($_SESSION['user'] as $a)
-                                                {{$a->hoten}}
-                                            @endforeach</strong></p>
-								<p><i class="fa fa-home font-some" aria-hidden="true"></i>  <span>Địa chỉ: {{$dc->diachi}} </span></p>
-								<p><i class="fa fa-mobile font-some" aria-hidden="true"></i> <span>Điện thoại: {{$dc->sdt}} </span> </p>
-								<p><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i> <span> Email: 
-                                    @foreach($_SESSION['user'] as $a) 
-                                    {{$a->email}} @endforeach </span></p>
-								<p style="margin-top:20px;"><a href="/account/addresses" class="btn btn-full btn-primary">Sổ địa chỉ (0)</a></p>
-                                @endforeach
+								@foreach($diachi as $dc)
+									<p>Tên tài khoản: <strong style="line-height: 20px;">     @foreach($dataUser as $a)
+													{{$a->hoten}}
+												@endforeach</strong></p>
+									<p><i class="fa fa-home font-some" aria-hidden="true"></i>  <span>Địa chỉ: {{$dc->diachi}} </span></p>
+									<p><i class="fa fa-mobile font-some" aria-hidden="true"></i> <span>Điện thoại: {{$dc->sdt}} </span> </p>
+									<p><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i> <span> Email: 
+										@foreach($dataUser as $a) 
+										{{$a->email}} @endforeach </span></p>
+									
+									@endforeach
 
+							</div>
+							<div>								
+								<a class="btn btn-primary" href="{{route('edit-account')}}">Sửa thông tin</a>															
 							</div>
 						</div>
 					</div>
@@ -102,5 +105,6 @@
 		</div>
 	</div>
 </section>
+<br>
 
 @stop

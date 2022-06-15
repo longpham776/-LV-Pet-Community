@@ -14,4 +14,12 @@ class diachi extends Model
     public static function findAddress($u){
         return DB::table('diachi')->where('username',$u)->get();
     }
+    public static function updateAddress($user,$phone, $diachi){
+        DB::table('diachi')
+              ->where('username', $user)
+              ->update([
+                'sdt' => $phone,
+                'diachi' =>$diachi
+            ]);
+    }
 }
