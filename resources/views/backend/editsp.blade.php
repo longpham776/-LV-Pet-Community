@@ -72,13 +72,13 @@
                                     </div>
                                 </div>
                                 
-                                <!-- <div class="form-group ">
+                                <div class="form-group ">
                                     <label for="cname" class="control-label col-lg-3">Hình</label>
-                                    <div class="col-lg-6">
-                                       
-                                        <input type="file" name="img"  id="chooseFile" value="{{ $sp->hinh }}" >
+                                    <div class="col-lg-6">   
+                                        <input type="file" name="image"  id="chooseFile"  >
                                     </div>
-                                </div> -->
+                                    <input type="hidden" name="image_old" value="{{ $sp->hinh }}">
+                                </div>
                                 <div class="form-group ">
                                     <label for="cname" class="control-label col-lg-3">Mô tả</label>
                                     <div class="col-lg-6">

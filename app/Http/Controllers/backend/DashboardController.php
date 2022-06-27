@@ -154,19 +154,28 @@ class DashboardController extends Controller
         $loaisp=$request->loaisp;
         $hang=$request->hang;
         $gia=$request->gia;
-       // $hinh="";
         $mota=$request->mota;
         $congdung=$request->congdung;
         $trangthai=$request->status;
-        // if($request->hasFile('img'))
-        // {
-            
-        //     if ($_FILES['img']['error']==0) 
-        //         $hinh = $_FILES['img']['name'];
-        //         move_uploaded_file($_FILES['img']['tmp_name'], "public/frontend/assets/img/$hinh");
-        // }
+        $hinh="";
+        if($_FILES['image']['name'] != ''){
+    
+            if (isset($_FILES['image']))
+            {
+                if ($_FILES['image']['error']==0) 
+                {
+                    $hinh = $_FILES['image']['name'];
+                    move_uploaded_file($_FILES['image']['tmp_name'], "public/frontend/img/$hinh");
+                     
+                    
+                }
+            }
+        }
+        else {
+            $hinh =isset($_POST['image_old'])?$_POST['image_old']:'';
+        }
         
-        sanpham::update_product($masp,$tensp,$mota,$congdung,$gia,$hang,$loaisp,$trangthai);
+        sanpham::update_product($masp,$tensp,$mota,$congdung,$gia,$hang,$loaisp, $trangthai,$hinh);
         return redirect('/admin');
     }
     public function addhang(Request $request){
@@ -241,13 +250,21 @@ class DashboardController extends Controller
         $u=$request->username;
         $n=$request->fullname;
         $e=$request->email;
-        $p=$request->password;
+        $p=md5($request->password);
         $q=$request->quyen;
         $data=admin::getByEmail($e);
+        $hinh="";
+        if($request->hasFile('image'))
+        {
+            
+            if ($_FILES['image']['error']==0) 
+                $hinh = $_FILES['image']['name'];
+                move_uploaded_file($_FILES['image']['tmp_name'], "public/backend/avatar/$hinh");
+        }
         if($data!=NULL){
             return view('backend.themadmin');
         }else{
-           admin::addAdmin($u,$p,$n,$e,$q);
+           admin::addAdmin($u,$p,$n,$e, $hinh,$q);
             return Redirect::to('/admin/qlad');
         }
     }
@@ -266,7 +283,7 @@ class DashboardController extends Controller
         $request->validate([
             'username'=>'required|max:20|min:3',
             'fullname'=>'required|min:5',
-            'email'=>'required|email'
+            'email'=>'required|email',
         ],[
             'username.required'=>'Vui lòng nhập :attribute',
             'username.max'=>'Vui lòng nhập dưới :max ký tự',
@@ -279,8 +296,23 @@ class DashboardController extends Controller
         $n=$request->fullname;
         $e=$request->email;
         $q=$request->quyen;
+        $hinh="";
+        if($_FILES['image']['name'] != ''){
+    
+            if (isset($_FILES['image']))
+            {
+                if ($_FILES['image']['error']==0) 
+                {
+                    $hinh = $_FILES['image']['name'];
+                    move_uploaded_file($_FILES['image']['tmp_name'], "public/backend/avatar/$hinh");
+                }
+            }
+        }
+        else {
+            $hinh =isset($_POST['image_old'])?$_POST['image_old']:'';
+        }
         
-           admin::update_Ad($u,$n,$e,$q);
+           admin::update_Ad($u,$n,$e,$q,$hinh);
             return Redirect::to('/admin/qlad');
         
     }

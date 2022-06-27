@@ -46,7 +46,7 @@
         <aside class="menu-sidebar d-none d-lg-block">
             <div class="logo">
                 <a href="#">
-                    <img src="{{url('public')}}/backend/images/icon/logo.png" alt="Cool Admin" />
+                   <h1><b class="text-success">PET </b></h1><h3>Community</h3>
                 </a>
             </div>
             <div class="menu-sidebar__content js-scrollbar1">
@@ -280,18 +280,24 @@
                                 <div class="account-wrap">
                                     <div class="account-item clearfix js-item-menu">
                                         <div class="image">
-                                            <img src="{{url('public')}}/backend/images/icon/avatar-01.jpg" alt="John Doe" />
+                                        @foreach($_SESSION['admin'] as $a)  <div class="image">
+                                                   
+                                                        <img src="{{url('public')}}/backend/avatar/{{$a->hinh}}" alt="John Doe" />
+                                                    
+                                                    @endforeach
                                         </div>
                                         <div class="content">
                                             <a class="js-acc-btn" href="#">@php if(isset($_SESSION['admin'])){foreach($_SESSION['admin'] as $a){echo $a->hoten;}} @endphp</a>
                                         </div>
                                         <div class="account-dropdown js-dropdown">
                                             <div class="info clearfix">
-                                                <div class="image">
+                                            @foreach($_SESSION['admin'] as $a)  <div class="image">
                                                     <a href="#">
-                                                        <img src="{{url('public')}}/backend/images/icon/avatar-01.jpg" alt="John Doe" />
+                                                        <img src="{{url('public')}}/backend/avatar/{{$a->hinh}}" alt="John Doe" />
                                                     </a>
+                                                    @endforeach
                                                 </div>
+                                                
                                                 <div class="content">
                                                     <h5 class="name">
                                                         <a href="#">@php if(isset($_SESSION['admin'])){foreach($_SESSION['admin'] as $a){echo $a->hoten;}} @endphp</a>

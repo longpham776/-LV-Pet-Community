@@ -5,11 +5,15 @@
 	<section class="wrapper">
 		<div class="container py-5">
   <div class="panel panel-default">
+  @foreach($_SESSION['admin'] as $a)
+    @if($a->quyen == 3)
     <div class="panel-heading">
       <span class="tools pull-right">
       <a class="btn btn-primary" href="{{route('ad.add_ad')}}">Thêm</a>
-    </span>
+      </span>
     </div>
+    @endif
+    @endforeach
     <div class="table-responsive">
       <table class="table table-striped b-t b-light">
         <thead>

@@ -21,10 +21,10 @@ class sanpham extends Model
         WHERE sanphams.masp =?',
         [$tt,$m]);
     }
-    public static function update_product($m,$t,$mt,$c,$g,$th,$l,$tt){
-        return DB::select('UPDATE sanphams SET masp=?, tensp=?, mota=?, congdung=?, gia=?, math=?, loaisp=?,  trangthai=?
+    public static function update_product($m,$t,$mt,$c,$g,$th,$l,$tt, $h){
+        return DB::select('UPDATE sanphams SET masp=?, tensp=?, mota=?, congdung=?, gia=?, math=?, loaisp=?, hinh=?,  trangthai=?
                            WHERE sanphams.masp =?',
-                           [$m,$t,$mt,$c,$g,$th,$l,$tt,$m]);
+                           [$m,$t,$mt,$c,$g,$th,$l,$h,$tt ,$m]);
     }
 }
 ?>

@@ -11,7 +11,7 @@
             <section class="panel">
                 <div class="panel-body">
                 <div class="login-form" >
-                            <form action="{{route('ad.insert_ad')}}" method="post">
+                            <form action="{{route('ad.insert_ad')}}" method="post"  enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                     <label>Username</label>
@@ -42,6 +42,12 @@
                                     @error('password')
                                     <span style="color: red;">{{ $message }}</span>
                                     @enderror
+                                </div>
+                                <div class="form-group ">
+                                    <label for="cname" class="control-label col-lg-3">Hình</label>
+                                    <div class="col-lg-6">   
+                                        <input type="file" name="image"  id="chooseFile"  >
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                 <label>Level</label>
