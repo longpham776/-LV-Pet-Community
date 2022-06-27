@@ -72,8 +72,10 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="{{route('ad.qlad')}}">
+                            @foreach($_SESSION['admin'] as $a)
+                            <a href="{{route('ad.qlad',['quyen'=>$a->quyen])}}">
                                 <i class="zmdi zmdi-account"></i>Quản lý Admin</a>
+                            @endforeach
                         </li>
                         <li>
                             <a href="table.html">

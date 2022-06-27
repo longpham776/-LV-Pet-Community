@@ -22,14 +22,13 @@
             <th>Fullname</th>
             <th>Email</th>
             <th>Level</th>
-            <th>Edit</th>
             <th>Delete</th>
           </tr>
 
         </thead>
         <tbody>
           @foreach($getAdmin as $ad)
-          <form action="{{route('ad.edit_ad')}}" method="get">
+          <form action="{{route('ad.delete_ad')}}" method="get">
               @csrf
             <input type="hidden" value="{{ $ad->email }}" name="email">
             <td>{{$ad->username}}</td>
@@ -43,13 +42,10 @@
                     master
                 @endif
             </td>
-
-            <td><button>Edit</button></td>
             </form>
-            <td> <form action="{{route('ad.delete_ad')}}" method="get">
+            <td>
             <input type="hidden" value="{{ $ad->username }}" name="username">
             <button>Delete</button>
-                </form>
            
           </tr>
           

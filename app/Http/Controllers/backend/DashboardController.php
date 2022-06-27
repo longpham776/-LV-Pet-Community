@@ -224,9 +224,15 @@ class DashboardController extends Controller
          loaisp::restore_Loai($id);
          return redirect('admin/loaisp');
     }
-    public function qlad(){
-       $getAdmin= admin::getAdmin();
-       return view("backend.qlad",compact('getAdmin'));
+    public function qlad(Request $request){
+        $quyen=$request->quyen;
+        if($quyen==3)
+        {
+            $getAdmin= admin::getAdmin();
+        return view("backend.qlad",compact('getAdmin'));
+        }
+        return redirect ('admin/');
+       
     }
     public function add_ad(){
         return view('backend.themadmin');
