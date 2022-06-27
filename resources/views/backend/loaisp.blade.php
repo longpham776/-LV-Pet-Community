@@ -6,6 +6,9 @@
 		<div class="container py-5">
   <div class="panel panel-default">
     <div class="panel-heading">
+      <span class="tools pull-left">
+      <a class="btn btn-primary" href="{{route('ad.listDeLoai')}}">Loại đã xóa</a>
+    </span>
       <span class="tools pull-right">
       <form action="{{route('ad.addloai')}}" method="get">
       <input name="tenloai" minlength="2" type="text" placeholder="Tên loại mới" >

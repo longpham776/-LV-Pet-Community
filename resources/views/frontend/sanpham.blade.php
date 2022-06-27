@@ -9,62 +9,32 @@
                 <ul class="list-unstyled templatemo-accordion">
                     <li class="pb-3">
                         <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
-                            Loại thú cưng
+                            Loại sản phẩm
                             <i class="fa fa-fw fa-chevron-circle-down mt-1"></i>
                         </a>
                         <ul class="collapse show list-unstyled pl-3">
-                            <li><a class="text-decoration-none" href="#">Chó</a></li>
-                            <li><a class="text-decoration-none" href="#">Mèo</a></li>
+                        @foreach($getLoai as $lsp)
+                            <li><a class="text-decoration-none" href="{{route('locLoai',['id'=>$lsp->maloai])}}">{{$lsp->tenloai}}</a></li>
+                        @endforeach
                         </ul>
                     </li>
                     <li class="pb-3">
                         <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
-                            Sale
+                            Thương hiệu
                             <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
                         </a>
                         <ul id="collapseTwo" class="collapse list-unstyled pl-3">
-                            <li><a class="text-decoration-none" href="#">Phụ kiện, đồ dùng cho chó</a></li>
-                            <li><a class="text-decoration-none" href="#">Phụ kiện, đồ dùng cho mèo</a></li>
+                        @foreach($getTH as $th)
+                            <li><a class="text-decoration-none" href="{{route('locTH',['id'=>$th->math])}}">{{$th->tenth}}</a></li>
+                        @endforeach
                         </ul>
                     </li>
-                    <li class="pb-3">
-                        <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
-                            Product
-                            <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
-                        </a>
-                        <ul id="collapseThree" class="collapse list-unstyled pl-3">
-                            <li><a class="text-decoration-none" href="#">Thức ăn cho chó, mèo</a></li>
-                            <li><a class="text-decoration-none" href="#">Cát vệ sinh cho chó, mèo</a></li>
-                            <li><a class="text-decoration-none" href="#">Vật dụng ăn uống cho chó, mèo</a></li>
-                        </ul>
-                    </li>
+                    
                 </ul>
             </div>
 
             <div class="col-lg-9">
-                <div class="row">
-                    <div class="col-md-6">
-                        <ul class="list-inline shop-top-menu pb-3 pt-1">
-                            <li class="list-inline-item">
-                                <a class="h3 text-dark text-decoration-none mr-3" href="#">All</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a class="h3 text-dark text-decoration-none mr-3" href="#">Đực's</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a class="h3 text-dark text-decoration-none" href="#">Cái's</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-md-6 pb-4">
-                        <div class="d-flex">
-                            <select class="form-control">
-                                <option>Nổi bật</option>
-                                <option>A to Z</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
+               
                 <div class="row">
                     @foreach($getSP as $sp)
                         <div class="col-md-4">

@@ -26,6 +26,10 @@ Route::group(['prefix'=>'admin','namespace'=>'App\Http\Controllers\backend'],fun
     Route::get('/donhang','DashboardController@donhang')->name('ad.donhang');
     Route::get('/chitietDH','DashboardController@chitietDH')->name('ad.chitietDH');
     Route::get('/Update-trangthaidon','DashboardController@Updatetrangthaidon')->name('ad.Update-trangthaidon');
+    Route::get('/listDeLoai','DashboardController@ListDeLoai')->name('ad.listDeLoai');
+    Route::get('/restoreLoai','DashboardController@RestoreLoai')->name('ad.restoreLoai');
+    Route::get('/listDeTH','DashboardController@listDeTH')->name('ad.listDeTH');
+    Route::get('/restoreTH','DashboardController@restoreTH')->name('ad.restore_hang');
    
 });
 

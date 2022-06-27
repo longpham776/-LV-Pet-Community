@@ -180,6 +180,16 @@ class DashboardController extends Controller
         thuonghieu::delete_Hang($id);
         return redirect('admin/thuonghieu');
     }
+    public function listDeTH(){
+        $getDeTH=thuonghieu::getDeTH();
+        return view("backend.listDeTH",compact('getDeTH'));
+
+    }
+    public function restoreTH(Request $request){
+        $id=$request->maloai;
+        thuonghieu::restore_Hang($id);
+        return redirect('admin/thuonghieu');
+   }
     public function loaisp(){
         $getLoai=loaisp::getLoai();
         return view("backend.loaisp",compact('getLoai'));
@@ -194,6 +204,16 @@ class DashboardController extends Controller
         $id=$request->maloai;
         loaisp::delete_Loai($id);
         return redirect('admin/loaisp');
+    }
+    public function listDeLoai(){
+        $getDeLoai=loaisp::getDeLoai();
+        return view("backend.listDeLoai",compact('getDeLoai'));
+
+    }
+    public function restoreLoai(Request $request){
+         $id=$request->maloai;
+         loaisp::restore_Loai($id);
+         return redirect('admin/loaisp');
     }
     public function qlad(){
        $getAdmin= admin::getAdmin();

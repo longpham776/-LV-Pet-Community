@@ -3,15 +3,12 @@
 <div class="main-content">
 <section id="main-content">
 	<section class="wrapper">
-		<div class="table-agile-info">
-  <div class="container py-5">
+		<div class="container py-5">
+  <div class="panel panel-default">
     <div class="panel-heading">
-    <span class="tools pull-left">
-      <a class="btn btn-primary" href="{{route('ad.listDeTH')}}">Thương hiệu đã xóa</a>
-    </span>
       <span class="tools pull-right">
-      <form action="{{route('ad.addhang')}}" method="get">
-      <input name="tenhang" minlength="2" type="text" placeholder="Tên hãng mới" >
+      <form action="{{route('ad.addloai')}}" method="get">
+      <input name="tenloai" minlength="2" type="text" placeholder="Tên loại mới" >
       <button class="btn btn-primary" >Thêm</button>
       </form>
     </span>
@@ -21,19 +18,19 @@
         <thead>
         <tr>
             <th>ID</th>
-            <th>Tên hãng</th>
-            <th>Xóa</th>
+            <th>Tên loại</th>
+            <th>Khôi phục</th>
           </tr>
 
         </thead>
         <tbody>
-          @foreach($getTH as $th)
-          <form action="{{route('ad.delete_hang')}}" method="get">
+          @foreach($getDeLoai as $loai)
+          <form action="{{route('ad.restoreLoai')}}" method="get">
               @csrf
-            <input type="hidden" value="{{ $th->math }}" name="math">
-            <td>{{$th->math}}</td>
-            <td>{{$th->tenth}}</td>
-            <td><button>Xóa</button></td>
+            <input type="hidden" value="{{ $loai->maloai }}" name="maloai">
+            <td>{{$loai->maloai}}</td>
+            <td>{{$loai->tenloai}}</td>
+            <td><button>Khôi phục</button></td>
             </form>
            
           </tr>

@@ -6,9 +6,6 @@
 		<div class="table-agile-info">
   <div class="container py-5">
     <div class="panel-heading">
-    <span class="tools pull-left">
-      <a class="btn btn-primary" href="{{route('ad.listDeTH')}}">Thương hiệu đã xóa</a>
-    </span>
       <span class="tools pull-right">
       <form action="{{route('ad.addhang')}}" method="get">
       <input name="tenhang" minlength="2" type="text" placeholder="Tên hãng mới" >
@@ -22,18 +19,18 @@
         <tr>
             <th>ID</th>
             <th>Tên hãng</th>
-            <th>Xóa</th>
+            <th>Khôi phục</th>
           </tr>
 
         </thead>
         <tbody>
-          @foreach($getTH as $th)
-          <form action="{{route('ad.delete_hang')}}" method="get">
+          @foreach($getDeTH as $th)
+          <form action="{{route('ad.restore_hang')}}" method="get">
               @csrf
             <input type="hidden" value="{{ $th->math }}" name="math">
             <td>{{$th->math}}</td>
             <td>{{$th->tenth}}</td>
-            <td><button>Xóa</button></td>
+            <td><button>Khôi phục</button></td>
             </form>
            
           </tr>

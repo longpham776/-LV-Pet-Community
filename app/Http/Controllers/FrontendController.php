@@ -10,6 +10,8 @@ use App\Http\Controllers\Controller;
 use App\Models\admin;
 use App\Models\sanpham;
 use App\Models\diachi;
+use App\Models\loaisp;
+use App\Models\thuonghieu;
 use App\Models\donhang;
 use App\Models\chitietdonhang;
 use App\Mail\contactMail;
@@ -59,11 +61,29 @@ class FrontendController extends Controller
     public function sanpham(Request $request){
         if($request->kw){
             $getSP=sanpham::search($request->kw);
-            return view('frontend.sanpham',compact('getSP'));
+            $getLoai=loaisp::getLoai();
+            $getTH=thuonghieu::getTH();
+            return view('frontend.sanpham',compact('getSP','getLoai', 'getTH'));
         }else if(!$request->kw){
-            $getSP=sanpham::where('trangthai','regexp',0)->paginate(4);
-            return view('frontend.sanpham',compact('getSP'));
+            $getLoai=loaisp::getLoai();
+            $getTH=thuonghieu::getTH();
+            $getSP=sanpham::where('trangthai','regexp',0)->paginate(6);
+            return view('frontend.sanpham',compact('getSP' ,'getLoai', 'getTH'));
         }
+    }
+    public function locLoai(Request $request){
+        $id=$request->id;
+        $getLoai=loaisp::getLoai();
+        $getTH=thuonghieu::getTH();
+        $getSP=sanpham::where('loaisp','regexp',$id)->where('trangthai','regexp',0)->paginate(6);
+        return view('frontend.sanpham',compact('getSP' ,'getLoai', 'getTH'));
+    }
+    public function locTH(Request $request){
+        $id=$request->id;
+        $getLoai=loaisp::getLoai();
+        $getTH=thuonghieu::getTH();
+        $getSP=sanpham::where('math','regexp',$id)->where('trangthai','regexp',0)->paginate(6);
+        return view('frontend.sanpham',compact('getSP' ,'getLoai', 'getTH'));
     }
     public function chitietsanpham(Request $request){
         $getSP=sanpham::getById($request->id);
