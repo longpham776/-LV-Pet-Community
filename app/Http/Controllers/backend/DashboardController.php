@@ -11,6 +11,7 @@ use App\Models\loaisp;
 use App\Models\thuonghieu;
 use App\Models\donhang;
 use App\Models\chitietdonhang;
+use Laravel\Socialite\Facades\Socialite;
 session_start();
 class DashboardController extends Controller
 {
@@ -334,6 +335,15 @@ class DashboardController extends Controller
     public function Updatetrangthaidon(Request $request){
         donhang::updateStatus($request->id, $request->status);
         return Redirect::to('/admin/donhang');
+    }
+
+    public function redirectToGoogle()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+    public function callback(){
+        $user = Socialite::driver('google')->user();
+        dd($user);
     }
 }
 ?>

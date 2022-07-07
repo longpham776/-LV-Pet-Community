@@ -30,6 +30,9 @@ Route::group(['prefix'=>'admin','namespace'=>'App\Http\Controllers\backend'],fun
     Route::get('/restoreLoai','DashboardController@RestoreLoai')->name('ad.restoreLoai');
     Route::get('/listDeTH','DashboardController@listDeTH')->name('ad.listDeTH');
     Route::get('/restoreTH','DashboardController@restoreTH')->name('ad.restore_hang');
+
+    Route::get('/google','DashboardController@redirectToGoogle')->name('google');
+    Route::get('/google/callback','DashboardController@callback');
    
 });
 
