@@ -363,10 +363,17 @@
     <script src="{{url('vendor')}}/chartjs/Chart.bundle.min.js"></script>
     <script src="{{url('vendor')}}/select2/select2.min.js">
     </script>
-
     <!-- Main JS-->
     <script src="{{url('public')}}/backend/js/main.js"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+        $(".image_pro").mouseenter(function(){
+            alert('1')
+        })
+    })
+    </script>
+    
 </body>
 
 </html>

@@ -69,8 +69,8 @@
                Đã giao
                </option>
                </select>
+               <button class="btn btn-danger" style="margin-top: 5px">Cập nhật</button>
           </td>
-          <td><button class="btn btn-danger">Cập nhật</button></td>
         </form>
           </tr>
           

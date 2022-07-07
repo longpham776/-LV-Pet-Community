@@ -38,7 +38,7 @@
             
             <td>{{$sp->masp}}</td>
             <td><img src="{{url('public')}}/frontend/img/{{$sp->hinh}}" 
-                weight=200px height=200px></td>
+                weight=200px height=200px class="image_pro"></td>
             <td>{{$sp->tensp}}</td>
             <td>{{$sp->gia}}VNĐ</td>
             <td>
