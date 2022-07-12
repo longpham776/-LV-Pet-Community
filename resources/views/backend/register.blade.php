@@ -42,9 +42,7 @@
                 <div class="login-wrap">
                     <div class="login-content">
                         <div class="login-logo">
-                            <a href="#">
-                                <img src="{{url('public')}}/backend/images/icon/logo.png" alt="CoolAdmin">
-                            </a>
+                        <h1><b class="text-success">PET </b></h1><h3>Community</h3>
                         </div>
                         <div class="login-form" >
                             <form action="{{route('postregister')}}" method="post">
