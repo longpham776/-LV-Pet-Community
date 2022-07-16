@@ -22,7 +22,7 @@ class DashboardController extends Controller
                 $getSP=sanpham::search($request->kw);
                 return view('backend.index',compact('getSP'));
             }else if(!$request->kw){
-            $getSP=sanpham::where('trangthai','regexp',0)->paginate(5);
+            $getSP=sanpham::where('trangthai','regexp',0)->orderByDesc('masp') ->paginate(5);
             return view("backend.index",compact('getSP'));
             }
         }else {
@@ -323,7 +323,7 @@ class DashboardController extends Controller
         
     }
     public function donhang(){
-        $getDH= donhang::all();
+        $getDH= donhang::orderBy('madon', 'desc')->get();
         return view("backend.donhang",compact('getDH'));
     }
     public function chitietDH(Request $request){

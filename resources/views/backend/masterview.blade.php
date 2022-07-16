@@ -366,13 +366,13 @@
     <!-- Main JS-->
     <script src="{{url('public')}}/backend/js/main.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
         $(document).ready(function(){
         $(".image_pro").mouseenter(function(){
             alert('1')
         })
     })
-    </script>
+    </script> -->
     
 </body>
 
