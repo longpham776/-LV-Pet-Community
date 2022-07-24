@@ -21,8 +21,8 @@ class admin extends Model
     public static function getByUser($u){
         return DB::select('SELECT * FROM quantri WHERE username=?  ',[$u]);
     }
-    public static function addUser($u,$p,$n,$e){
-        return DB::select('INSERT INTO quantri(username,password, hoten,email) VALUES (?,?,?,?)',[$u,$p,$n,$e]);
+    public static function addUser($u,$p,$n,$e, $h){
+        return DB::select('INSERT INTO quantri(username,password, hoten,email, hinh) VALUES (?,?,?,?,?)',[$u,$p,$n,$e, $h]);
     }
     public static function getAdmin(){
        return  DB::select('SELECT * FROM quantri  WHERE quyen=2 OR quyen=3');

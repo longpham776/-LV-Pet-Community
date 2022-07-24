@@ -11,7 +11,8 @@
 
     <!-- Title Page-->
     @yield('title')
-  
+    
+
 
     <!-- Fontfaces CSS-->
     <link href="{{url('public')}}/backend/css/font-face.css" rel="stylesheet" media="all">
@@ -35,6 +36,7 @@
     <!-- Main CSS-->
     <link href="{{url('public')}}/backend/css/theme.css" rel="stylesheet" media="all">
 
+  
 </head>
 
 <body class="animsition">
@@ -77,7 +79,7 @@
                                 <i class="zmdi zmdi-account"></i>Quản lý Admin</a>
                             @endforeach
                         </li>
-                        <li>
+                        <!-- <li>
                             <a href="table.html">
                                 <i class="fas fa-table"></i>Tables</a>
                         </li>
@@ -146,7 +148,7 @@
                                     <a href="typo.html">Typography</a>
                                 </li>
                             </ul>
-                        </li>
+                        </li> -->
                     </ul>
                 </nav>
             </div>
@@ -166,7 +168,7 @@
                                     <i class="zmdi zmdi-search"></i>
                                 </button>
                             </form>
-                            <div class="header-button">
+                            <!-- <div class="header-button">
                                 <div class="noti-wrap">
                                     <div class="noti__item js-item-menu">
                                         <i class="zmdi zmdi-comment-more"></i>
@@ -278,7 +280,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="account-wrap">
                                     <div class="account-item clearfix js-item-menu">
                                         <div class="image">
@@ -344,11 +346,12 @@
     </div>
 
     <!-- Jquery JS-->
-    <script src="{{url('vendor')}}/jquery-3.2.1.min.js"></script>
+    <!-- <script src="{{url('vendor')}}/jquery-3.2.1.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script> 
     <!-- Bootstrap JS-->
     <script src="{{url('vendor')}}/bootstrap-4.1/popper.min.js"></script>
     <script src="{{url('vendor')}}/bootstrap-4.1/bootstrap.min.js"></script>
-    <!-- {{url('vendor')}} JS       -->
+
     <script src="{{url('vendor')}}/slick/slick.min.js">
     </script>
     <script src="{{url('vendor')}}/wow/wow.min.js"></script>
@@ -360,19 +363,13 @@
     </script>
     <script src="{{url('vendor')}}/circle-progress/circle-progress.min.js"></script>
     <script src="{{url('vendor')}}/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="{{url('vendor')}}/chartjs/Chart.bundle.min.js"></script>
+    <!-- <script src="{{url('vendor')}}/chartjs/Chart.bundle.min.js"></script> -->
     <script src="{{url('vendor')}}/select2/select2.min.js">
     </script>
     <!-- Main JS-->
     <script src="{{url('public')}}/backend/js/main.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function(){
-        $(".image_pro").mouseenter(function(){
-            alert('1')
-        })
-    })
-    </script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+    
     
 </body>
 

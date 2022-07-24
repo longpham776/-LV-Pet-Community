@@ -42,11 +42,11 @@
                     master
                 @endif
             </td>
-            </form>
+           
             <td>
             <input type="hidden" value="{{ $ad->username }}" name="username">
-            <button>Delete</button>
-           
+            <button type="submit" class="btn btn-primary">Delete</button>
+            </form>
           </tr>
           
           <tr>

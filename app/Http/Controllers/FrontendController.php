@@ -130,11 +130,12 @@ class FrontendController extends Controller
         $ph=$request->phone;
         $dc=$request->address;
         $p=md5($request->password);
+        $h='';
         $data=admin::getByEmail($e);
         if($data!=NULL){
             return view('backend.register');
         }else{
-           admin::addUser($u,$p,$n,$e);
+           admin::addUser($u,$p,$n,$e,$h);
             diachi::addAddress($u,$ph,$dc);
             return Redirect::to('/admin/login');
         }
@@ -200,7 +201,7 @@ class FrontendController extends Controller
     }
     public function upcart($id,$qty)
     {
-        dd($id,$qty);
+        // dd($id,$qty);
         for($i=0;$i<Cart::count();$i++){
             Cart::update($data[$id]->id,$data[$qty]->qty);
         }

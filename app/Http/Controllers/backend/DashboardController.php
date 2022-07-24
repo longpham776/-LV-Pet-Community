@@ -11,6 +11,7 @@ use App\Models\loaisp;
 use App\Models\thuonghieu;
 use App\Models\donhang;
 use App\Models\chitietdonhang;
+use App\Charts\UserChart;
 session_start();
 class DashboardController extends Controller
 {
@@ -22,7 +23,7 @@ class DashboardController extends Controller
                 $getSP=sanpham::search($request->kw);
                 return view('backend.index',compact('getSP'));
             }else if(!$request->kw){
-            $getSP=sanpham::where('trangthai','regexp',0)->paginate(5);
+            $getSP=sanpham::where('trangthai','regexp',0)->orderByDesc('masp') ->paginate(5);
             return view("backend.index",compact('getSP'));
             }
         }else {
@@ -107,7 +108,7 @@ class DashboardController extends Controller
             'congdung.required'=>'Vui lòng nhập công dụng sản phẩm',
             'congdung.max'=>'Vui lòng nhập dưới :max ký tự'
         ]);
-
+        
         $masp=$request->masp;
         $tensp=$request->tensp;
         $loaisp=$request->loaisp;
@@ -117,7 +118,13 @@ class DashboardController extends Controller
         $mota=$request->mota;
         $congdung=$request->congdung;
         $trangthai=$request->status;
-        if($request->hasFile('img'))
+        $checkname = sanpham::getByName($tensp);
+        if($checkname == null)
+        {
+            return redirect('/themsp');
+        }else
+        {
+             if($request->hasFile('img'))
         {
             
             if ($_FILES['img']['error']==0) 
@@ -126,6 +133,8 @@ class DashboardController extends Controller
         }
         sanpham::addProduct($masp,$tensp,$mota,$congdung,$gia,$hang,$loaisp,$hinh,$trangthai);
         return redirect('/admin');
+        }
+       
     }
     public function delete_pro(Request $request){
         $m=$request->masp;
@@ -186,7 +195,11 @@ class DashboardController extends Controller
     }
     public function delete_hang(Request $request){
         $id=$request->math;
-        thuonghieu::delete_Hang($id);
+        $check= sanpham::where('math',$id)->count();
+        if($check == 0)
+        {
+            thuonghieu::delete_Hang($id);
+        }
         return redirect('admin/thuonghieu');
     }
     public function listDeTH(){
@@ -211,7 +224,11 @@ class DashboardController extends Controller
     }
     public function delete_loai(Request $request){
         $id=$request->maloai;
-        loaisp::delete_Loai($id);
+        $check= sanpham::where('loaisp',$id)->count();
+        if($check == 0){
+            loaisp::delete_Loai($id);
+        }
+        
         return redirect('admin/loaisp');
     }
     public function listDeLoai(){
@@ -276,7 +293,12 @@ class DashboardController extends Controller
     }
     public function delete_ad(Request $request){
         $u=$request->username;
-        admin::delete_Ad($u);
+        $login = json_decode(json_encode($_SESSION['admin']), true);
+        // dd($login);
+        if($u != $login[0]['username']) 
+        {
+           admin::delete_Ad($u); 
+        }
         return Redirect::to('/admin/qlad');
     }
     public function edit_ad(Request $request){
@@ -323,8 +345,14 @@ class DashboardController extends Controller
         
     }
     public function donhang(){
-        $getDH= donhang::all();
-        return view("backend.donhang",compact('getDH'));
+        $datas =[];
+        for($i=1;$i< 13; $i++)
+        {
+           $datas[] =  donhang::whereMonth('date', $i)->count();
+        }
+        // dd($datas);
+        $getDH= donhang::orderBy('madon', 'desc')->get();
+        return view("backend.donhang", compact('getDH','datas'));
     }
     public function chitietDH(Request $request){
         
