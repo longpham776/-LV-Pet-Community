@@ -8,6 +8,7 @@ use DB;
 class chitietdonhang extends Model
 {
     use HasFactory;
+    protected $table = 'chitietdonhangs';
     public static function getById($id){
         return DB::table('chitietdonhangs')->where('madon',$id)->get();
     }

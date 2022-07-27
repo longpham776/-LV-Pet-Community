@@ -151,8 +151,38 @@
                                     </div>
                                 </div>
                             </form>
+                            <hr>
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <h3><b>Đánh giá sản phẩm</b></h3>
+                                </tr>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Đáng giá</th>
+                                    <th>Nội dung</th>
+                                    <th>Thời gian</th>
+                                </tr>
 
+                                </thead>
+                                <tbody>
+                                @foreach($binhluans as $data)
+                                    @csrf
+                                    <td>{{$data->username}}</td>
+                                    <td>{{$data->danhgia}}/5</td>
+                                    <td>{{$data->binhluan}}</td>
+                                    <td> 
+                                        {{$data->create_at}}
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+                                <tr>
+                                @endforeach
+                                </tbody>
+                            </table>
                         </div>
+                   
                     </div>
                 </div>
             </div>

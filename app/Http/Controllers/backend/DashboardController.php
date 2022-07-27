@@ -364,7 +364,12 @@ class DashboardController extends Controller
         return view("backend.chitietDH", compact('getCTD'));
     }
     public function Updatetrangthaidon(Request $request){
-        donhang::updateStatus($request->id, $request->status);
+        $status_old = $request->status_old;
+        $status_new = $request->status;
+        if($status_new > $status_old){
+            donhang::updateStatus($request->id, $request->status);
+        }
+        
         return Redirect::to('/admin/donhang');
     }
     public function khachhang(Request $request){

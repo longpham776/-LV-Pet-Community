@@ -25,6 +25,8 @@ Route::group(['namespace'=>'App\Http\Controllers'],function(){
     route::post('/update-address','FrontendController@updateAddress')->name('update-address');
     route::get('/locLoai/{id}','FrontendController@locLoai')->name('locLoai');
     route::get('/locTH/{id}','FrontendController@locTH')->name('locTH');
+    Route::get('/danhgia','FrontendController@danhgia')->name('danhgia');
+    Route::get('/upbinhluan','FrontendController@upbinhluan')->name('upbinhluan');
 });
 
 

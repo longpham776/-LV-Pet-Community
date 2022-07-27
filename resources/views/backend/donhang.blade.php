@@ -59,6 +59,7 @@
             <td>
               @csrf
               <input type="hidden" value="{{ $dh->madon }}" name="id">
+              <input type="hidden" value="{{ $dh->trangthai }}" name="status_old">
               <select name="status">
                 <option value="0">
                 Chờ xác nhận

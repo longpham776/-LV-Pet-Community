@@ -13,6 +13,7 @@ use App\Models\diachi;
 use App\Models\loaisp;
 use App\Models\thuonghieu;
 use App\Models\donhang;
+use App\Models\BinhLuans;
 use App\Models\chitietdonhang;
 use App\Mail\contactMail;
 use Illuminate\Support\Facades\Mail;
@@ -89,7 +90,8 @@ class FrontendController extends Controller
         $getSP=sanpham::getById($request->id);
         $getAll = sanpham::all();
         $getTH = thuonghieu::getTH();
-        return view('frontend.chitietsanpham',compact('getSP','getAll','getTH'));
+        $binhluans= BinhLuans::where('masp',$request->id)->get();
+        return view('frontend.chitietsanpham',compact('getSP','getAll','getTH','binhluans'));
     }
     public function timkiem(Request $request){
         $getSP=sanpham::search($request->id);
@@ -426,6 +428,39 @@ class FrontendController extends Controller
         diachi::updateAddress($user,$phone, $address);
         admin::updateuser($user,$fullname,$email);
         return Redirect::to('/account');
+
+    }
+    public function danhgia(Request $request)
+    {
+        $tt =$request->tt;
+        if($tt == 0)
+        {
+           $id = $request->id;
+        $id_sp = $request->id_sp;
+        $getSP = sanpham::where('masp',$id_sp)->get();
+        return view('frontend.danhgia', compact('id', 'getSP')); 
+        }
+        return redirect()->back();
+    }
+    public function upbinhluan(Request $request)
+    {
+        $id_ctd = $request->id;
+        $id_sp = $request->id_sp;
+        $dg = $request->danhgia;
+        $nx = $request->nhanxet;
+        $u = $_SESSION['user'][0]->username;
+        BinhLuans::insert([
+            'masp' =>$id_sp,
+            'binhluan' =>$nx,
+            'danhgia' =>$dg,
+            'trangthai' => 0,
+            'username' => $u,
+            'create_at' =>date('Y-m-d'),
+        ]);
+        chitietdonhang::where('stt', $id_ctd)->update([
+            'trangthai' => 1
+        ]);
+        return redirect()->back();
 
     }
 } 
