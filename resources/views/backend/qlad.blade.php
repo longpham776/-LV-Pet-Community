@@ -23,6 +23,7 @@
             <th>Email</th>
             <th>Level</th>
             <th>Delete</th>
+            <th>Edit</th>
           </tr>
 
         </thead>
@@ -36,17 +37,23 @@
             <td>{{$ad->email}}</td>
             <td>
                  @if ($ad->quyen ==2)
-                    admin
+                    Nhân viên Lv1
                     @endif
-                @if ($ad->quyen ==3)
-                    master
+                @if ($ad->quyen ==4)
+                    Nhân viên Lv2
                 @endif
             </td>
-           
             <td>
             <input type="hidden" value="{{ $ad->username }}" name="username">
             <button type="submit" class="btn btn-primary">Delete</button>
             </form>
+            </td>
+            <td>
+              <form method="get" action="{{route('ad.edit_ad')}}">
+                <input type="hidden" value="{{ $ad->email }}" name="email">
+                <button type="submit" class="btn btn-primary">edit</button>
+              </form>
+            </td>
           </tr>
           
           <tr>

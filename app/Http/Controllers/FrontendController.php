@@ -88,7 +88,8 @@ class FrontendController extends Controller
     public function chitietsanpham(Request $request){
         $getSP=sanpham::getById($request->id);
         $getAll = sanpham::all();
-        return view('frontend.chitietsanpham',compact('getSP','getAll'));
+        $getTH = thuonghieu::getTH();
+        return view('frontend.chitietsanpham',compact('getSP','getAll','getTH'));
     }
     public function timkiem(Request $request){
         $getSP=sanpham::search($request->id);

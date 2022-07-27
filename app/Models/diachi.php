@@ -8,6 +8,7 @@ use DB;
 class diachi extends Model
 {
     use HasFactory;
+    protected $table = 'diachi';
     public static function addAddress($u,$sdt,$dc){
         return DB::select('INSERT INTO diachi(username,sdt,diachi) VALUES (?,?,?)',[$u,$sdt,$dc]);
     }

@@ -76,7 +76,12 @@
                         <li>
                             @foreach($_SESSION['admin'] as $a)
                             <a href="{{route('ad.qlad',['quyen'=>$a->quyen])}}">
-                                <i class="zmdi zmdi-account"></i>Quản lý Admin</a>
+                                <i class="zmdi zmdi-account"></i>Quản lý nhân viên</a>
+                            @endforeach
+                        </li>
+                        <li>
+                            @foreach($_SESSION['admin'] as $a)
+                                <a href="{{route('ad.khachhang',['quyen'=>$a->quyen])}}"><i class="zmdi zmdi-account"></i>Quản lý khách hàng</a>
                             @endforeach
                         </li>
                         <!-- <li>

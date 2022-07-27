@@ -86,20 +86,26 @@
                         <div class="card-body">
                             <h1 class="h2">{{$sp->tensp}}</h1>
                             <p class="h3 py-2">{{$sp->gia}}<u>đ</u></p>
-                            <p class="py-2">
+                            <!-- <p class="py-2">
                                 <i class="fa fa-star text-warning"></i>
                                 <i class="fa fa-star text-warning"></i>
                                 <i class="fa fa-star text-warning"></i>
                                 <i class="fa fa-star text-warning"></i>
                                 <i class="fa fa-star text-secondary"></i>
                                 <span class="list-inline-item text-dark">Rating 4.8 | 36 Comments</span>
-                            </p>
+                            </p> -->
                             <ul class="list-inline">
                                 <li class="list-inline-item">
                                     <h6>Brand:</h6>
                                 </li>
                                 <li class="list-inline-item">
-                                    <p class="text-muted"><strong>{{$sp->math}}</strong></p>
+                                    <p class="text-muted"><strong>
+                                        @foreach ($getTH as $th)
+                                            @if($th->math == $sp->math)
+                                            {{$th->tenth}}
+                                            @endif
+                                        @endforeach
+                                    </strong></p>
                                 </li>
                             </ul>
 

@@ -11,6 +11,8 @@ use App\Models\loaisp;
 use App\Models\thuonghieu;
 use App\Models\donhang;
 use App\Models\chitietdonhang;
+use App\Models\diachi;
+use App\Models\BinhLuans;
 use App\Charts\UserChart;
 session_start();
 class DashboardController extends Controller
@@ -24,7 +26,8 @@ class DashboardController extends Controller
                 return view('backend.index',compact('getSP'));
             }else if(!$request->kw){
             $getSP=sanpham::where('trangthai','regexp',0)->orderByDesc('masp') ->paginate(5);
-            return view("backend.index",compact('getSP'));
+            $getLoai = loaisp::getLoai();
+            return view("backend.index",compact('getSP','getLoai'));
             }
         }else {
             return Redirect::to('/');
@@ -119,18 +122,19 @@ class DashboardController extends Controller
         $congdung=$request->congdung;
         $trangthai=$request->status;
         $checkname = sanpham::getByName($tensp);
-        if($checkname == null)
+        // $checkid = sanpham::where('masp', $masp)->get();
+         if($checkname == null)
         {
-            return redirect('/themsp');
+            return redirect('/admin/addsp');
         }else
         {
              if($request->hasFile('img'))
-        {
+            {
             
             if ($_FILES['img']['error']==0) 
                 $hinh = $_FILES['img']['name'];
                 move_uploaded_file($_FILES['img']['tmp_name'], "public/frontend/img/$hinh");
-        }
+             }
         sanpham::addProduct($masp,$tensp,$mota,$congdung,$gia,$hang,$loaisp,$hinh,$trangthai);
         return redirect('/admin');
         }
@@ -323,7 +327,7 @@ class DashboardController extends Controller
         $u=$request->username;
         $n=$request->fullname;
         $e=$request->email;
-        $q=$request->quyen;
+        $q= $request->quyen;
         $hinh="";
         if($_FILES['image']['name'] != ''){
     
@@ -362,6 +366,34 @@ class DashboardController extends Controller
     public function Updatetrangthaidon(Request $request){
         donhang::updateStatus($request->id, $request->status);
         return Redirect::to('/admin/donhang');
+    }
+    public function khachhang(Request $request){
+
+        $quyen=$request->quyen;
+        if($quyen==3 || $quyen==4)
+        {
+            $kh= admin::where('quyen', 1)->get();
+            $phones= diachi::All();
+            return view('backend.khachhang', compact('kh','phones'));
+        }
+        return redirect ('admin/');
+        
+    }
+    public function resetPass(Request $request){
+        $u = $request->username;
+        $p =md5(123456789);
+        admin::where('username', $u)->update(['password'=> $p]);
+        return redirect ('admin/khachhang');
+    }
+    public function listBinhLuan(Request $request){
+        $masp = $request->masp;
+        $binhluans =  BinhLuans::where('masp', $masp)->get();
+        return view("backend.listBinhLuan", compact('binhluans'));
+    }
+    public function xoaBinhLuan(Request $request){
+        $id = $request->mabl;
+        BinhLuans::where('mabl', $id)->delete();
+        return back();
     }
 }
 ?>
