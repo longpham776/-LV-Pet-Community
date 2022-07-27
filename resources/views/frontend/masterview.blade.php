@@ -117,9 +117,9 @@
                 <div class="w-100 d-flex justify-content-between">
                     <div>
                         <i class="fa fa-envelope mx-2"></i>
-                        <a class="navbar-sm-brand text-light text-decoration-none" href="mailto:info@company.com">info@company.com</a>
+                        <a class="navbar-sm-brand text-light text-decoration-none" href="mailto:info@company.com">petcommunity@gmail.com</a>
                         <i class="fa fa-phone mx-2"></i>
-                        <a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
+                        <a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">090-020-0340</a>
                     </div>
                     <div>
                         <a class="text-light" href="https://fb.com/templatemo" target="_blank" rel="sponsored"><i class="fab fa-facebook-f fa-sm fa-fw me-2"></i></a>
@@ -150,6 +150,9 @@
                         <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('home')}}">Trang chủ</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('news')}}">Tin Tức</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('donate')}}">Ủng Hộ</a>
@@ -240,11 +243,11 @@
                             </li>
                             <li>
                                 <i class="fa fa-phone fa-fw"></i>
-                                <a class="text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
+                                <a class="text-decoration-none" href="tel:010-020-0340">090-020-0340</a>
                             </li>
                             <li>
                                 <i class="fa fa-envelope fa-fw"></i>
-                                <a class="text-decoration-none" href="mailto:info@company.com">info@company.com</a>
+                                <a class="text-decoration-none" href="mailto:info@company.com">petcommunity@gmail.com</a>
                             </li>
                         </ul>
                     </div>
@@ -259,12 +262,12 @@
                     <div class="col-md-4 pt-5">
                         <h2 class="h2 text-light border-bottom pb-3 border-light">Further Info</h2>
                         <ul class="list-unstyled text-light footer-link-list">
-                            <li><a class="text-decoration-none" href="#">Trang Chủ</a></li>
-                            <li><a class="text-decoration-none" href="#">Nhận Nuôi</a></li>
-                            <li><a class="text-decoration-none" href="#">Ủng Hộ</a></li>
-                            <li><a class="text-decoration-none" href="#">About Us</a></li>
-                            <li><a class="text-decoration-none" href="#">Sản Phẩm</a></li>
-                            <li><a class="text-decoration-none" href="#">Liên hệ</a></li>
+                            <li><a class="text-decoration-none" href="{{route('home')}}">Trang Chủ</a></li>
+                            <li><a class="text-decoration-none" href="{{route('news')}}">Tin Tức</a></li>
+                            <li><a class="text-decoration-none" href="{{route('donate')}}">Ủng Hộ</a></li>
+                            <li><a class="text-decoration-none" href="{{route('about')}}">About Us</a></li>
+                            <li><a class="text-decoration-none" href="{{route('sanpham')}}">Sản Phẩm</a></li>
+                            <li><a class="text-decoration-none" href="{{route('contact')}}">Liên hệ</a></li>
                         </ul>
                     </div>
 
@@ -291,11 +294,7 @@
                         </ul>
                     </div>
                     <div class="col-auto">
-                        <label class="sr-only" for="subscribeEmail">Email address</label>
-                        <div class="input-group mb-2">
-                            <input type="text" class="form-control bg-dark border-light" id="subscribeEmail" placeholder="Email address">
-                            <div class="input-group-text btn-success text-light">Subscribe</div>
-                        </div>
+                        <div class="fb-page" data-href="https://www.facebook.com/Pet-Community-102604329136085/" data-tabs="timeline" data-width="" data-height="70" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/Pet-Community-102604329136085/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/Pet-Community-102604329136085/">Pet Community</a></blockquote></div>
                     </div>
                 </div>
             </div>
@@ -305,8 +304,7 @@
                     <div class="row pt-2">
                         <div class="col-12">
                             <p class="text-left text-light">
-                                Copyright &copy; 2021 Company Name 
-                                | Designed by <a rel="sponsored" href="https://templatemo.com" target="_blank">TemplateMo</a>
+                                Copyright &copy; 2021 PET Community
                             </p>
                         </div>
                     </div>
@@ -386,8 +384,10 @@
                 ]
             });
         </script>
-         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <div id="fb-root"></div>
+        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v14.0" nonce="huzrWHyZ"></script>
         <!-- End Slider Script -->
     </body>
 </html>

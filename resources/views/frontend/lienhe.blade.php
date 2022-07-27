@@ -10,7 +10,7 @@
 			<ul class="list-unstyled mt-3 list-contact colored-icons">
 				<li><i class="fa fa-envelope margin-icon"></i>&ensp;<a href="mailto:lpham776@gmail.com" rel="noreferrer" aria-label="lpham776@gmail.com" aria-labelledby="lpham776@gmail.com" style="text-decoration: none">lpham776@gmail.com</a></li>
 				<li><i class="fa fa-phone margin-icon"></i>&ensp;<a href="tel:0971126374" rel="noreferrer" aria-label="0971126374" aria-labelledby="0971126374" style="text-decoration: none">(+84)971126374</a></li>
-				<li><i class="fa fa-map-marker margin-icon"></i>Sài Gòn - Việt Nam</li>
+				<li><i class="fa fa-map-marker margin-icon"></i> Sài Gòn - Việt Nam</li>
 			</ul>
 			<h3 data-aos="zoom-in" class="text-capitalize aos-init aos-animate">
 				Tài khoản quyên góp

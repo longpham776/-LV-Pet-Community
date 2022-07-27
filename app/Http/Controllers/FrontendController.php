@@ -19,8 +19,11 @@ use Illuminate\Support\Facades\Mail;
 class FrontendController extends Controller
 {
     public function index(){
-        $getSP=sanpham::where('trangthai','regexp',0)->paginate(6);
+        $getSP=sanpham::where('trangthai','regexp',0)->paginate(5);
         return view('frontend.index',compact('getSP'));
+    }
+    public function news(){
+        return view('frontend.tintuc');
     }
     public function donate(){
         return view('frontend.ungho');
@@ -67,7 +70,7 @@ class FrontendController extends Controller
         }else if(!$request->kw){
             $getLoai=loaisp::getLoai();
             $getTH=thuonghieu::getTH();
-            $getSP=sanpham::where('trangthai','regexp',0)->paginate(6);
+            $getSP=sanpham::where('trangthai','regexp',0)->paginate(5);
             return view('frontend.sanpham',compact('getSP' ,'getLoai', 'getTH'));
         }
     }
@@ -312,7 +315,7 @@ class FrontendController extends Controller
     public function vn_payment(Request $request){
         $id = rand(0000,9999);
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_Returnurl = "http://localhost/LV-Pet-Community/giohang";
+        $vnp_Returnurl = "http://petcommunity.net/giohang";
         $vnp_TmnCode = "1AXLM0YG";//Mã website tại VNPAY 
         $vnp_HashSecret = "DKPERIOVZTXETSJBIFAQESBKGUNMEDSP"; //Chuỗi bí mật
 
@@ -371,14 +374,12 @@ class FrontendController extends Controller
         $returnData = array('code' => '00'
             , 'message' => 'success'
             , 'data' => $vnp_Url);
-            if (isset($_POST['redirect'])) {
-                header('Location: ' . $vnp_Url);
-                die();
-            } else {
-                echo json_encode($returnData);
-            }
-           
-
+        if (isset($_POST['redirect'])) {
+            header('Location: ' . $vnp_Url);
+            die();
+        } else {
+            echo json_encode($returnData);
+        }
     }
     public function account(){
         $user=$_SESSION['user'][0]->username;

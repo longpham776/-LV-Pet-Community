@@ -1,6 +1,7 @@
 <?php
 Route::group(['namespace'=>'App\Http\Controllers'],function(){
     Route::get('/','FrontendController@index')->name('home');
+    Route::get('/tintuc','FrontendController@news')->name('news');
     Route::get('/ungho','FrontendController@donate')->name('donate');
     Route::get('/thongtin','FrontendController@about')->name('about');
     Route::get('/sanpham','FrontendController@sanpham')->name('sanpham');

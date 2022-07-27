@@ -20,7 +20,7 @@
                             <h3 class="h2">ĐĂNG KÝ LÀM TNV VỚI CHÚNG MÌNH NHÉ!</h3>
                             <p>
                                 Nhóm chúng mình có tổ chức giúp đỡ, bảo vệ chó mèo lang thang, bị bạo hành, đánh đập. Nhóm cũng hỗ trợ chuyển chủ để cung cấp cho các em thú cưng hoặc thú hoang một cuộc sống mới…<br>
-                                <a class="btn btn-secondary" href="https://www.facebook.com/profile.php?=75548495" target="_blank" rel="noreferrer" aria-label="Đọc thêm" aria-labelledby="Đọc thêm">Đọc thêm</a>
+                                <a class="btn btn-secondary" href="https://www.facebook.com/Pet-Community-102604329136085" target="_blank" rel="noreferrer" aria-label="Đọc thêm" aria-labelledby="Đọc thêm">Đọc thêm</a>
                             </p>
                         </div>
                     </div>
@@ -38,7 +38,7 @@
                             <h1 class="h1">GHÉ THỊ TRẤN THÚ CƯNG CHƠI NHÉ CÁC BẠN!</h1>
                             <h3 class="h2">Group của nhóm nhằm chia sẻ kinh nghiệm nuôi và cứu hộ thú cưng.</h3>
                             <p>
-                                <a class="btn btn-secondary" href="https://www.facebook.com/profile.php?=75548495 " target="_blank" rel="noreferrer" aria-label="Đọc thêm" aria-labelledby="Đọc thêm">Đọc thêm</a>
+                                <a class="btn btn-secondary" href="https://www.facebook.com/Pet-Community-102604329136085" target="_blank" rel="noreferrer" aria-label="Đọc thêm" aria-labelledby="Đọc thêm">Đọc thêm</a>
                             </p>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                             <h3 class="h2">CÙNG THAM GIA GROUP YÊU THÚ CƯNG NHA! </h3>
                             <p>
                                 Loài vật cũng có tri giác và cảm xúc, chúng cũng biết đau, biết sợ hãi, biết yêu thương và muốn được yêu thương.<br>
-                                <a class="btn btn-secondary" href="https://www.facebook.com/profile.php?=75548495 " target="_blank" rel="noreferrer" aria-label="Đọc thêm" aria-labelledby="Đọc thêm">Đọc thêm</a>
+                                <a class="btn btn-secondary" href="https://www.facebook.com/Pet-Community-102604329136085" target="_blank" rel="noreferrer" aria-label="Đọc thêm" aria-labelledby="Đọc thêm">Đọc thêm</a>
                             </p>
                         </div>
                     </div>

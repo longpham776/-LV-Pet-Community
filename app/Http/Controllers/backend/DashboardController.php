@@ -147,8 +147,6 @@ class DashboardController extends Controller
         return view("backend.editsp",compact('getSP','getLoai','getTH'));
     }
     public function update_pro(Request $request){
-      
-        
         $masp=$request->masp;
         $tensp=$request->tensp;
         $loaisp=$request->loaisp;
