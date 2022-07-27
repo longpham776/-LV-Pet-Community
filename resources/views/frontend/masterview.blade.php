@@ -5,6 +5,11 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
         <!-- Bootstrap Font Icon CSS -->
@@ -121,6 +126,15 @@
                         <i class="fa fa-phone mx-2"></i>
                         <a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">090-020-0340</a>
                     </div>
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
+                            @lang('lang.language')
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{url('lang/vn')}}"><img width="20px" height="13px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Vietnam.svg/2560px-Flag_of_Vietnam.svg.png"></a>
+                            <a class="dropdown-item" href="{{url('lang/en')}}"><img width="20px" height="13px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Flag_of_the_United_States_%28bordered%29.svg/1200px-Flag_of_the_United_States_%28bordered%29.svg.png"></a>
+                        </div>
+                    </div>
                     <div>
                         <a class="text-light" href="https://fb.com/templatemo" target="_blank" rel="sponsored"><i class="fab fa-facebook-f fa-sm fa-fw me-2"></i></a>
                         <a class="text-light" href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram fa-sm fa-fw me-2"></i></a>
@@ -149,22 +163,22 @@
                     <div class="flex-fill">
                         <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('home')}}">Trang chủ</a>
+                                <a class="nav-link" href="{{route('home')}}">@lang('lang.home')</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('news')}}">Tin Tức</a>
+                                <a class="nav-link" href="{{route('news')}}">@lang('lang.news')</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('donate')}}">Ủng Hộ</a>
+                                <a class="nav-link" href="{{route('donate')}}">@lang('lang.donate')</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('about')}}">About Us</a>
+                                <a class="nav-link" href="{{route('about')}}">@lang('lang.about')</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('sanpham')}}">Sản Phẩm</a>
+                                <a class="nav-link" href="{{route('sanpham')}}">@lang('lang.product')</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('contact')}}">Liên Hệ</a>
+                                <a class="nav-link" href="{{route('contact')}}">@lang('lang.contact')</a>
                             </li>
                         </ul>
                     </div>
@@ -192,7 +206,7 @@
                             @php }else{ @endphp
                             <div class="header__top__right__auth">
                                 <i class="fa fa-user">
-                                    Hello,
+                                    @lang('lang.hello'),
                                     <a href="{{route('account')}}" style="text-decoration:none;">
                                         @if(isset($_SESSION['user']))
                                             @foreach($_SESSION['user'] as $a)
@@ -255,19 +269,19 @@
                     <div class="col-md-4 pt-5">
                         <h2 class="h2 text-light border-bottom pb-3 border-light">About Us</h2>
                         <ul class="list-unstyled text-light footer-link-list">
-                            <li><a class="text-decoration-none" href="https://www.facebook.com/profile.php?=75548495 ">Nhóm trẻ tình nguyện viên Việt Nam và quốc tế, hoạt động vì tình yêu chó mèo.</a></li>
+                            <li><a class="text-decoration-none" href="https://www.facebook.com/Pet-Community-102604329136085/">Nhóm trẻ tình nguyện viên Việt Nam và quốc tế, hoạt động vì tình yêu chó mèo.</a></li>
                         </ul>
                     </div>
 
                     <div class="col-md-4 pt-5">
                         <h2 class="h2 text-light border-bottom pb-3 border-light">Further Info</h2>
                         <ul class="list-unstyled text-light footer-link-list">
-                            <li><a class="text-decoration-none" href="{{route('home')}}">Trang Chủ</a></li>
-                            <li><a class="text-decoration-none" href="{{route('news')}}">Tin Tức</a></li>
-                            <li><a class="text-decoration-none" href="{{route('donate')}}">Ủng Hộ</a></li>
-                            <li><a class="text-decoration-none" href="{{route('about')}}">About Us</a></li>
-                            <li><a class="text-decoration-none" href="{{route('sanpham')}}">Sản Phẩm</a></li>
-                            <li><a class="text-decoration-none" href="{{route('contact')}}">Liên hệ</a></li>
+                            <li><a class="text-decoration-none" href="{{route('home')}}">@lang('lang.home')</a></li>
+                            <li><a class="text-decoration-none" href="{{route('news')}}">@lang('lang.news')</a></li>
+                            <li><a class="text-decoration-none" href="{{route('donate')}}">@lang('lang.donate')</a></li>
+                            <li><a class="text-decoration-none" href="{{route('about')}}">@lang('lang.about')</a></li>
+                            <li><a class="text-decoration-none" href="{{route('sanpham')}}">@lang('lang.product')</a></li>
+                            <li><a class="text-decoration-none" href="{{route('contact')}}">@lang('lang.contact')</a></li>
                         </ul>
                     </div>
 
@@ -294,7 +308,7 @@
                         </ul>
                     </div>
                     <div class="col-auto">
-                        <div class="fb-page" data-href="https://www.facebook.com/Pet-Community-102604329136085/" data-tabs="timeline" data-width="" data-height="70" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/Pet-Community-102604329136085/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/Pet-Community-102604329136085/">Pet Community</a></blockquote></div>
+                        <div class="fb-page" data-href="https://www.facebook.com/Pet-Community-102604329136085/" data-tabs="timeline" data-width="430" data-height="130" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/Pet-Community-102604329136085/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/Pet-Community-102604329136085/">Pet Community</a></blockquote></div>
                     </div>
                 </div>
             </div>

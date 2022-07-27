@@ -6,16 +6,16 @@
 <section class="container">
 	<div class="row">
 		<div class="col-sm-7 col-md-7 col-lg-7 aos-init aos-animate" data-aos="zoom-in">
-			<h3 class="text-capitalize">Thông tin liên hệ</h3>
+			<h3 class="text-capitalize">@lang('lang.contactinfo')</h3>
 			<ul class="list-unstyled mt-3 list-contact colored-icons">
 				<li><i class="fa fa-envelope margin-icon"></i>&ensp;<a href="mailto:lpham776@gmail.com" rel="noreferrer" aria-label="lpham776@gmail.com" aria-labelledby="lpham776@gmail.com" style="text-decoration: none">lpham776@gmail.com</a></li>
 				<li><i class="fa fa-phone margin-icon"></i>&ensp;<a href="tel:0971126374" rel="noreferrer" aria-label="0971126374" aria-labelledby="0971126374" style="text-decoration: none">(+84)971126374</a></li>
 				<li><i class="fa fa-map-marker margin-icon"></i> Sài Gòn - Việt Nam</li>
 			</ul>
 			<h3 data-aos="zoom-in" class="text-capitalize aos-init aos-animate">
-				Tài khoản quyên góp
+				@lang('lang.donationsaccount')
 			</h3>
-			<p class="mt-2">Chi phí sẽ được chia đều cho các bé khác còn nằm viện và gây dựng nhà chung.</p>
+			<p class="mt-2">@lang('lang.contactcontent')</p>
 			<div class="row">
 				<div class="col-sm-12 col-md-3 col-lg-6">
 					<ul class="list-unstyled colored-icons">
@@ -50,7 +50,7 @@
 			</div>
 		</div>
 		<div class="col-sm-5 col-md-5 col-lg-5 contact-info aos-init aos-animate" data-aos="zoom-in">
-			<h3 class="text-capitalize">Gửi góp ý</h3>
+			<h3 class="text-capitalize">@lang('lang.sendcomments')</h3>
 			@if (session('success'))
 				<div class="alert alert-success alert-dismissible fade show" role="alert">
 					<strong>Cảm ơn bạn!</strong> {{ session('success') }}
@@ -63,8 +63,8 @@
                     <form class="col-md-9 m-auto" method="post" role="form">
                     <div class="row">
                         <div class="form-group col-md-6 mb-3">
-                            <label for="inputname">Tên</label>
-                            <input type="text" class="form-control mt-1" id="name" name="hoten" placeholder="Họ và tên">
+                            <label for="inputname">@lang('lang.name')</label>
+                            <input type="text" class="form-control mt-1" id="name" name="hoten" placeholder="@lang('lang.fullname')">
 							@error('hoten')
 							<span style="color: red;">{{ $message }}</span>
 							@enderror
@@ -78,15 +78,15 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="inputsubject">Tiêu đề</label>
-                        <input type="text" class="form-control mt-1" id="subject" name="tieude" placeholder="Nhập tiêu đề">
+                        <label for="inputsubject">@lang('lang.title')</label>
+                        <input type="text" class="form-control mt-1" id="subject" name="tieude" placeholder="@lang('lang.entertitle')">
 						@error('tieude')
 						<span style="color: red;">{{ $message }}</span>
 						@enderror
                     </div>
                     <div class="mb-3">
-                        <label for="inputmessage">Lời nhắn</label>
-                        <textarea class="form-control mt-1" id="message" name="noidung" placeholder="Xin vui lòng đóng góp ý kiến" rows="8"></textarea>
+                        <label for="inputmessage">@lang('lang.message')</label>
+                        <textarea class="form-control mt-1" id="message" name="noidung" placeholder="@lang('lang.pleasegiveyourcomments')" rows="8"></textarea>
 						@error('noidung')
 						<span style="color: red;">{{ $message }}</span>
 						@enderror

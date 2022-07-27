@@ -20,13 +20,18 @@ Route::group(['namespace'=>'App\Http\Controllers'],function(){
     Route::post('/sendmail','FrontendController@sendmail')->name('sendmail');
     Route::post('/momo_payment','FrontendController@momo_payment')->name('momo_payment');
     Route::post('/vn_payment','FrontendController@vn_payment')->name('vn_payment');
-    route::get('/account','FrontendController@account')->name('account');
-    route::get('/chitietDH','FrontendController@chitietDH')->name('chitietDH');
-    route::get('/edit-account','FrontendController@editAccount')->name('edit-account');
-    route::post('/update-address','FrontendController@updateAddress')->name('update-address');
-    route::get('/locLoai/{id}','FrontendController@locLoai')->name('locLoai');
-    route::get('/locTH/{id}','FrontendController@locTH')->name('locTH');
-});
-
-
+    Route::get('/account','FrontendController@account')->name('account');
+    Route::get('/chitietDH','FrontendController@chitietDH')->name('chitietDH');
+    Route::get('/edit-account','FrontendController@editAccount')->name('edit-account');
+    Route::post('/update-address','FrontendController@updateAddress')->name('update-address');
+    Route::get('/locLoai/{id}','FrontendController@locLoai')->name('locLoai');
+    Route::get('/locTH/{id}','FrontendController@locTH')->name('locTH');
+    Route::get('/lang/{locale}', function ($locale) {
+        if (! in_array($locale, ['en', 'vn'])) {
+            abort(404);
+        }
+        session()->put('locale',$locale);
+        return redirect()->back();
+    });
+}); 
 ?>

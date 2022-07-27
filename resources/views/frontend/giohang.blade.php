@@ -6,59 +6,59 @@
         @csrf
         <div class="box mr" id="bill">
             <div class="row" >
-                <h1>THÔNG TIN NHẬN HÀNG</h1>
+                <h1>@lang('lang.deliveryinfomation')</h1>
                 <table class="thongtinnhanhang">
                 @if(isset($_SESSION['user']))
                                             @foreach($_SESSION['user'] as $u)
                                             <tr>
-                        <td width="20%"><b>Họ tên</b></td>
-                        <td><input type="text" name="hoten" placeholder="Nhập họ tên người nhận" required value="{{$u->hoten}}" class="form-control"></td>
+                        <td width="20%"><b>@lang('lang.fullname')</b></td>
+                        <td><input type="text" name="hoten" placeholder="@lang('lang.enterfullname')" required value="{{$u->hoten}}" class="form-control"></td>
                     </tr>
                     @foreach ($getDC as $dc)
                     <tr>
-                        <td><b>Địa chỉ</b></td>
-                        <td><input type="text" name="diachi" placeholder="Nhập địa chỉ giao hàng" required class="form-control" value="{{$dc->diachi}}"></td>
+                        <td><b>@lang('lang.address')</b></td>
+                        <td><input type="text" name="diachi" placeholder="@lang('lang.enteraddress')" required class="form-control" value="{{$dc->diachi}}"></td>
                     </tr>
                     <tr>
-                        <td><b>Điện thoại</b></td>
-                        <td><input type="text" name="dienthoai" placeholder="Nhập số điện thoại liên lạc" required class="form-control" value="0{{$dc->sdt}}"></td>
+                        <td><b>@lang('lang.phone')</b></td>
+                        <td><input type="text" name="dienthoai" placeholder="@lang('lang.enterphone')" required class="form-control" value="0{{$dc->sdt}}"></td>
                     </tr>
                     @endforeach
                     <tr>
                         <td><b>Email</b></td>
-                        <td><input type="email" name="email" placeholder="Nhập địa chỉ Email" required class="form-control"value="{{$u->email}}"></td>
+                        <td><input type="email" name="email" placeholder="@lang('lang.enteremail')" required class="form-control"value="{{$u->email}}"></td>
                     </tr>
                     <tr>
-                        <td><b>Phương thức thanh toán</b></td>
+                        <td><b>@lang('lang.paymentmethods')</b></td>
                         <td><select id="sterilizations" name="pttt" class="form-control">
-                            <option value="0">Thanh toán khi nhận hàng</option>
-                            <option value="1">Thanh toán online</option>
+                            <option value="0">@lang('lang.paymentondelivery')</option>
+                            <option value="1">@lang('lang.onlinepayment')</option>
                         </select></td>
                     </tr> 
 
                                             @endforeach
                     @else
                     <tr>
-                        <td width="20%"><b>Họ tên</b></td>
-                        <td><input type="text" name="hoten" placeholder="Nhập họ tên người nhận" required class="form-control"></td>
+                        <td width="20%"><b>@lang('lang.fullname')</b></td>
+                        <td><input type="text" name="hoten" placeholder="@lang('lang.enterfullname')" required class="form-control"></td>
                     </tr>
                     <tr>
-                        <td><b>Địa chỉ</b></td>
-                        <td><input type="text" name="diachi" placeholder="Nhập địa chỉ giao hàng" required class="form-control"></td>
+                        <td><b>@lang('lang.address')</b></td>
+                        <td><input type="text" name="diachi" placeholder="@lang('lang.enteraddress')" required class="form-control"></td>
                     </tr>
                     <tr>
-                        <td><b>Điện thoại</b></td>
-                        <td><input type="text" name="dienthoai" placeholder="Nhập số điện thoại liên lạc" required class="form-control"></td>
+                        <td><b>@lang('lang.phone')</b></td>
+                        <td><input type="text" name="dienthoai" placeholder="@lang('lang.enterphone')" required class="form-control"></td>
                     </tr>
                     <tr>
                         <td><b>Email</b></td>
-                        <td><input type="email" name="email" placeholder="Nhập địa chỉ Email" required class="form-control"></td>
+                        <td><input type="email" name="email" placeholder="@lang('lang.enteremail')" required class="form-control"></td>
                     </tr>
                     <tr>
-                        <td><b>Phương thức thanh toán</b></td>
+                        <td><b>@lang('lang.paymentmethods')</b></td>
                         <td><select id="sterilizations" name="pttt" class="form-control">
-                            <option value="0">Thanh toán khi nhận hàng</option>
-                            <option value="1">Thanh toán online</option>
+                            <option value="0">@lang('lang.paymentondelivery')</option>
+                            <option value="1">@lang('lang.onlinepayment')</option>
                         </select></td>
                     </tr>
                  @endif
@@ -66,16 +66,16 @@
                 </table>
             </div>
             <div class="row mb">
-                <h1>GIỎ HÀNG</h1>
+                <h1>@lang('lang.cart')</h1>
                 <table border="1" >
                     <tr>
                         <th>STT</th>
-                        <th>Tên sản phẩm</th>
-                        <th>&ensp;&ensp;&ensp;Hình</th>
-                        <th>Giá</th>
-                        <th>Số lượng</th>
-                        <th>Thành tiền (VNĐ)</th>
-                        <th>Xóa</th>
+                        <th>@lang('lang.nameproduct')</th>
+                        <th>&ensp;&ensp;&ensp;@lang('lang.image')</th>
+                        <th>@lang('lang.price')</th>
+                        <th>@lang('lang.quantity')</th>
+                        <th>@lang('lang.subprice')</th>
+                        <th>@lang('lang.delete')</th>
                     </tr>
                     @php $i=0 @endphp
                     @foreach(Cart::content() as $sp)
@@ -96,7 +96,7 @@
             </div>
             <br/>
             <div class="row mb">
-                <h2>Tổng tiền</h2>
+                <h2>@lang('lang.totalprice')</h2>
                 <table border="1" >
                     <tr>
                         <th colpan=""></th>
@@ -113,25 +113,25 @@
                 </table>
             </div>
             <div class="row mb">
-                <input type="submit" value="ĐỒNG Ý ĐẶT HÀNG" name="submitcart">
+                <input type="submit" value="@lang('lang.acceptorder')" name="submitcart">
             </div>
         </div>
     </form>
     </div>
-    <br>
+    <!-- <br>
     <form method="POST" action="{{route('momo_payment')}}">
         @csrf
         <input type="hidden" name="total_momo" value="">
-        <button type="submit" name="payUrl">Thanh Toán MOMO</button>
-    </form>
+        <button type="submit" name="payUrl">@lang('lang.payment')</button>
+    </form> -->
     <br>
     <form method="POST" action="{{route('vn_payment')}}">
         @csrf
         <input type="hidden" name="total_momo" value="">
-        <button type="submit" name="redirect">Thanh Toán VNPay</button>
+        <button type="submit" name="redirect">@lang('lang.vnpaypayment')</button>
     </form>
     <br>
-    <a href="{{route('sanpham')}}"><input type="button" value="TIẾP TỤC ĐẶT HÀNG"></a>
-    <a href="{{route('destroycart')}}"><input type="button" value="XÓA GIỎ HÀNG"></a>
+    <a href="{{route('sanpham')}}"><input type="button" value="@lang('lang.continue')"></a>
+    <a href="{{route('destroycart')}}"><input type="button" value="@lang('lang.deletecart')"></a>
 </div>
 @stop

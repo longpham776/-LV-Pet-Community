@@ -77,7 +77,7 @@
 <section class="container py-5">
     <div class="row text-center pt-3">
         <div class="col-lg-6 m-auto">
-            <h1 class="h1">Sản phẩm</h1>
+            <h1 class="h1">@lang('lang.product')</h1>
             <p>
                 
             </p>
@@ -91,16 +91,7 @@
                                 <div class="card rounded-0">
                                     <img class="card-img rounded-0 img-fluid" src="{{url('public')}}/frontend/img/{{$sp->hinh}}">
                                     <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                        <ul class="list-unstyled">
-                                            <form action="#" method="post">
-                                                <li><i class="btn btn-success text-white mt-2 far fa-heart"><input type="submit" class="btn btn-success far fa-heart" name="submit" value="Thích"></i></li>
-                                            </form>
-                                            <form action="#" method="post">
-                                                <input type="text" name="math" hidden value="{{$sp->math}}">
-                                                <input type="text" name="masp" hidden value="{{$sp->masp}}">
-                                                <li><i class="btn btn-success text-white mt-2 far fa-eye"><input type="submit" class="btn btn-success far fa-eye" name="submit" value="Xem"></i></li>
-                                            </form>
-                                        </ul>
+                                        
                                     </div>
                                 </div>
                                 <div class="card-body">

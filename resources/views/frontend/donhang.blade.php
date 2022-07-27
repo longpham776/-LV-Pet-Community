@@ -4,18 +4,18 @@
     <div class="row mb ">
         <div class="box mr" id="bill">
             <div class="row" >
-                <h1>THÔNG TIN ĐƠN HÀNG</h1>
+                <h1>@lang('lang.orderinformation')</h1>
                 <table class="thongtinnhanhang">
                     <tr>
-                        <td width="20%">Họ tên</td>
+                        <td width="20%">@lang('lang.fullname')</td>
                         <td>{{$thongtin['hoten']}}</td>
                     </tr>
                     <tr>
-                        <td>Địa chỉ</td>
+                        <td>@lang('lang.address')</td>
                         <td>{{$thongtin['diachi']}}</td>
                     </tr>
                     <tr>
-                        <td>Điện thoại</td>
+                        <td>@lang('lang.phone')</td>
                         <td>{{$thongtin['dienthoai']}}</td>
                     </tr>
                     <tr>
@@ -23,21 +23,21 @@
                         <td>{{$thongtin['email']}}</td>
                     </tr>
                     <tr>
-                        <td>Phương thức thanh toán</td>
+                        <td>@lang('lang.paymentmethods')</td>
                         <td>{{$thongtin['pttt']}}</td>
                     </tr>
                 </table>
             </div>
             <div class="row mb">
-                <h1>ĐƠN HÀNG</h1>
+                <h1>@lang('lang.order')</h1>
                 <table border="1" >
                     <tr>
                         <th>STT</th>
-                        <th>Tên sản phẩm</th>
-                        <th>&ensp;&ensp;&ensp;Hình</th>
-                        <th>Giá</th>
-                        <th>Số lượng</th>
-                        <th>Thành tiền (VNĐ)</th>
+                        <th>@lang('lang.nameproduct')</th>
+                        <th>&ensp;&ensp;&ensp;@lang('lang.image')</th>
+                        <th>@lang('lang.price')</th>
+                        <th>@lang('lang.quantity')</th>
+                        <th>@lang('lang.subprice')</th>
                     </tr>
                     @php $i=0 @endphp
                     @foreach(Cart::content() as $sp)
