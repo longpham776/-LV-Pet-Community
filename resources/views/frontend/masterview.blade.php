@@ -30,7 +30,7 @@
         <link rel="stylesheet" type="text/css" href="{{url('public')}}/frontend/css/slick.min.css">
         <link rel="stylesheet" type="text/css" href="{{url('public')}}/frontend/css/slick-theme.css">
     
-   
+        
         <style>
             .services .services-list {margin: 0 -1px}
             .services .services-list:after {

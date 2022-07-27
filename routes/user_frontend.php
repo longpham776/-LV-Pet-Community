@@ -33,5 +33,10 @@ Route::group(['namespace'=>'App\Http\Controllers'],function(){
         session()->put('locale',$locale);
         return redirect()->back();
     });
+    Route::get('/confirmorder','FrontendController@confirmorder')->name('confirmorder');
+    Route::get('/forgetpass','FrontendController@forgetpass')->name('forgetpass');
+    Route::post('/postforgetpass','FrontendController@postforgetpass')->name('postforgetpass');
+    Route::get('/changepass/{email}','FrontendController@changepass')->name('changepass');
+    Route::post('/postchangepass','FrontendController@postchangepass')->name('postchangepass');
 }); 
 ?>

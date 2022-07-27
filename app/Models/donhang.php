@@ -31,6 +31,6 @@ class donhang extends Model
               ->update(['trangthai' => $status]);
     }
     public static function findDH($id){
-        return DB::select('SELECT * FROM donhangs WHERE username=?  ',[$id]);    
+        return DB::select('SELECT * FROM donhangs WHERE username=? ORDER BY madon desc ',[$id]);    
     }
 }
