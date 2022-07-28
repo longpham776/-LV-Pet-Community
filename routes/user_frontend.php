@@ -33,5 +33,16 @@ Route::group(['namespace'=>'App\Http\Controllers'],function(){
         session()->put('locale',$locale);
         return redirect()->back();
     });
-}); 
+
+  
+    
+   
+
+    
+   
+    Route::get('/danhgia','FrontendController@danhgia')->name('danhgia');
+    Route::get('/upbinhluan','FrontendController@upbinhluan')->name('upbinhluan');
+});
+
+
 ?>

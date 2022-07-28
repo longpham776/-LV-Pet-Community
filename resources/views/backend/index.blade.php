@@ -23,10 +23,12 @@
             <th>ID</th>
             <th>Hình</th>
             <th>Tên sản phẩm</th>
+            <th>Loại sản phẩm</th>
             <th>Giá</th>
             <th>Nội dung</th>
             <th>Sửa</th>
             <th>Xóa</th>
+            <th>Bình luận</th>
           </tr>
 
         </thead>
@@ -40,16 +42,29 @@
             <td><img src="{{url('public')}}/frontend/img/{{$sp->hinh}}" 
                 weight=200px height=200px class="image_pro"></td>
             <td>{{$sp->tensp}}</td>
+            <td>
+              @foreach($getLoai as $data)
+                @if($data->maloai == $sp->loaisp)
+                  {{$data->tenloai}}
+                @endif
+              @endforeach
+            </td>
             <td>{{$sp->gia}}VNĐ</td>
             <td>
               {{$sp->mota}}
             </td>
-            <td><button>Sửa</button></td>
+            <td><button class="btn btn-primary">Sửa</button></td>
             </form>
             <td> <form action="{{route('ad.delete_pro')}}" method="get">
             <input type="hidden" value="{{ $sp->masp }}" name="masp">
-            <button>Xóa</button>
+            <button class="btn btn-primary">Xóa</button>
                 </form>
+            </td>
+            <td>
+              <form action="{{route('ad.listBinhLuan')}}" method="get">
+              <input type="hidden" value="{{ $sp->masp }}" name="masp">
+              <button class="btn btn-primary">Bình luận</button>
+              </form>
             </td>
           </tr>
           

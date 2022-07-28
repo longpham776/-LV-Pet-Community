@@ -8,6 +8,7 @@ use DB;
 class donhang extends Model
 {
     use HasFactory;
+    protected $table ='donhangs';
     public static function addBill($username,$hoten,$diachi,$dienthoai,$email,$pttt,$thanhtien){
         return DB::table('donhangs')->insert([
             'username' => $username,
@@ -15,6 +16,7 @@ class donhang extends Model
             'diachi' => $diachi,
             'dienthoai' => $dienthoai,
             'email' => $email,
+            'date'=> date('Y-m-d'),
             'pttt' => $pttt,
             'thanhtien' => $thanhtien
         ]);

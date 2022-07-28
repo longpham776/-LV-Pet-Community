@@ -85,7 +85,7 @@
                         <td><a href="{{route('chitietsanpham',['id'=>$sp->id])}}"><img src="{{url('public')}}/frontend/img/{{$sp->options->images}}" style="width:100px;height:100px;" alt=""></a></td>
                         <td>{{$sp->price}}</td>
                         <td>
-                            <input type="text" size="1" style="text-align:center" value="{{$sp->qty}}">
+                            <input type="text" size="1" readonly style="text-align:center" value="{{$sp->qty}}">
                             <!-- <a href="{{route('upcart',['id'=>$sp->id,'qty'=>$sp->qty])}}" style="text-decoration: none">Update</a> -->
                         </td>
                         <td><div>{{number_format($sp->price*$sp->qty)}} VNĐ</div></td>
