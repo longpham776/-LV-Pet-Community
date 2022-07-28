@@ -38,7 +38,6 @@ class FrontendController extends Controller
         return view('frontend.lienhe');
     }
     public function confirmorder(Request $request){
-        dd($request->all());
         return view('frontend.confirmorder');
     }
     public function forgetpass(){
@@ -265,22 +264,22 @@ class FrontendController extends Controller
             return view('frontend.giohang',compact('getDC'));
         }
         $masp=$request->masp;
-            $sl=$request->soluong;
-            if(($sl==0) || ($sl>=5)){
-                $getSP=sanpham::getById($masp);
-                $getAll= sanpham::all();
-                return view('frontend.chitietsanpham',compact('getSP','getAll'));
-            }
-            $spdetail=sanpham::getById($masp);
-            Cart::add([
-                'id' => $spdetail[0]->masp, 
-                'name' => $spdetail[0]->tensp, 
-                'qty' => $sl, 
-                'price' => $spdetail[0]->gia, 
-                'weight' => 1, 
-                'options' => ['images' => $spdetail[0]->hinh]
-            ]);
-            return view('frontend.giohang');
+        $sl=$request->soluong;
+        if(($sl==0) || ($sl>=5)){
+            $getSP=sanpham::getById($masp);
+            $getAll= sanpham::all();
+            return view('frontend.chitietsanpham',compact('getSP','getAll'));
+        }
+        $spdetail=sanpham::getById($masp);
+        Cart::add([
+            'id' => $spdetail[0]->masp, 
+            'name' => $spdetail[0]->tensp, 
+            'qty' => $sl, 
+            'price' => $spdetail[0]->gia, 
+            'weight' => 1, 
+            'options' => ['images' => $spdetail[0]->hinh]
+        ]);
+        return view('frontend.giohang');
 
     }
     public function delcart($rowId)
@@ -405,7 +404,6 @@ class FrontendController extends Controller
         // header('Location: ' . $jsonResult['payUrl']);
     }
     public function vn_payment(Request $request){
-        dd($request->all());
         $id = rand(0000,9999);
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
         $vnp_Returnurl = "http://petcommunity.net/confirmorder";

@@ -17,20 +17,20 @@
                     @foreach ($getDC as $dc)
                     <tr>
                         <td><b>@lang('lang.address')</b></td>
-                        <td><input type="text" name="diachi" placeholder="@lang('lang.enteraddress')" required class="form-control" value="{{$dc->diachi}}"></td>
+                        <td><input type="text" id="diachi" name="diachi" placeholder="@lang('lang.enteraddress')" required class="form-control" value="{{$dc->diachi}}"></td>
                     </tr>
                     <tr>
                         <td><b>@lang('lang.phone')</b></td>
-                        <td><input type="text" name="dienthoai" placeholder="@lang('lang.enterphone')" required class="form-control" value="0{{$dc->sdt}}"></td>
+                        <td><input type="text" id="dienthoai" name="dienthoai" placeholder="@lang('lang.enterphone')" required class="form-control" value="0{{$dc->sdt}}"></td>
                     </tr>
                     @endforeach
                     <tr>
                         <td><b>Email</b></td>
-                        <td><input type="email" name="email" placeholder="@lang('lang.enteremail')" required class="form-control"value="{{$u->email}}"></td>
+                        <td><input type="email" id="email" name="email" placeholder="@lang('lang.enteremail')" required class="form-control"value="{{$u->email}}"></td>
                     </tr>
                     <tr>
                         <td><b>@lang('lang.paymentmethods')</b></td>
-                        <td><select id="sterilizations" name="pttt" class="form-control">
+                        <td><select id="pttt" name="pttt" class="form-control">
                             <option value="0">@lang('lang.paymentondelivery')</option>
                             <option value="1">@lang('lang.onlinepayment')</option>
                         </select></td>
@@ -40,23 +40,23 @@
                     @else
                     <tr>
                         <td width="20%"><b>@lang('lang.fullname')</b></td>
-                        <td><input type="text" name="hoten" placeholder="@lang('lang.enterfullname')" required class="form-control"></td>
+                        <td><input type="text" id="hoten" name="hoten" placeholder="@lang('lang.enterfullname')" required class="form-control"></td>
                     </tr>
                     <tr>
                         <td><b>@lang('lang.address')</b></td>
-                        <td><input type="text" name="diachi" placeholder="@lang('lang.enteraddress')" required class="form-control"></td>
+                        <td><input type="text" id="diachi" name="diachi" placeholder="@lang('lang.enteraddress')" required class="form-control"></td>
                     </tr>
                     <tr>
                         <td><b>@lang('lang.phone')</b></td>
-                        <td><input type="text" name="dienthoai" placeholder="@lang('lang.enterphone')" required class="form-control"></td>
+                        <td><input type="text" id="dienthoai" name="dienthoai" placeholder="@lang('lang.enterphone')" required class="form-control"></td>
                     </tr>
                     <tr>
                         <td><b>Email</b></td>
-                        <td><input type="email" name="email" placeholder="@lang('lang.enteremail')" required class="form-control"></td>
+                        <td><input type="email" id="email" name="email" placeholder="@lang('lang.enteremail')" required class="form-control"></td>
                     </tr>
                     <tr>
                         <td><b>@lang('lang.paymentmethods')</b></td>
-                        <td><select id="sterilizations" name="pttt" class="form-control">
+                        <td><select id="pttt" name="pttt" class="form-control">
                             <option value="0">@lang('lang.paymentondelivery')</option>
                             <option value="1">@lang('lang.onlinepayment')</option>
                         </select></td>
@@ -127,7 +127,6 @@
     <br>
     <form id="form-payment" method="POST" action="{{route('vn_payment')}}">
         @csrf
-        <input type="hidden" name="total_momo" value="">
         <button type="submit" onclick="formDelivery()" name="redirect">@lang('lang.vnpaypayment')</button>
     </form>
     <br>
@@ -137,8 +136,12 @@
 <script>
     //Make sure that the dom is ready
     function formDelivery(){
-        alert("Vui lòng đăng nhập để được bình luận!"+$('.hoten'));
-        $('#form-delivery').submit();
+        // alert("Data!"+$('#hoten').val()+$('#diachi').val()+$('#dienthoai').val()+$('#email').val()+$('#pttt').val());
+        sessionStorage.setItem('hoten',$('#hoten').val());
+        sessionStorage.setItem('diachi',$('#diachi').val());
+        sessionStorage.setItem('dienthoai',$('#dienthoai').val());
+        sessionStorage.setItem('email',$('#email').val());
+        sessionStorage.setItem('pttt',$('#pttt').val());
     }
 </script>
 @stop

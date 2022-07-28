@@ -16,7 +16,6 @@ class donhang extends Model
             'diachi' => $diachi,
             'dienthoai' => $dienthoai,
             'email' => $email,
-            'date'=> date('Y-m-d'),
             'pttt' => $pttt,
             'thanhtien' => $thanhtien
         ]);

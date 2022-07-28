@@ -41,7 +41,7 @@ a[x-apple-data-detectors] {
 }
 div[style*="margin: 16px 0;"] { margin: 0 !important; }
 </style>
-<body style="margin: 0 !important; padding: 0 !important; background-color: #eeeeee;" bgcolor="#eeeeee">
+<body onload="loadSessionStorage()" style="margin: 0 !important; padding: 0 !important; background-color: #eeeeee;" bgcolor="#eeeeee">
 
 
 <div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: Open Sans, Helvetica, Arial, sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;">
@@ -121,7 +121,7 @@ For what reason would it be advisable for me to think about business content? Th
                                 @foreach(Cart::content() as $sp)
                                 <tr>
                                     <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">
-                                        {{$sp->name}}
+                                        {{$sp->name}} X {{$sp->qty}}
                                     </td>
                                     <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">
                                         {{$sp->price}} VNĐ
@@ -160,8 +160,7 @@ For what reason would it be advisable for me to think about business content? Th
                                     <tr>
                                         <td align="left" valign="top" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px;">
                                             <p style="font-weight: 800;">Delivery Address</p>
-                                            <p>675 Massachusetts Avenue<br>11th Floor<br>Cambridge, MA 02139</p>
-
+                                            <p></p>
                                         </td>
                                     </tr>
                                 </table>
@@ -171,7 +170,7 @@ For what reason would it be advisable for me to think about business content? Th
                                     <tr>
                                         <td align="left" valign="top" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px;">
                                             <p style="font-weight: 800;">Estimated Delivery Date</p>
-                                            <p>January 1st, 2016</p>
+                                            <p></p>
                                         </td>
                                     </tr>
                                 </table>
@@ -182,28 +181,36 @@ For what reason would it be advisable for me to think about business content? Th
                 </td>
             </tr>
             <tr>
-                <td align="center" style=" padding: 35px; background-color: #ff7361;" bgcolor="#1b9ba3">
-                <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;">
-                    <tr>
-                        <td align="center" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding-top: 25px;">
-                            <h2 style="font-size: 24px; font-weight: 800; line-height: 30px; color: #ffffff; margin: 0;">
-                                Please confirm your order again.
-                            </h2>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center" style="padding: 25px 0 15px 0;">
-                            <table border="0" cellspacing="0" cellpadding="0">
-                                <tr>
-                                    <td align="center" style="border-radius: 5px;" bgcolor="#66b3b7">
-                                      <a href="{{route('destroycart')}}" style="font-size: 18px; font-family: Open Sans, Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; border-radius: 5px; background-color: #F44336; padding: 15px 30px; border: 1px solid #F44336; display: block;">CONFIRM</a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-                </td>
+                <form action="{{route('postcheckout')}}" method="post">
+                    @csrf
+                    <input type="hidden" id="hoten" name="hoten">
+                    <input type="hidden" id="diachi" name="diachi">
+                    <input type="hidden" id="dienthoai" name="dienthoai">
+                    <input type="hidden" id="email" name="email">
+                    <input type="hidden" id="pttt" name="pttt">
+                    <td align="center" style=" padding: 35px; background-color: #ff7361;" bgcolor="#1b9ba3">
+                    <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;">
+                        <tr>
+                            <td align="center" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding-top: 25px;">
+                                <h2 style="font-size: 24px; font-weight: 800; line-height: 30px; color: #ffffff; margin: 0;">
+                                    Please confirm your order again.
+                                </h2>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="padding: 25px 0 15px 0;">
+                                <table border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td align="center" style="border-radius: 5px;" bgcolor="#66b3b7">
+                                        <button onclick="clearSession()" style="font-size: 18px; font-family: Open Sans, Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; border-radius: 5px; background-color: #F44336; padding: 15px 30px; border: 1px solid #F44336; display: block;">CONFIRM</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    </td>
+                </form>
             </tr>
             <tr>
                 <td align="center" style="padding: 35px; background-color: #ffffff;" bgcolor="#ffffff">
@@ -220,6 +227,18 @@ For what reason would it be advisable for me to think about business content? Th
         </td>
     </tr>
 </table>
-    
+<script>
+    //Make sure that the dom is ready
+    function loadSessionStorage() {
+        document.getElementById("hoten").value = sessionStorage.getItem('hoten');
+        document.getElementById("diachi").value = sessionStorage.getItem('diachi');
+        document.getElementById("dienthoai").value = sessionStorage.getItem('dienthoai');
+        document.getElementById("email").value = sessionStorage.getItem('email');
+        document.getElementById("pttt").value = sessionStorage.getItem('pttt');
+    }
+    function clearSession(){
+        sessionStorage.clear();
+    }
+</script>
 </body>
 </html>
