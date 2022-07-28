@@ -90,14 +90,14 @@
                                 <div id="rateYo1"></div>
                                 <p class="py-2">
                                     <span class="list-inline-item text-dark">
-                                        Rating {{$sp->danhgia}} | 36 Comments
+                                        Rating {{$sp->danhgia}} | {{count($getBl)}} Comments
                                     </span>
                                 </p>
                             @else
                                 <div id="rateYo"></div>
                                 <p class="py-2">
                                     <span class="list-inline-item text-dark">
-                                        Rating {{$sp->danhgia}} | 36 Comments
+                                        Rating {{$sp->danhgia}} | {{count($getBl)}} Comments
                                         <form class="form-inline" id="formrating" action="{{route('rating')}}" method="post">
                                             @csrf
                                             <div class="form-group">
@@ -172,7 +172,63 @@
         @endforeach
 </section>
 <!-- Close Content -->
+<div class="container">
+    <div class="be-comment-block">
+        <h1 class="comments-title">Comments ({{count($getBl)}})</h1>
+        @foreach($getBl as $bl)
+        <div class="be-comment">
+            <div class="be-img-comment">	
+                <a href="blog-detail-2.html">
+                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="be-ava-comment">
+                </a>
+            </div>
+            <div class="be-comment-content">
+                
+                    <span class="be-comment-name">
+                        <a href="blog-detail-2.html">{{$bl->username}}</a>
+                        </span>
+                    <span class="be-comment-time">
+                        <i class="fa fa-clock-o"></i>
+                        {{$bl->create_at}}
+                    </span>
 
+                <p class="be-comment-text">
+                    {{$bl->mota}}
+                </p>
+            </div>
+        </div>
+        @endforeach
+        @if(isset($_SESSION['user']))
+        <form class="form-block" action="{{route('binhluansp')}}" method="post">
+            @csrf
+            <div class="row">
+                <input type="hidden" name="masp" value="{{$getSP[0]->masp}}">
+                <input type="hidden" name="username" value="{{$_SESSION['user'][0]->username}}">
+                @error('mota')
+                     <span style="color: red;">{{ $message }}</span>
+                @enderror
+                <div class="col-xs-12">									
+                    <div class="form-group">
+                        <textarea class="form-input" name="mota" placeholder="Your text"></textarea>
+                    </div>
+                </div>
+                <button class="btn btn-primary pull-right">submit</button>
+            </div>
+        </form>
+        @else
+        <form class="form-block" id="form-comment" action="" method="">
+            <div class="row">
+                <div class="col-xs-12">									
+                    <div class="form-group">
+                        <textarea class="form-input" readonly name="mota" placeholder="Your text"></textarea>
+                    </div>
+                </div>
+                <a class="btn btn-primary pull-right">submit</a>
+            </div>
+        </form>
+        @endif
+    </div>
+</div>
 <!-- Start Article -->
 <section class="py-5">
     <div class="container">
@@ -238,6 +294,123 @@
     </div>
 </section>
 <!-- End Article -->
+<style type="text/css">
+    body{
+        margin-top:20px;
+        background-color:#e9ebee;
+    }
+
+    .be-comment-block {
+        margin-bottom: 50px !important;
+        border: 1px solid #edeff2;
+        border-radius: 2px;
+        padding: 50px 70px;
+        border:1px solid #ffffff;
+    }
+
+    .comments-title {
+        font-size: 16px;
+        color: #262626;
+        margin-bottom: 15px;
+        font-family: 'Conv_helveticaneuecyr-bold';
+    }
+
+    .be-img-comment {
+        width: 60px;
+        height: 60px;
+        float: left;
+        margin-bottom: 15px;
+    }
+
+    .be-ava-comment {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+    }
+
+    .be-comment-content {
+        margin-left: 80px;
+    }
+
+    .be-comment-content span {
+        display: inline-block;
+        width: 49%;
+        margin-bottom: 15px;
+    }
+
+    .be-comment-name {
+        font-size: 13px;
+        font-family: 'Conv_helveticaneuecyr-bold';
+    }
+
+    .be-comment-content a {
+        color: #383b43;
+    }
+
+    .be-comment-content span {
+        display: inline-block;
+        width: 49%;
+        margin-bottom: 15px;
+    }
+
+    .be-comment-time {
+        text-align: right;
+    }
+
+    .be-comment-time {
+        font-size: 11px;
+        color: #b4b7c1;
+    }
+
+    .be-comment-text {
+        font-size: 13px;
+        line-height: 18px;
+        color: #7a8192;
+        display: block;
+        background: #f6f6f7;
+        border: 1px solid #edeff2;
+        padding: 15px 20px 20px 20px;
+    }
+
+    .form-group.fl_icon .icon {
+        position: absolute;
+        top: 1px;
+        left: 16px;
+        width: 48px;
+        height: 48px;
+        background: #f6f6f7;
+        color: #b5b8c2;
+        text-align: center;
+        line-height: 50px;
+        -webkit-border-top-left-radius: 2px;
+        -webkit-border-bottom-left-radius: 2px;
+        -moz-border-radius-topleft: 2px;
+        -moz-border-radius-bottomleft: 2px;
+        border-top-left-radius: 2px;
+        border-bottom-left-radius: 2px;
+    }
+
+    .form-group .form-input {
+        font-size: 13px;
+        line-height: 50px;
+        font-weight: 400;
+        color: #b4b7c1;
+        width: 100%;
+        height: 50px;
+        padding-left: 20px;
+        padding-right: 20px;
+        border: 1px solid #edeff2;
+        border-radius: 3px;
+    }
+
+    .form-group.fl_icon .form-input {
+        padding-left: 70px;
+    }
+
+    .form-group textarea.form-input {
+        height: 150px;
+    }
+</style>
 <script>
     //Make sure that the dom is ready
     $(function () {
@@ -253,6 +426,14 @@
             rating: rateAvg
         }).on("rateyo.set", function (e, data) {
             alert("Vui lòng đăng nhập để được đánh giá!");
+        });
+    });
+</script>
+<script>
+    //Make sure that the dom is ready
+    $(function () {
+        $("#form-comment").on("click", function () {
+            alert("Vui lòng đăng nhập để được bình luận!");
         });
     });
 </script>

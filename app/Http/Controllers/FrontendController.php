@@ -1,8 +1,8 @@
 <?php
 namespace App\Http\Controllers;
-
 session_start();
 use Cart;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -14,6 +14,7 @@ use App\Models\loaisp;
 use App\Models\thuonghieu;
 use App\Models\donhang;
 use App\Models\danhgiasanpham;
+use App\Models\binhluansp;
 use App\Models\chitietdonhang;
 use App\Mail\contactMail;
 use App\Mail\forgetpassMail;
@@ -41,6 +42,19 @@ class FrontendController extends Controller
     }
     public function forgetpass(){
         return view('backend.forgetpass');
+    }
+    public function binhluansp(Request $request){
+        $request->validate([
+            'mota'=>'required'
+        ],[
+            'mota.required'=>'Vui lòng nhập nội dung'
+        ]);
+        $masp=$request->masp;
+        $username=$request->username;
+        $mota=$request->mota;
+        $datetime = Carbon::now();
+        binhluansp::commentSp($masp,$username,$mota,$datetime);
+        return redirect()->route('chitietsanpham',['id'=>$masp]);
     }
     public function rating(Request $request){
         $username = $request->username;
@@ -166,8 +180,9 @@ class FrontendController extends Controller
     public function chitietsanpham(Request $request){
         $getSP=sanpham::getById($request->id);
         $getAll = sanpham::all();
+        $getBl = binhluansp::getCommentSp($request->id);
         // $getRating = danhgiasanpham::getRatingSp($masp);
-        return view('frontend.chitietsanpham',compact('getSP','getAll'));
+        return view('frontend.chitietsanpham',compact('getSP','getAll','getBl'));
     }
     public function timkiem(Request $request){
         $getSP=sanpham::search($request->id);

@@ -39,5 +39,6 @@ Route::group(['namespace'=>'App\Http\Controllers'],function(){
     Route::get('/changepass/{email}','FrontendController@changepass')->name('changepass');
     Route::post('/postchangepass','FrontendController@postchangepass')->name('postchangepass');
     Route::post('/rating','FrontendController@rating')->name('rating');
+    Route::post('/binhluansp','FrontendController@binhluansp')->name('binhluansp');
 }); 
 ?>
