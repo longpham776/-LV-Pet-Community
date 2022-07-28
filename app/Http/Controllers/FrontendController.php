@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Mail;
 class FrontendController extends Controller
 {
     public function index(){
-        $getSP=sanpham::where('trangthai','regexp',0)->paginate(5);
+        $getSP=sanpham::where('trangthai','regexp',0)->paginate(6);
         return view('frontend.index',compact('getSP'));
     }
     public function news(){
@@ -37,7 +37,8 @@ class FrontendController extends Controller
     public function contact(){
         return view('frontend.lienhe');
     }
-    public function confirmorder(){
+    public function confirmorder(Request $request){
+        dd($request->all());
         return view('frontend.confirmorder');
     }
     public function forgetpass(){
@@ -159,7 +160,7 @@ class FrontendController extends Controller
         }else if(!$request->kw){
             $getLoai=loaisp::getLoai();
             $getTH=thuonghieu::getTH();
-            $getSP=sanpham::where('trangthai','regexp',0)->paginate(5);
+            $getSP=sanpham::where('trangthai','regexp',0)->paginate(6);
             return view('frontend.sanpham',compact('getSP' ,'getLoai', 'getTH'));
         }
     }
@@ -404,6 +405,7 @@ class FrontendController extends Controller
         // header('Location: ' . $jsonResult['payUrl']);
     }
     public function vn_payment(Request $request){
+        dd($request->all());
         $id = rand(0000,9999);
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
         $vnp_Returnurl = "http://petcommunity.net/confirmorder";

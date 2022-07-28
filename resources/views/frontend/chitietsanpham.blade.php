@@ -169,36 +169,6 @@
                                     </div>
                                 </div>
                             </form>
-                            <hr>
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <h3><b>Đánh giá sản phẩm</b></h3>
-                                </tr>
-                                <tr>
-                                    <th>User</th>
-                                    <th>Đáng giá</th>
-                                    <th>Nội dung</th>
-                                    <th>Thời gian</th>
-                                </tr>
-
-                                </thead>
-                                <tbody>
-                                @foreach($binhluans as $data)
-                                    @csrf
-                                    <td>{{$data->username}}</td>
-                                    <td>{{$data->danhgia}}/5</td>
-                                    <td>{{$data->binhluan}}</td>
-                                    <td> 
-                                        {{$data->create_at}}
-                                    </td>
-                                    <td>
-                                    </td>
-                                </tr>
-                                <tr>
-                                @endforeach
-                                </tbody>
-                            </table>
                         </div>
                    
                     </div>
@@ -214,14 +184,14 @@
         @foreach($getBl as $bl)
         <div class="be-comment">
             <div class="be-img-comment">	
-                <a href="blog-detail-2.html">
+                <a href="#" style="text-decoration:none;">
                     <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="be-ava-comment">
                 </a>
             </div>
             <div class="be-comment-content">
                 
                     <span class="be-comment-name">
-                        <a href="blog-detail-2.html">{{$bl->username}}</a>
+                        <a href="#" style="text-decoration:none;">{{$bl->username}}</a>
                         </span>
                     <span class="be-comment-time">
                         <i class="fa fa-clock-o"></i>

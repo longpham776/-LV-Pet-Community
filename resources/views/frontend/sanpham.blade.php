@@ -68,15 +68,57 @@
                                             <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
                                         </li>
                                     </ul>
+                                    @if($sp->danhgia <= 1)
                                     <ul class="list-unstyled d-flex justify-content-center mb-1">
                                         <li>
-                                            <i class="text-warning fa fa-star"></i>
-                                            <i class="text-warning fa fa-star"></i>
-                                            <i class="text-warning fa fa-star"></i>
-                                            <i class="text-warning fa fa-star"></i>
-                                            <i class="text-warning fa fa-star"></i>
+                                            <i class="fa fa-star text-warning"></i>
+                                            <i class="fa fa-star text-secondary"></i>
+                                            <i class="fa fa-star text-secondary"></i>
+                                            <i class="fa fa-star text-secondary"></i>
+                                            <i class="fa fa-star text-secondary"></i>
                                         </li>
                                     </ul>
+                                    @elseif($sp->danhgia <= 2)
+                                    <ul class="list-unstyled d-flex justify-content-center mb-1">
+                                        <li>
+                                            <i class="fa fa-star text-warning"></i>
+                                            <i class="fa fa-star text-warning"></i>
+                                            <i class="fa fa-star text-secondary"></i>
+                                            <i class="fa fa-star text-secondary"></i>
+                                            <i class="fa fa-star text-secondary"></i>
+                                        </li>
+                                    </ul>
+                                    @elseif($sp->danhgia <= 3)
+                                    <ul class="list-unstyled d-flex justify-content-center mb-1">
+                                        <li>
+                                            <i class="fa fa-star text-warning"></i>
+                                            <i class="fa fa-star text-warning"></i>
+                                            <i class="fa fa-star text-warning"></i>
+                                            <i class="fa fa-star text-secondary"></i>
+                                            <i class="fa fa-star text-secondary"></i>
+                                        </li>
+                                    </ul>
+                                    @elseif($sp->danhgia <= 4)
+                                    <ul class="list-unstyled d-flex justify-content-center mb-1">
+                                        <li>
+                                            <i class="fa fa-star text-warning"></i>
+                                            <i class="fa fa-star text-warning"></i>
+                                            <i class="fa fa-star text-warning"></i>
+                                            <i class="fa fa-star text-warning"></i>
+                                            <i class="fa fa-star text-secondary"></i>
+                                        </li>
+                                    </ul>
+                                    @elseif($sp->danhgia <= 5)
+                                    <ul class="list-unstyled d-flex justify-content-center mb-1">
+                                        <li>
+                                            <i class="fa fa-star text-warning"></i>
+                                            <i class="fa fa-star text-warning"></i>
+                                            <i class="fa fa-star text-warning"></i>
+                                            <i class="fa fa-star text-warning"></i>
+                                            <i class="fa fa-star text-warning"></i>
+                                        </li>
+                                    </ul>
+                                    @endif
                                     <p class="text-center mb-0">{{$sp->gia}}<u>đ</u></p>
                                 </div>
                             </div>
@@ -197,4 +239,5 @@
         </div>
     </div>
 </section>
+
 @stop

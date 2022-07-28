@@ -2,7 +2,7 @@
 @section('content')
 <div class="container py-5">
     <div class="row mb ">
-    <form method="post" action="{{route('postcheckout')}}">
+    <form id="form-delivery" method="post" action="{{route('postcheckout')}}">
         @csrf
         <div class="box mr" id="bill">
             <div class="row" >
@@ -12,7 +12,7 @@
                                             @foreach($_SESSION['user'] as $u)
                                             <tr>
                         <td width="20%"><b>@lang('lang.fullname')</b></td>
-                        <td><input type="text" name="hoten" placeholder="@lang('lang.enterfullname')" required value="{{$u->hoten}}" class="form-control"></td>
+                        <td><input type="text" id="hoten" name="hoten" placeholder="@lang('lang.enterfullname')" required value="{{$u->hoten}}" class="form-control"></td>
                     </tr>
                     @foreach ($getDC as $dc)
                     <tr>
@@ -125,13 +125,20 @@
         <button type="submit" name="payUrl">@lang('lang.payment')</button>
     </form> -->
     <br>
-    <form method="POST" action="{{route('vn_payment')}}">
+    <form id="form-payment" method="POST" action="{{route('vn_payment')}}">
         @csrf
         <input type="hidden" name="total_momo" value="">
-        <button type="submit" name="redirect">@lang('lang.vnpaypayment')</button>
+        <button type="submit" onclick="formDelivery()" name="redirect">@lang('lang.vnpaypayment')</button>
     </form>
     <br>
     <a href="{{route('sanpham')}}"><input type="button" value="@lang('lang.continue')"></a>
     <a href="{{route('destroycart')}}"><input type="button" value="@lang('lang.deletecart')"></a>
 </div>
+<script>
+    //Make sure that the dom is ready
+    function formDelivery(){
+        alert("Vui lòng đăng nhập để được bình luận!"+$('.hoten'));
+        $('#form-delivery').submit();
+    }
+</script>
 @stop
