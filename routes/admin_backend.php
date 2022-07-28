@@ -30,6 +30,11 @@ Route::group(['prefix'=>'admin','namespace'=>'App\Http\Controllers\backend'],fun
     Route::get('/restoreLoai','DashboardController@RestoreLoai')->name('ad.restoreLoai');
     Route::get('/listDeTH','DashboardController@listDeTH')->name('ad.listDeTH');
     Route::get('/restoreTH','DashboardController@restoreTH')->name('ad.restore_hang');
+    Route::get('/khachhang','DashboardController@khachhang')->name('ad.khachhang');
+    Route::get('/resetPass','DashboardController@resetPass')->name('ad.resetPass');
+    Route::get('/listBinhLuan','DashboardController@listBinhLuan')->name('ad.listBinhLuan');
+    Route::get('/xoaBinhLuan','DashboardController@xoaBinhLuan')->name('ad.xoaBinhLuan');
+    
    
 });
 

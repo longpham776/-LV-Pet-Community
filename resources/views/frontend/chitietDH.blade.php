@@ -24,15 +24,16 @@
                                                 <th>@lang('lang.image')</th>
                                                 <th>@lang('lang.quantity')</th>
                                                 <th>@lang('lang.subprice')</th>
-                                                <!-- <th>Trạng thái</th> -->
                                                 </tr>
 												</thead>
 
 												<tbody>
                                                  @foreach($getCTD as $ct)
-                                                <form action="{{route('ad.edit_pro')}}" method="get">
+                                                <form action="{{route('danhgia')}}" method="get">
                                                     @csrf
                                                     <input type="hidden" value="{{ $ct->stt }}" name="id">
+                                                    <input type="hidden" value="{{ $ct->masp }}" name="id_sp">
+                                                    <input type="hidden" value="{{ $ct->trangthai }}" name="tt">
                                                     
                                                     <td>{{$ct->masp}}</td>
                                                     <td>{{$ct->tensp}}</td>
@@ -43,12 +44,9 @@
                                                     {{$ct->soluong}}
                                                     </td>
                                                     <td>{{$ct->thanhtien}}</td>
-                                                    <!-- @if($ct->trangthai == 0)
-                                                    <td>Chưa chuẩn bị</td>
-                                                    @elseif($ct->trangthai == 1)
-                                                    <td>Đã chuẩn bị</td>
-                                                    @endif -->
-                                                    
+																										<td>
+																											<button class="btn btn-primary" type="submit">Đánh giá</button>
+																										</td>
                                                     </form>
                                                     
                                                 </tr>

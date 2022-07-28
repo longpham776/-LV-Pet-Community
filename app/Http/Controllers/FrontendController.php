@@ -181,8 +181,8 @@ class FrontendController extends Controller
         $getSP=sanpham::getById($request->id);
         $getAll = sanpham::all();
         $getBl = binhluansp::getCommentSp($request->id);
-        // $getRating = danhgiasanpham::getRatingSp($masp);
-        return view('frontend.chitietsanpham',compact('getSP','getAll','getBl'));
+        $getTH = thuonghieu::getTH();
+        return view('frontend.chitietsanpham',compact('getSP','getAll','getTH','getBl'));
     }
     public function timkiem(Request $request){
         $getSP=sanpham::search($request->id);

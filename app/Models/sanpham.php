@@ -7,6 +7,7 @@ use DB;
 class sanpham extends Model
 {
     use HasFactory;
+    protected $table = 'sanphams';
     public static function getById($masp){
         return DB::table('sanphams')->where('masp',$masp)->get();
     }
@@ -15,6 +16,9 @@ class sanpham extends Model
     }
     public static function addProduct($m,$t,$mt,$c,$g,$th,$l,$h,$tt){
         return DB::select('INSERT INTO sanphams(masp,tensp,mota,congdung,gia,math,loaisp,hinh,trangthai) VALUES (?,?,?,?,?,?,?,?,?)',[$m,$t,$mt,$c,$g,$th,$l,$h,$tt]);
+    }
+    public static function getByName($name){
+        return DB::table('sanphams')->where('tensp',$name)->get();
     }
     public static function deleteProduct($tt,$m){
         return DB::select('UPDATE sanphams SET trangthai=?

@@ -49,12 +49,11 @@
                                 <div class="form-group">
                                 <label>Level</label>
                                 <select name="quyen">
-                                           
                                            <option value="2">
-                                              Admin
+                                             Nhân viên Lv1
                                            </option>
-                                           <option value="3">
-                                             Master
+                                           <option value="4">
+                                             Nhân viên Lv2
                                            </option>
                                        </select>
                                 </div> 

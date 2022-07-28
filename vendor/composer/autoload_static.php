@@ -531,6 +531,7 @@ class ComposerStaticInit3e3ac6f51ab2a647ceadb0845e100005
     );
 
     public static $classMap = array (
+        'App\\Charts\\UserChart' => __DIR__ . '/../..' . '/app/Charts/UserChart.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
@@ -547,6 +548,7 @@ class ComposerStaticInit3e3ac6f51ab2a647ceadb0845e100005
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Mail\\contactMail' => __DIR__ . '/../..' . '/app/Mail/contactMail.php',
+        'App\\Models\\BinhLuans' => __DIR__ . '/../..' . '/app/Models/BinhLuans.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Models\\admin' => __DIR__ . '/../..' . '/app/Models/admin.php',
         'App\\Models\\chitietdonhang' => __DIR__ . '/../..' . '/app/Models/chitietdonhang.php',

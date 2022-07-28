@@ -82,13 +82,15 @@
                                 <div class="form-group ">
                                     <label for="cname" class="control-label col-lg-3">Mô tả</label>
                                     <div class="col-lg-6">
-                                        <input class=" form-control" id="cname" name="mota" minlength="2" type="text" value="{{ $sp->mota }}">
+                                        <textarea class=" form-control" id="cname" name="mota" minlength="2" type="text" value="{{ $sp->mota }}" rows="8" cols="50">{{ $sp->mota }}
+                                        </textarea>
                                     </div>
                                 </div>
                                 <div class="form-group ">
                                     <label for="cname" class="control-label col-lg-3">Công dụng</label>
                                     <div class="col-lg-6">
-                                        <input class=" form-control" id="cname" name="congdung" minlength="2" type="text" value="{{ $sp->congdung }}" >
+                                        <textarea class=" form-control" id="cname" name="congdung" minlength="2" type="text" value="{{ $sp->congdung }}" rows="8" cols="50" >{{ $sp->congdung }}
+                                            </textarea>
                                     </div>
                                 </div>
                                 <div class="form-group ">
