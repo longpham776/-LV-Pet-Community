@@ -86,14 +86,32 @@
                         <div class="card-body">
                             <h1 class="h2">{{$sp->tensp}}</h1>
                             <p class="h3 py-2">{{$sp->gia}}<u>đ</u></p>
-                            <!-- <p class="py-2">
-                                <i class="fa fa-star text-warning"></i>
-                                <i class="fa fa-star text-warning"></i>
-                                <i class="fa fa-star text-warning"></i>
-                                <i class="fa fa-star text-warning"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <span class="list-inline-item text-dark">Rating 4.8 | 36 Comments</span>
-                            </p> -->
+                            @if(!isset($_SESSION['user']))
+                                <div id="rateYo1"></div>
+                                <p class="py-2">
+                                    <span class="list-inline-item text-dark">
+                                        Rating {{$sp->danhgia}} | 36 Comments
+                                    </span>
+                                </p>
+                            @else
+                                <div id="rateYo"></div>
+                                <p class="py-2">
+                                    <span class="list-inline-item text-dark">
+                                        Rating {{$sp->danhgia}} | 36 Comments
+                                        <form class="form-inline" id="formrating" action="{{route('rating')}}" method="post">
+                                            @csrf
+                                            <div class="form-group">
+                                                <input type="hidden" name="rating_star" id="rating_star">
+                                                <input type="hidden" name="masp" value="{{$sp->masp}}">
+                                                <input type="hidden" name="username" value="{{$_SESSION['user'][0]->username}}">
+                                            </div>
+                                        </form> 
+                                    </span>
+                                </p>
+                            @endif
+                            
+                            
+                            
                             <ul class="list-inline">
                                 <li class="list-inline-item">
                                     <h6>Brand:</h6>
@@ -256,4 +274,22 @@
     </div>
 </section>
 <!-- End Article -->
+<script>
+    //Make sure that the dom is ready
+    $(function () {
+        let rateAvg = {{$getSP[0]->danhgia}};
+        $("#rateYo").rateYo({
+            rating: rateAvg
+        }).on("rateyo.set", function (e, data) {
+            $('#rating_star').val(data.rating);
+            $('#formrating').submit();
+        });
+
+        $("#rateYo1").rateYo({
+            rating: rateAvg
+        }).on("rateyo.set", function (e, data) {
+            alert("Vui lòng đăng nhập để được đánh giá!");
+        });
+    });
+</script>
 @stop

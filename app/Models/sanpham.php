@@ -30,5 +30,8 @@ class sanpham extends Model
                            WHERE sanphams.masp =?',
                            [$m,$t,$mt,$c,$g,$th,$l,$h,$tt ,$m]);
     }
+    public static function updateRate($masp,$rate){
+        return DB::table('sanphams')->where('masp',$masp)->update(['danhgia' => $rate]);
+    }
 }
 ?>

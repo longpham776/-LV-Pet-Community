@@ -42,7 +42,13 @@ Route::group(['namespace'=>'App\Http\Controllers'],function(){
    
     Route::get('/danhgia','FrontendController@danhgia')->name('danhgia');
     Route::get('/upbinhluan','FrontendController@upbinhluan')->name('upbinhluan');
-});
 
 
+    Route::get('/confirmorder','FrontendController@confirmorder')->name('confirmorder');
+    Route::get('/forgetpass','FrontendController@forgetpass')->name('forgetpass');
+    Route::post('/postforgetpass','FrontendController@postforgetpass')->name('postforgetpass');
+    Route::get('/changepass/{email}','FrontendController@changepass')->name('changepass');
+    Route::post('/postchangepass','FrontendController@postchangepass')->name('postchangepass');
+    Route::post('/rating','FrontendController@rating')->name('rating');
+}); 
 ?>

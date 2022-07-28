@@ -29,8 +29,10 @@
         <!-- Slick -->
         <link rel="stylesheet" type="text/css" href="{{url('public')}}/frontend/css/slick.min.css">
         <link rel="stylesheet" type="text/css" href="{{url('public')}}/frontend/css/slick-theme.css">
-    
-   
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+        
         <style>
             .services .services-list {margin: 0 -1px}
             .services .services-list:after {
@@ -402,6 +404,8 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <div id="fb-root"></div>
         <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v14.0" nonce="huzrWHyZ"></script>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
         <!-- End Slider Script -->
     </body>
 </html>

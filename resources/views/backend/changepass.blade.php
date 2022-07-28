@@ -10,7 +10,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Login</title>
+    <title>Change Password</title>
 
     <!-- Fontfaces CSS-->
     <link href="{{url('public')}}/backend/css/font-face.css" rel="stylesheet" media="all">
@@ -36,61 +36,58 @@
 </head>
 
 <body class="animsition">
-    <div class="page-wrapper">
+    <div class="page">
         <div class="page-content--bge5">
             <div class="container">
                 <div class="login-wrap">
                     <div class="login-content">
                         <div class="login-logo">
-        
-                            <h1><b class="text-success">PET </b></h1><h3>Community</h3>
-                            
+                        <h1><b class="text-success">PET </b></h1><h3>Community</h3>
                         </div>
-                        <div class="login-form">
-                            <form action="{{route('ad.postlogin')}}" method="post">
-                            @csrf
-                            @if (session('fail'))
-                                <div class="alert alert-danger" role="alert">
-                                        {{ session('fail') }}
-                                </div>
-                            @endif
-                            @if (session('success'))
-                                <div class="alert alert-success" role="alert">
-                                        {{ session('success') }}
-                                </div>
-                            @endif
+                        <div class="login-form" >
+                            <form action="{{route('postchangepass')}}" method="post">
+                                @csrf
+                                @if (session('fail'))
+                                    <div class="alert alert-danger" role="alert">
+                                            {{ session('fail') }}
+                                    </div>
+                                @endif
+                                @if (session('success'))
+                                    <div class="alert alert-success" role="alert">
+                                            {{ session('success') }}
+                                    </div>
+                                @endif
                                 <div class="form-group">
                                     <label>Email Address</label>
-                                    <input class="au-input au-input--full" type="email" name="email" placeholder="Email">
+                                    <input class="au-input au-input--full" readonly type="email" name="email" value="{{$email}}">
                                     @error('email')
                                     <span style="color: red;">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label>Password</label>
-                                    <input class="au-input au-input--full" type="password" name="password" placeholder="Password">
-                                    @error('password')
+                                    <label>New Password</label>
+                                    <input class="au-input au-input--full" type="password" name="newpassword" placeholder="New password">
+                                    @error('newpassword')
                                     <span style="color: red;">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="login-checkbox">
-                                    <label>
-                                        
-                                    </label>
-                                    <label>
-                                        <a href="{{route('forgetpass')}}">Forgotten Password?</a>
-                                    </label>
+                                <div class="form-group">
+                                    <label>Confirm New Password</label>
+                                    <input class="au-input au-input--full" type="password" name="confirmpassword" placeholder="Confirm new password">
+                                    @error('confirmpassword')
+                                    <span style="color: red;">{{ $message }}</span>
+                                    @enderror
                                 </div>
-                                <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">sign in</button>
-                                
+                                <br>
+                                <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">Change Password</button>
+                               
                             </form>
                             <div class="register-link">
                                 <p>
-                                    Don't you have account?
-                                    <a href="{{route('register')}}">Sign Up Here</a>
+                                    Already remember account?
+                                    <a href="{{route('ad.login')}}">Sign In</a>
                                 </p>
                             </div>
-                            
                         </div>
                     </div>
                 </div>
@@ -121,7 +118,7 @@
     </script>
 
     <!-- Main JS-->
-    <script src="js/main.js"></script>
+    <script src="{{url('public')}}/backend/js/main.js"></script>
 
 </body>
 

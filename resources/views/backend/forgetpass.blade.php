@@ -13,7 +13,7 @@
     <title>Forget Password</title>
 
     <!-- Fontfaces CSS-->
-    <link href="css/font-face.css" rel="stylesheet" media="all">
+    <link href="{{url('public')}}/backend/css/font-face.css" rel="stylesheet" media="all">
     <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
     <link href="vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
     <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
@@ -31,29 +31,49 @@
     <link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
 
     <!-- Main CSS-->
-    <link href="css/theme.css" rel="stylesheet" media="all">
+    <link href="{{url('public')}}/backend/css/theme.css" rel="stylesheet" media="all">
 
 </head>
 
 <body class="animsition">
-    <div class="page-wrapper">
+    <div class="page">
         <div class="page-content--bge5">
             <div class="container">
                 <div class="login-wrap">
                     <div class="login-content">
                         <div class="login-logo">
-                            <a href="#">
-                                <img src="images/icon/logo.png" alt="CoolAdmin">
-                            </a>
+                        <h1><b class="text-success">PET </b></h1><h3>Community</h3>
                         </div>
-                        <div class="login-form">
-                            <form action="" method="post">
+                        <div class="login-form" >
+                            <form action="{{route('postchangepass')}}" method="post">
+                                @csrf
+                                @if (session('fail'))
+                                    <div class="alert alert-danger" role="alert">
+                                            {{ session('fail') }}
+                                    </div>
+                                @endif
+                                @if (session('success'))
+                                    <div class="alert alert-success" role="alert">
+                                            {{ session('success') }}
+                                    </div>
+                                @endif
                                 <div class="form-group">
                                     <label>Email Address</label>
                                     <input class="au-input au-input--full" type="email" name="email" placeholder="Email">
+                                    @error('email')
+                                    <span style="color: red;">{{ $message }}</span>
+                                    @enderror
                                 </div>
-                                <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">submit</button>
+                                
+                                <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">Send mail</button>
+                               
                             </form>
+                            <div class="register-link">
+                                <p>
+                                    Already remember account?
+                                    <a href="{{route('ad.login')}}">Sign In</a>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -84,7 +104,7 @@
     </script>
 
     <!-- Main JS-->
-    <script src="js/main.js"></script>
+    <script src="{{url('public')}}/backend/js/main.js"></script>
 
 </body>
 

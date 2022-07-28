@@ -13,9 +13,14 @@ use App\Models\diachi;
 use App\Models\loaisp;
 use App\Models\thuonghieu;
 use App\Models\donhang;
+<<<<<<< HEAD
 use App\Models\BinhLuans;
+=======
+use App\Models\danhgiasanpham;
+>>>>>>> 909375cfa5a0b19a24e91fe2e3f4201ca7051a0f
 use App\Models\chitietdonhang;
 use App\Mail\contactMail;
+use App\Mail\forgetpassMail;
 use Illuminate\Support\Facades\Mail;
 class FrontendController extends Controller
 {
@@ -34,6 +39,79 @@ class FrontendController extends Controller
     }
     public function contact(){
         return view('frontend.lienhe');
+    }
+    public function confirmorder(){
+        return view('frontend.confirmorder');
+    }
+    public function forgetpass(){
+        return view('backend.forgetpass');
+    }
+    public function rating(Request $request){
+        $username = $request->username;
+        $masp = $request->masp;
+        $rate = $request->rating_star;
+        $data = danhgiasanpham::getRatingUser($username);
+        if($data->isEmpty()){
+            danhgiasanpham::rating($masp,$username,$rate);
+        }else{
+            danhgiasanpham::updateRating($username,$rate);
+        }
+        $sum = 0;
+        $count = 0;
+        $data = danhgiasanpham::getRatingSp($masp);
+        foreach($data as $sp){
+            $sum += $sp->rate;
+            $count++;
+        }
+        $rateSp = $sum/$count;
+        sanpham::updateRate($masp,$rateSp);
+        return redirect()->route('chitietsanpham',['id'=>$masp]);
+    }
+    public function postforgetpass(Request $request)
+    {
+        $request->validate([
+            'email'=>'required|email'
+        ],[
+            'email.required'=>'Vui lòng nhập :attribute'
+        ]);
+        $e=$request->email;
+        $data=admin::getByEmail($e);
+        if($data==NULL){
+            return redirect()->route('forgetpass')->with('fail', 'Email không đúng');
+        }else{
+            $mailable = new forgetpassMail($data);
+            Mail::to($e)->send($mailable);
+            return redirect()->route('forgetpass')->with('success', 'Gửi mail thành công vui lòng check Email');
+        }
+    }
+    public function changepass($email)
+    {
+        return view("backend.changepass",compact('email'));
+    }
+    public function postchangepass(Request $request)
+    {
+        $request->validate([
+            'newpassword'=>'required|max:100',
+            'confirmpassword'=>'required|max:100'
+        ],[
+            'newpassword.required'=>'Vui lòng nhập password',
+            'newpassword.max'=>'Vui lòng nhập dưới 100 ký tự',
+            'confirmpassword.required'=>'Vui lòng nhập password',
+            'confirmpassword.max'=>'Vui lòng nhập dưới 100 ký tự'
+        ]);
+        if($request->newpassword != $request->confirmpassword){
+            return redirect()->route('changepass',['email'=>$request->email])->with('fail', 'Vui lòng nhập lại xác nhận');
+        }
+        $email=$request->email;
+        $np=md5($request->newpassword);
+        $cnp=md5($request->confirmpassword);
+        $data=admin::getLogin($email);
+        if($data[0]->password==$np){
+            return redirect()->route('changepass',['email'=>$email])->with('fail', 'Vui lòng nhập mật khẩu mới');
+        }else{
+            admin::updatePassword($email,$cnp);
+            return redirect()->route('ad.login')->with('success', 'Đổi password thành công');
+        }
     }
     public function sendmail(Request $request){
         $request->validate([
@@ -319,7 +397,7 @@ class FrontendController extends Controller
     public function vn_payment(Request $request){
         $id = rand(0000,9999);
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_Returnurl = "http://petcommunity.net/giohang";
+        $vnp_Returnurl = "http://petcommunity.net/confirmorder";
         $vnp_TmnCode = "1AXLM0YG";//Mã website tại VNPAY 
         $vnp_HashSecret = "DKPERIOVZTXETSJBIFAQESBKGUNMEDSP"; //Chuỗi bí mật
 
