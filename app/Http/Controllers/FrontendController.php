@@ -13,11 +13,8 @@ use App\Models\diachi;
 use App\Models\loaisp;
 use App\Models\thuonghieu;
 use App\Models\donhang;
-<<<<<<< HEAD
 use App\Models\BinhLuans;
-=======
 use App\Models\danhgiasanpham;
->>>>>>> 909375cfa5a0b19a24e91fe2e3f4201ca7051a0f
 use App\Models\chitietdonhang;
 use App\Mail\contactMail;
 use App\Mail\forgetpassMail;
