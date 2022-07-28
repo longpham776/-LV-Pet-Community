@@ -3,7 +3,6 @@
 <!-- Start Content -->
 <div class="container py-5">
         <div class="row">
-
             <div class="col-lg-3">
                 <h1 class="h2 pb-4">@lang('lang.category')</h1>
                 <ul class="list-unstyled templatemo-accordion">

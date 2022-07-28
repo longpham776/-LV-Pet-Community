@@ -13,6 +13,7 @@ use App\Models\diachi;
 use App\Models\loaisp;
 use App\Models\thuonghieu;
 use App\Models\donhang;
+use App\Models\danhgiasanpham;
 use App\Models\chitietdonhang;
 use App\Mail\contactMail;
 use App\Mail\forgetpassMail;
@@ -40,6 +41,27 @@ class FrontendController extends Controller
     }
     public function forgetpass(){
         return view('backend.forgetpass');
+    }
+    public function rating(Request $request){
+        $username = $request->username;
+        $masp = $request->masp;
+        $rate = $request->rating_star;
+        $data = danhgiasanpham::getRatingUser($username);
+        if($data->isEmpty()){
+            danhgiasanpham::rating($masp,$username,$rate);
+        }else{
+            danhgiasanpham::updateRating($username,$rate);
+        }
+        $sum = 0;
+        $count = 0;
+        $data = danhgiasanpham::getRatingSp($masp);
+        foreach($data as $sp){
+            $sum += $sp->rate;
+            $count++;
+        }
+        $rateSp = $sum/$count;
+        sanpham::updateRate($masp,$rateSp);
+        return redirect()->route('chitietsanpham',['id'=>$masp]);
     }
     public function postforgetpass(Request $request)
     {
@@ -144,6 +166,7 @@ class FrontendController extends Controller
     public function chitietsanpham(Request $request){
         $getSP=sanpham::getById($request->id);
         $getAll = sanpham::all();
+        // $getRating = danhgiasanpham::getRatingSp($masp);
         return view('frontend.chitietsanpham',compact('getSP','getAll'));
     }
     public function timkiem(Request $request){
