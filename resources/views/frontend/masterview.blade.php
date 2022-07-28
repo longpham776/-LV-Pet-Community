@@ -406,24 +406,6 @@
         <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v14.0" nonce="huzrWHyZ"></script>
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
-        <script>
-            //Make sure that the dom is ready
-            $(function () {
-                $("#rateYo").rateYo({
-                    rating: {{$getSP[0]->danhgia}}
-                }).on("rateyo.set", function (e, data) {
-                    $('#rating_star').val(data.rating);
-                    $('#formrating').submit();
-                });
-            });
-            $(function () {
-                $("#rateYo1").rateYo({
-                    rating: {{$getSP[0]->danhgia}}
-                }).on("rateyo.set", function (e, data) {
-                    alert("Vui lòng đăng nhập để được đánh giá!");
-                });
-            });
-        </script>
         <!-- End Slider Script -->
     </body>
 </html>

@@ -238,4 +238,22 @@
     </div>
 </section>
 <!-- End Article -->
+<script>
+    //Make sure that the dom is ready
+    $(function () {
+        let rateAvg = {{$getSP[0]->danhgia}};
+        $("#rateYo").rateYo({
+            rating: rateAvg
+        }).on("rateyo.set", function (e, data) {
+            $('#rating_star').val(data.rating);
+            $('#formrating').submit();
+        });
+
+        $("#rateYo1").rateYo({
+            rating: rateAvg
+        }).on("rateyo.set", function (e, data) {
+            alert("Vui lòng đăng nhập để được đánh giá!");
+        });
+    });
+</script>
 @stop
