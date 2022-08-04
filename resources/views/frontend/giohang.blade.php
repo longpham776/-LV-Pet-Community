@@ -9,21 +9,27 @@
                 <h1>@lang('lang.deliveryinfomation')</h1>
                 <table class="thongtinnhanhang">
                 @if(isset($_SESSION['user']))
-                                            @foreach($_SESSION['user'] as $u)
-                                            <tr>
+                    @foreach($_SESSION['user'] as $u)
+                    <tr>
                         <td width="20%"><b>@lang('lang.fullname')</b></td>
                         <td><input type="text" id="hoten" name="hoten" placeholder="@lang('lang.enterfullname')" required value="{{$u->hoten}}" class="form-control"></td>
                     </tr>
-                    @foreach ($getDC as $dc)
                     <tr>
                         <td><b>@lang('lang.address')</b></td>
-                        <td><input type="text" id="diachi" name="diachi" placeholder="@lang('lang.enteraddress')" required class="form-control" value="{{$dc->diachi}}"></td>
+                        <td><select id="diachi" name="diachi" class="form-control">
+                            @foreach ($getDC as $dc)
+                            <option value="{{$dc->diachi}}">{{$dc->diachi}}</option>
+                            @endforeach
+                        </select></td>
                     </tr>
                     <tr>
                         <td><b>@lang('lang.phone')</b></td>
-                        <td><input type="text" id="dienthoai" name="dienthoai" placeholder="@lang('lang.enterphone')" required class="form-control" value="0{{$dc->sdt}}"></td>
+                        <td><select id="dienthoai" name="dienthoai" class="form-control">
+                            @foreach ($getDC as $dc)
+                            <option value="0{{$dc->sdt}}">0{{$dc->sdt}}</option>
+                            @endforeach
+                        </select></td>
                     </tr>
-                    @endforeach
                     <tr>
                         <td><b>Email</b></td>
                         <td><input type="email" id="email" name="email" placeholder="@lang('lang.enteremail')" required class="form-control"value="{{$u->email}}"></td>
@@ -36,7 +42,7 @@
                         </select></td>
                     </tr> 
 
-                                            @endforeach
+                    @endforeach
                     @else
                     <tr>
                         <td width="20%"><b>@lang('lang.fullname')</b></td>

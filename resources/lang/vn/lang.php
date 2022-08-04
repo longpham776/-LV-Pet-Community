@@ -66,7 +66,7 @@ return [
     'detailorder' => 'Chi tiết đơn hàng',
     'like' => 'Thích',
     'view' => 'Xem',
-    'cart' => 'Thêm',
+    'addcart' => 'Thêm',
     'petfoodbrand' => 'Thương hiệu thức ăn thú cưng',
     'petfooddescription' => 'Trên thị trường hiện nay có rất nhiều thương hiệu bán các loại phụ kiện chó mèo, thú cưng cho bạn lựa chọn.',
     'furtherinfo' => 'Thông Tin Thêm',

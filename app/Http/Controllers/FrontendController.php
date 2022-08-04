@@ -236,22 +236,18 @@ class FrontendController extends Controller
     public function giohang(){
         if(isset($_SESSION['user'])){
             $getDC=diachi::findAddress($_SESSION['user'][0]->username);
-        //dd($getDC);
-        return view('frontend.giohang',compact('getDC'));
+            return view('frontend.giohang',compact('getDC'));
         }
         return view('frontend.giohang');
         
     }
     public function postcart(Request $request){
-        if(isset($_SESSION['user'])){
-            $getDC=diachi::findAddress($_SESSION['user'][0]->username);
-            $masp=$request->masp;
-            $sl=$request->soluong;
-            if(($sl==0) || ($sl>=5)){
-                $getSP=sanpham::getById($masp);
-                $getAll= sanpham::all();
-                return view('frontend.chitietsanpham',compact('getSP','getAll'));
-            }
+        $masp=$request->masp;
+        $sl=$request->soluong;
+        if(($sl==0) || ($sl>=4)){
+            return redirect()->route('chitietsanpham',['id'=>$masp]);
+        }
+        if(Cart::content()->isEmpty()){
             $spdetail=sanpham::getById($masp);
             Cart::add([
                 'id' => $spdetail[0]->masp, 
@@ -261,14 +257,14 @@ class FrontendController extends Controller
                 'weight' => 1, 
                 'options' => ['images' => $spdetail[0]->hinh]
             ]);
-            return view('frontend.giohang',compact('getDC'));
+            return redirect()->route('giohang');
         }
-        $masp=$request->masp;
-        $sl=$request->soluong;
-        if(($sl==0) || ($sl>=5)){
-            $getSP=sanpham::getById($masp);
-            $getAll= sanpham::all();
-            return view('frontend.chitietsanpham',compact('getSP','getAll'));
+        foreach(Cart::content() as $cart){
+            if($cart->id == $masp){
+                if((($cart->qty+$sl) >= 4)){
+                    return redirect()->route('chitietsanpham',['id'=>$masp]);
+                }
+            }
         }
         $spdetail=sanpham::getById($masp);
         Cart::add([
@@ -279,8 +275,30 @@ class FrontendController extends Controller
             'weight' => 1, 
             'options' => ['images' => $spdetail[0]->hinh]
         ]);
-        return view('frontend.giohang');
+        return redirect()->route('giohang');
 
+        if(isset($_SESSION['user'])){
+            if(($sl==0) || ($sl>=4)){
+                return redirect()->route('chitietsanpham',['id'=>$masp]);
+            }
+            foreach(Cart::content() as $cart){
+                if($cart->id == $masp){
+                    if((($cart->qty+$sl) >= 4)){
+                        return redirect()->route('chitietsanpham',['id'=>$masp]);
+                    }
+                }
+            }
+            $spdetail=sanpham::getById($masp);
+            Cart::add([
+                'id' => $spdetail[0]->masp, 
+                'name' => $spdetail[0]->tensp, 
+                'qty' => $sl, 
+                'price' => $spdetail[0]->gia, 
+                'weight' => 1, 
+                'options' => ['images' => $spdetail[0]->hinh]
+            ]);
+            return redirect()->route('giohang');
+        }
     }
     public function delcart($rowId)
     {
@@ -310,8 +328,7 @@ class FrontendController extends Controller
         if(!isset($_SESSION['user'])){ 
             return redirect()->route('ad.login');
         }else if(Cart::count()==0){
-            $getSP=sanpham::where('trangthai','regexp',0)->paginate(4);
-            return view('frontend.sanpham',compact('getSP'));
+            return redirect()->route('sanpham');
         }
         $hoten=$request->hoten;
         $diachi=$request->diachi;

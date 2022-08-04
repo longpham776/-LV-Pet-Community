@@ -66,7 +66,7 @@ return [
     'detailorder' => 'Detail order',
     'like' => 'Like',
     'view' => 'View',
-    'cart' => 'Cart',
+    'addcart' => 'Cart',
     'petfoodbrand' => 'Pet Food Brand',
     'petfooddescription' => 'On the market today, there are many brands selling all kinds of dog and cat accessories for you to choose.',
     'furtherinfo' => 'Further Info',

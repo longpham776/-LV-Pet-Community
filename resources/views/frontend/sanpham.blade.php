@@ -52,7 +52,7 @@
                                                 @csrf
                                                 <input type="hidden" name="soluong" value="1">
                                                 <input type="hidden" name="masp" value="{{$sp->masp}}">
-                                                <li><i class="btn btn-success text-white mt-2 fas fa-cart-plus"><input type="submit" class="btn btn-success fas fa-cart-plus" name="submit" value="@lang('lang.cart')"></i></li>
+                                                <li><i class="btn btn-success text-white mt-2 fas fa-cart-plus"><input type="submit" class="btn btn-success fas fa-cart-plus" name="submit" value="@lang('lang.addcart')"></i></li>
                                             </form>
                                         </ul>
                                     </div>
