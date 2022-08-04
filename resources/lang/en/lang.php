@@ -64,4 +64,12 @@ return [
     'myaccount' => 'My Account',
     'editaccount' => 'Edit infomation',
     'detailorder' => 'Detail order',
+    'like' => 'Like',
+    'view' => 'View',
+    'cart' => 'Cart',
+    'petfoodbrand' => 'Pet Food Brand',
+    'petfooddescription' => 'On the market today, there are many brands selling all kinds of dog and cat accessories for you to choose.',
+    'furtherinfo' => 'Further Info',
+    'aboutus' => 'About Us',
+    'aboutusdescript' => 'A group of young Vietnamese and international volunteers, working for the love of cats and dogs.',
 ];

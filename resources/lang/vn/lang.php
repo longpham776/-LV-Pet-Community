@@ -64,5 +64,13 @@ return [
     'myaccount' => 'Tài khoản của tôi',
     'editaccount' => 'Sủa thông tin',
     'detailorder' => 'Chi tiết đơn hàng',
+    'like' => 'Thích',
+    'view' => 'Xem',
+    'cart' => 'Thêm',
+    'petfoodbrand' => 'Thương hiệu thức ăn thú cưng',
+    'petfooddescription' => 'Trên thị trường hiện nay có rất nhiều thương hiệu bán các loại phụ kiện chó mèo, thú cưng cho bạn lựa chọn.',
+    'furtherinfo' => 'Thông Tin Thêm',
+    'aboutus' => 'Về chúng tôi',
+    'aboutusdescript' => 'Nhóm trẻ tình nguyện viên Việt Nam và quốc tế, hoạt động vì tình yêu chó mèo.',
 
 ];

@@ -115,6 +115,26 @@
             }
             
         </style>
+        <style>
+            /* định dạng cho button */
+            #myBtn {
+              display: none; /* Mặc định button sẽ được ẩn*/
+              position: fixed;
+              bottom: 100px;
+              right: 31px; 
+              z-index: 99; /* button được ưu tiên hiển thị đè lên các phần khác*/
+              border: none;
+              outline: none;
+              background-color: #17A45A;
+              color: white;
+              cursor: pointer;
+              padding: 15px;
+              border-radius: 10px;
+            }
+            #myBtn:hover {
+              background-color: #555;
+            }
+        </style>
     </head>
 
     <body>
@@ -245,6 +265,7 @@
         </div>
         <!--End Modal-->
         @yield('content')
+        <button id="myBtn" title="Go to top"><i class="bi bi-caret-up-fill"></i></button>
         <!-- Start Footer -->
         <footer class="bg-dark" id="tempaltemo_footer">
             <div class="container">
@@ -269,14 +290,14 @@
                     </div>
 
                     <div class="col-md-4 pt-5">
-                        <h2 class="h2 text-light border-bottom pb-3 border-light">About Us</h2>
+                        <h2 class="h2 text-light border-bottom pb-3 border-light">@lang('lang.aboutus')</h2>
                         <ul class="list-unstyled text-light footer-link-list">
-                            <li><a class="text-decoration-none" href="https://www.facebook.com/Pet-Community-102604329136085/">Nhóm trẻ tình nguyện viên Việt Nam và quốc tế, hoạt động vì tình yêu chó mèo.</a></li>
+                            <li><a class="text-decoration-none" href="https://www.facebook.com/Pet-Community-102604329136085/">@lang('lang.aboutusdescript')</a></li>
                         </ul>
                     </div>
 
                     <div class="col-md-4 pt-5">
-                        <h2 class="h2 text-light border-bottom pb-3 border-light">Further Info</h2>
+                        <h2 class="h2 text-light border-bottom pb-3 border-light">@lang('lang.furtherinfo')</h2>
                         <ul class="list-unstyled text-light footer-link-list">
                             <li><a class="text-decoration-none" href="{{route('home')}}">@lang('lang.home')</a></li>
                             <li><a class="text-decoration-none" href="{{route('news')}}">@lang('lang.news')</a></li>
@@ -398,6 +419,27 @@
                         }
                     }
                 ]
+            });
+        </script>
+        <script>
+            //Khi người dùng cuộn chuột thì gọi hàm scrollFunction
+            window.onscroll = function() {scrollFunction()};
+            // khai báo hàm scrollFunction
+            function scrollFunction() {
+                // Kiểm tra vị trí hiện tại của con trỏ so với nội dung trang
+                if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+                    //nếu lớn hơn 50px thì hiện button
+                    document.getElementById("myBtn").style.display = "block";
+                } else {
+                    //nếu nhỏ hơn 50px thì ẩn button
+                    document.getElementById("myBtn").style.display = "none";
+                }
+            }
+            //gán sự kiện click cho button
+            document.getElementById('myBtn').addEventListener("click", function(){
+                //Nếu button được click thì nhảy về đầu trang
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
             });
         </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

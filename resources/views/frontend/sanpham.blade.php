@@ -43,16 +43,16 @@
                                     <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                         <ul class="list-unstyled">
                                             <form action="#" method="post">
-                                                <li><i class="btn btn-success text-white mt-2 far fa-heart"><input type="submit" class="btn btn-success far fa-heart" name="submit" value="Thích"></i></li>
+                                                <li><i class="btn btn-success text-white mt-2 far fa-heart"><input type="submit" class="btn btn-success far fa-heart" name="submit" value="@lang('lang.like')"></i></li>
                                             </form>
                                             <form action="{{route('chitietsanpham',['id'=>$sp->masp])}}" method="get">
-                                                <li><i class="btn btn-success text-white mt-2 far fa-eye"><input type="submit" class="btn btn-success far fa-eye" name="submit" value="Xem"></i></li>
+                                                <li><i class="btn btn-success text-white mt-2 far fa-eye"><input type="submit" class="btn btn-success far fa-eye" name="submit" value="@lang('lang.view')"></i></li>
                                             </form>
                                             <form action="{{route('postcart')}}" method="post">
                                                 @csrf
                                                 <input type="hidden" name="soluong" value="1">
                                                 <input type="hidden" name="masp" value="{{$sp->masp}}">
-                                                <li><i class="btn btn-success text-white mt-2 fas fa-cart-plus"><input type="submit" class="btn btn-success fas fa-cart-plus" name="submit" value="Thêm"></i></li>
+                                                <li><i class="btn btn-success text-white mt-2 fas fa-cart-plus"><input type="submit" class="btn btn-success fas fa-cart-plus" name="submit" value="@lang('lang.cart')"></i></li>
                                             </form>
                                         </ul>
                                     </div>
@@ -143,9 +143,9 @@
     <div class="container my-4">
         <div class="row text-center py-3">
             <div class="col-lg-6 m-auto">
-                <h1 class="h1">Thương hiệu thức ăn thú cưng</h1>
+                <h1 class="h1">@lang('lang.petfoodbrand')</h1>
                 <p>
-                Trên thị trường hiện nay có rất nhiều thương hiệu bán các loại phụ kiện chó mèo, thú cưng cho bạn lựa chọn.
+                @lang('lang.petfooddescription')
                 </p>
             </div>
             <div class="col-lg-9 m-auto tempaltemo-carousel">
