@@ -18,6 +18,7 @@ use App\Models\binhluansp;
 use App\Models\chitietdonhang;
 use App\Mail\contactMail;
 use App\Mail\forgetpassMail;
+use App\Mail\confirmOrderMail;
 use Illuminate\Support\Facades\Mail;
 class FrontendController extends Controller
 {
@@ -358,6 +359,8 @@ class FrontendController extends Controller
         else $thongtin['pttt']='Thanh Toán Khi Nhận Hàng';
         $lastIdWithUser=donhang::lastIdWithUser($_SESSION['user'][0]->username);
         $SpDonhang=chitietdonhang::getById($lastIdWithUser->madon);
+        $mailable = new confirmOrderMail($thongtin,$content,Cart::total());
+        Mail::to('lpham776@gmail.com')->send($mailable);
         return view('frontend.donhang',compact('thongtin','SpDonhang'));
     }
     public function execPostRequest($url, $data)
