@@ -44,6 +44,6 @@ Route::group(['namespace'=>'App\Http\Controllers'],function(){
     Route::post('/binhluansp','FrontendController@binhluansp')->name('binhluansp');
     Route::get('/account_settings','FrontendController@account_settings')->name('account_settings');
     Route::post('/editInfo','FrontendController@editInfo')->name('editInfo');
-    Route::post('/postsettingpass','FrontendController@postsettingpass')->name('postsettingpass');
+    Route::post('/settingpass','FrontendController@settingpass')->name('settingpass');
 }); 
 ?>

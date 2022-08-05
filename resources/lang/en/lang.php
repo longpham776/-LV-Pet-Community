@@ -73,4 +73,7 @@ return [
     'aboutus' => 'About Us',
     'aboutusdescript' => 'A group of young Vietnamese and international volunteers, working for the love of cats and dogs.',
     'password' => 'Password',
+    'oldpassword' => 'Old password',
+    'newpassword' => 'New password',
+    'repeatnewpassword' => 'Repeat new password',
 ];

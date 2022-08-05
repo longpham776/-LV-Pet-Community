@@ -22,7 +22,7 @@
                     <div class="list-group list-group-flush account-settings-links">
                         <a class="list-group-item list-group-item-action active" data-toggle="list" href="#account-general">General</a>
                         <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-change-password">Change password</a>
-                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-info">Info</a>
+                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-info">@lang('lang.address')</a>
                         <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-social-links">Social links</a>
                         <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-connections">Connections</a>
                         <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-notifications">Notifications</a>
@@ -68,7 +68,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">E-mail</label>
-                                        <input type="text" name="email" class="form-control mb-1" value="{{$u->email}}">
+                                        <input type="text" readonly name="email" class="form-control mb-1" value="{{$u->email}}">
                                         @if($u->trangthai == 1)
                                         <div class="alert alert-warning mt-3">
                                             Your email is not confirmed. Please check your inbox.<br>
@@ -84,34 +84,67 @@
                             </form>
                         </div>
                         <div class="tab-pane fade" id="account-change-password">
-                            <div class="card-body pb-2">
-                                
-                                <div class="form-group">
-                                    <label class="form-label">Current password</label>
-                                    <input type="password"  class="form-control">
-                                </div>
+                            <form action="{{route('settingpass')}}" method="post">
+                                @csrf
+                                @foreach($dataUser as $u)
+                                <div class="card-body pb-2">
+                                    @if (session('fail'))
+                                        <div class="alert alert-danger" role="alert">
+                                                {{ session('fail') }}
+                                        </div>
+                                    @endif
+                                    @if (session('success'))
+                                        <div class="alert alert-success" role="alert">
+                                                {{ session('success') }}
+                                        </div>
+                                    @endif
+                                    <div class="form-group">
+                                        <label class="form-label">@lang('lang.oldpassword')</label>
+                                        <input type="password" id="unvisiblepass" readonly name="oldpassword" value="{{$u->password}}" class="form-control">
+                                    </div>
 
-                                <div class="form-group">
-                                    <label class="form-label">New password</label>
-                                    <input type="password" class="form-control">
-                                </div>
+                                    <div class="form-group">
+                                        <label class="form-label">@lang('lang.newpassword')</label>
+                                        <input type="password" name="newpassword" class="form-control">
+                                        @error('newpassword')
+                                            <span style="color: red;">{{ $message }}</span>
+                                        @enderror
+                                    </div>
 
-                                <div class="form-group">
-                                    <label class="form-label">Repeat new password</label>
-                                    <input type="password" class="form-control">
+                                    <div class="form-group">
+                                        <label class="form-label">@lang('lang.repeatnewpassword')</label>
+                                        <input type="password" name="confirmpassword" class="form-control">
+                                        @error('confirmpassword')
+                                            <span style="color: red;">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <input type="hidden" name="email" value="{{$u->email}}">
+                                    <div class="text-right mt-3">
+                                        <button type="submit" class="btn btn-primary">Save changes</button>&nbsp;
+                                    </div>
                                 </div>
-                                <div class="text-right mt-3">
-                                    <button type="button" class="btn btn-primary">Save changes</button>&nbsp;
-                                    <button type="button" class="btn btn-default">Cancel</button>
-                                </div>
-                            </div>
+                                @endforeach
+                            </form>
                         </div>
                         <div class="tab-pane fade" id="account-info">
                             <div class="card-body pb-2">
 
                                 <div class="form-group">
-                                    <label class="form-label">Bio</label>
-                                    <textarea class="form-control" rows="5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris nunc arcu, dignissim sit amet sollicitudin iaculis, vehicula id urna. Sed luctus urna nunc. Donec fermentum, magna sit amet rutrum pretium, turpis dolor molestie diam, ut lacinia diam risus eleifend sapien. Curabitur ac nibh nulla. Maecenas nec augue placerat, viverra tellus non, pulvinar risus.</textarea>
+                                    <label class="form-label">@lang('lang.address')</label>
+                                    <textarea class="form-control" rows="1"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Birthday</label>
+                                    <input type="number" class="form-control" value="May 3, 1995">
+                                </div>
+
+                            </div>
+                            <hr class="border-light m-0">
+                            <div class="card-body pb-2">
+
+                                <div class="form-group">
+                                    <label class="form-label">@lang('lang.address')</label>
+                                    <textarea class="form-control" rows="1"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Birthday</label>
@@ -142,11 +175,9 @@
                                     <label class="form-label">Website</label>
                                     <input type="text" class="form-control" value="">
                                 </div>
-
-                            </div>
-                            <div class="text-right mt-3">
-                                <button type="button" class="btn btn-primary">Save changes</button>&nbsp;
-                                <button type="button" class="btn btn-default">Cancel</button>
+                                <div class="text-right mt-3">
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="account-social-links">

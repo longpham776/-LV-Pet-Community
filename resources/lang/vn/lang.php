@@ -73,4 +73,7 @@ return [
     'aboutus' => 'Về chúng tôi',
     'aboutusdescript' => 'Nhóm trẻ tình nguyện viên Việt Nam và quốc tế, hoạt động vì tình yêu chó mèo.',
     'password' => 'Mật khẩu',
+    'oldpassword' => 'Mật khẩu cũ',
+    'newpassword' => 'Mật khẩu mới',
+    'repeatnewpassword' => 'Nhập lại mật khẩu mới',
 ];

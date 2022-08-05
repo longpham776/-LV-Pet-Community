@@ -124,33 +124,27 @@ class FrontendController extends Controller
             return redirect()->route('ad.login')->with('success', 'Đổi password thành công');
         }
     }
-    public function postsettingpass(Request $request)
+    public function settingpass(Request $request)
     {
         $request->validate([
-            'oldpassword' => 'required|max:100',
             'newpassword'=>'required|max:100',
             'confirmpassword'=>'required|max:100'
         ],[
-            'oldpassword.required'=>'Vui lòng nhập password',
-            'oldpassword.max'=>'Vui lòng nhập dưới 100 ký tự',
-            'newpassword.required'=>'Vui lòng nhập password',
+            'newpassword.required'=>'Vui lòng nhập mật khẩu',
             'newpassword.max'=>'Vui lòng nhập dưới 100 ký tự',
-            'confirmpassword.required'=>'Vui lòng nhập password',
+            'confirmpassword.required'=>'Vui lòng nhập lại mật khẩu mới',
             'confirmpassword.max'=>'Vui lòng nhập dưới 100 ký tự'
         ]);
         if($request->newpassword != $request->confirmpassword){
-            return redirect()->route('changepass',['email'=>$request->email])->with('fail', 'Vui lòng nhập lại xác nhận');
+            return redirect()->route('account_settings')->with('fail', 'Mật khẩu mới và mật khẩu mới xác nhận không trùng. Vui lòng nhập lại!');
+        }else if(md5($request->newpassword) == $request->oldpassword){
+            return redirect()->route('account_settings')->with('fail','Mật khẩu mới trùng với mật khẩu cũ. Vui lòng nhập lại!');
         }
         $email=$request->email;
         $np=md5($request->newpassword);
         $cnp=md5($request->confirmpassword);
-        $data=admin::getLogin($email);
-        if($data[0]->password==$np){
-            return redirect()->route('changepass',['email'=>$email])->with('fail', 'Vui lòng nhập mật khẩu mới');
-        }else{
-            admin::updatePassword($email,$cnp);
-            return redirect()->route('ad.login')->with('success', 'Đổi password thành công');
-        }
+        admin::updatePassword($email,$np);
+        return redirect()->route('account_settings')->with('success', 'Đổi password thành công');
     }
     public function sendmail(Request $request){
         $request->validate([
