@@ -39,7 +39,7 @@
 														<td colspan="6"><p>Không có đơn hàng nào.</p></td>
                                                     </tr>
                                                     @else
-                                                    @foreach($donhang as $dh)
+                                                    	@foreach($donhang as $dh)
                                                         <form action="{{route('chitietDH')}}" method="get">
                                                             @csrf
                                                             <input type="hidden" value="{{ $dh->madon }}" name="id">
@@ -65,18 +65,11 @@
                                                         </form>
                                                         
                                                         </tr>
-                                                        
-
                                                         @endforeach
                                                     @endif
-													
 												</tbody>
-
-
 											</table>
-
 										</div>
-
 										<div class="paginate-pages pull-right page-account text-right col-xs-12 col-sm-12 col-md-12 col-lg-12">
 											
 										</div>
@@ -87,29 +80,33 @@
 							
 						</div>
 					</div>
+					@foreach($dataUser as $a)
 					<div id="b" class="col-xs-12 col-sm-12 col-lg-3 col-right-account margin-top-20">
 						<div class="block-account">
 							<div class="block-title-account"><h5>@lang('lang.myaccount')</h5></div>
-							<div class="block-content form-signup">
-                            @foreach($diachi as $dc)
-								<p>@lang('lang.fullname'): <strong style="line-height: 20px;"> 
-                                    @foreach($dataUser as $a)
-                                                {{$a->hoten}}
-                                            @endforeach</strong></p>
-								<p><i class="fa fa-home font-some" aria-hidden="true"></i>  <span>@lang('lang.address'): {{$dc->diachi}} </span></p>
-								<p><i class="fa fa-mobile font-some" aria-hidden="true"></i> <span>@lang('lang.phone'):0{{$dc->sdt}} </span> </p>
-								<p><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i> <span> Email: 
-                                    @foreach($dataUser as $a) 
-                                    {{$a->email}} @endforeach </span></p>
-                            @endforeach
-							</div>
+							@if($diachi->isEmpty())
+								<div class="block-content form-signup">
+									<p><i class="fa fa-user"></i> <strong style="line-height: 20px;">@lang('lang.fullname'):</strong> {{$a->hoten}}</p>
+									<p><i class="fa fa-home font-some" aria-hidden="true"></i>  <strong style="line-height: 20px;">@lang('lang.address'): </strong></p>
+									<p><i class="fa fa-mobile font-some" aria-hidden="true"></i> <strong style="line-height: 20px;">@lang('lang.phone'): </strong> </p>
+									<p><i class="fa fa-envelope margin-icon"></i> <strong style="line-height: 20px;"> Email:</strong> {{$a->email}}</p>
+								</div>
+							@else
+								<div class="block-content form-signup">
+								@foreach($diachi as $dc)
+									<p><i class="fa fa-user"></i> <strong style="line-height: 20px;">@lang('lang.fullname'): {{$a->hoten}}</strong></p>
+									<p><i class="fa fa-home font-some" aria-hidden="true"></i>  <strong style="line-height: 20px;">@lang('lang.address'): {{$dc->diachi}} </strong></p>
+									<p><i class="fa fa-mobile font-some" aria-hidden="true"></i> <span>@lang('lang.phone'):0{{$dc->sdt}} </span> </p>
+									<p><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i> <span> Email: {{$a->email}}</span></p>
+								@endforeach
+								</div>
+							@endif
 							<div>								
-								<a class="btn btn-primary" href="{{route('edit-account')}}">@lang('lang.editaccount')</a>															
+								<a class="btn btn-primary" href="{{route('account_settings')}}">@lang('lang.editaccount')</a>															
 							</div>
-							
 						</div>
 					</div>
-
+					@endforeach
 				</div>
 			</div>
 		</div>

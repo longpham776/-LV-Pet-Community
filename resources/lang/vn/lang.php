@@ -62,7 +62,7 @@ return [
     'indelivery' => 'Đang giao',
     'delivered' => 'Đã giao',
     'myaccount' => 'Tài khoản của tôi',
-    'editaccount' => 'Sủa thông tin',
+    'editaccount' => 'Thông tin',
     'detailorder' => 'Chi tiết đơn hàng',
     'like' => 'Thích',
     'view' => 'Xem',
@@ -72,5 +72,5 @@ return [
     'furtherinfo' => 'Thông Tin Thêm',
     'aboutus' => 'Về chúng tôi',
     'aboutusdescript' => 'Nhóm trẻ tình nguyện viên Việt Nam và quốc tế, hoạt động vì tình yêu chó mèo.',
-
+    'password' => 'Mật khẩu',
 ];

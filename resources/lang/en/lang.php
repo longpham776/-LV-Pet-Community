@@ -62,7 +62,7 @@ return [
     'indelivery' => 'In delivery',
     'delivered' => 'Delivered',
     'myaccount' => 'My Account',
-    'editaccount' => 'Edit infomation',
+    'editaccount' => 'Infomation',
     'detailorder' => 'Detail order',
     'like' => 'Like',
     'view' => 'View',
@@ -72,4 +72,5 @@ return [
     'furtherinfo' => 'Further Info',
     'aboutus' => 'About Us',
     'aboutusdescript' => 'A group of young Vietnamese and international volunteers, working for the love of cats and dogs.',
+    'password' => 'Password',
 ];

@@ -14,6 +14,16 @@
                         <td width="20%"><b>@lang('lang.fullname')</b></td>
                         <td><input type="text" id="hoten" name="hoten" placeholder="@lang('lang.enterfullname')" required value="{{$u->hoten}}" class="form-control"></td>
                     </tr>
+                    @if($getDC->isEmpty())
+                    <tr>
+                        <td><b>@lang('lang.address')</b></td>
+                        <td><input type="text" id="diachi" name="diachi" placeholder="@lang('lang.enteraddress')" required class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td><b>@lang('lang.phone')</b></td>
+                        <td><input type="text" id="dienthoai" name="dienthoai" placeholder="@lang('lang.enterphone')" required class="form-control"></td>
+                    </tr>
+                    @else
                     <tr>
                         <td><b>@lang('lang.address')</b></td>
                         <td><select id="diachi" name="diachi" class="form-control">
@@ -30,6 +40,7 @@
                             @endforeach
                         </select></td>
                     </tr>
+                    @endif
                     <tr>
                         <td><b>Email</b></td>
                         <td><input type="email" id="email" name="email" placeholder="@lang('lang.enteremail')" required class="form-control"value="{{$u->email}}"></td>

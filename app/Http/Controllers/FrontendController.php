@@ -124,6 +124,34 @@ class FrontendController extends Controller
             return redirect()->route('ad.login')->with('success', 'Đổi password thành công');
         }
     }
+    public function postsettingpass(Request $request)
+    {
+        $request->validate([
+            'oldpassword' => 'required|max:100',
+            'newpassword'=>'required|max:100',
+            'confirmpassword'=>'required|max:100'
+        ],[
+            'oldpassword.required'=>'Vui lòng nhập password',
+            'oldpassword.max'=>'Vui lòng nhập dưới 100 ký tự',
+            'newpassword.required'=>'Vui lòng nhập password',
+            'newpassword.max'=>'Vui lòng nhập dưới 100 ký tự',
+            'confirmpassword.required'=>'Vui lòng nhập password',
+            'confirmpassword.max'=>'Vui lòng nhập dưới 100 ký tự'
+        ]);
+        if($request->newpassword != $request->confirmpassword){
+            return redirect()->route('changepass',['email'=>$request->email])->with('fail', 'Vui lòng nhập lại xác nhận');
+        }
+        $email=$request->email;
+        $np=md5($request->newpassword);
+        $cnp=md5($request->confirmpassword);
+        $data=admin::getLogin($email);
+        if($data[0]->password==$np){
+            return redirect()->route('changepass',['email'=>$email])->with('fail', 'Vui lòng nhập mật khẩu mới');
+        }else{
+            admin::updatePassword($email,$cnp);
+            return redirect()->route('ad.login')->with('success', 'Đổi password thành công');
+        }
+    }
     public function sendmail(Request $request){
         $request->validate([
             'hoten'=>'required|max:30|min:10',
@@ -229,7 +257,7 @@ class FrontendController extends Controller
         if($data!=NULL){
             return view('backend.register');
         }else{
-           admin::addUser($u,$p,$n,$e);
+            admin::addUser($u,$p,$n,$e);
             diachi::addAddress($u,$ph,$dc);
             return Redirect::to('/admin/login');
         }
@@ -494,10 +522,9 @@ class FrontendController extends Controller
     }
     public function account(){
         $user=$_SESSION['user'][0]->username;
-       $diachi= diachi::findAddress($user);
-       $donhang= donhang::findDH($user);
-       $dataUser = admin::getByUser($user);
-      // dd($donhang);
+        $diachi= diachi::findAddress($user);
+        $donhang= donhang::findDH($user);
+        $dataUser = admin::getByUser($user);
         return view('frontend.account',compact('diachi','donhang','dataUser'));
     }
     public function chitietDH(Request $request){
@@ -512,6 +539,29 @@ class FrontendController extends Controller
         $diachi= diachi::findAddress($user);
         $dataUser = admin::getByUser($user);
         return view('frontend.edit_account',compact('diachi','dataUser'));
+    }
+    public function account_settings(Request $request){
+        $user=$_SESSION['user'][0]->username;
+        $diachi= diachi::findAddress($user);
+        $dataUser = admin::getByUser($user);
+        return view('frontend.account_settings',compact('diachi','dataUser'));
+    }
+    public function editInfo(Request $request){
+        $username = $request->username;
+        $hoten = $request->hoten;
+        $email = $request->email;
+        $hinh = $request->hinh;
+        if($request->hasFile('image'))
+        {
+            if ($_FILES['image']['error']==0) {
+                $hinh = $_FILES['image']['name'];
+                move_uploaded_file($_FILES['image']['tmp_name'], "public/frontend/avatar/$hinh");
+            }
+        }else if($hinh == NULL){
+            $hinh = "";
+        }
+        admin::updateuser($username,$hoten,$email,$hinh);
+        return redirect()->route('account_settings');
     }
     public function updateAddress(Request $request){
         $request->validate([
@@ -538,5 +588,4 @@ class FrontendController extends Controller
         return Redirect::to('/account');
 
     }
-} 
-?>
+}
