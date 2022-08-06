@@ -76,4 +76,8 @@ return [
     'oldpassword' => 'Mật khẩu cũ',
     'newpassword' => 'Mật khẩu mới',
     'repeatnewpassword' => 'Nhập lại mật khẩu mới',
+    'status' => 'Trạng thái',
+    'default' => 'Mặc định',
+    'notdefault' => 'Đặt mặc định',
+    'newaddress' => 'Địa chỉ mới',
 ];

@@ -146,6 +146,70 @@ class FrontendController extends Controller
         admin::updatePassword($email,$np);
         return redirect()->route('account_settings')->with('success', 'Đổi password thành công');
     }
+    public function editaddress(Request $request){
+        $request->validate([
+            'phone'=>'required|min:10|max:10',
+            'address'=>'required|min:10'
+        ],[
+            'phone.required'=>'Vui lòng nhập :attribute',
+            'phone.min'=>'Vui lòng nhập tối thiểu :min số',
+            'phone.max'=>'Vui lòng nhập tối đa :max số',
+            'address.required'=>'Vui lòng nhập :attribute',
+            'address.min'=>'Vui lòng nhập hơn :min ký tự'
+        ]);
+        $user=$request->username;
+        $phone=$request->phone;
+        $address=$request->address;
+        $data=diachi::findAddress($user);
+        foreach($data as $dc){
+            if($phone == $dc->sdt && $dc->trangthai == 0){
+                return redirect()->route('account_settings')->with('fail_updateaddress','Số điện thoại vừa cập nhật đã có. Vui lòng nhập lại!');
+            }else if($address == $dc->diachi && $dc->trangthai == 0){
+                return redirect()->route('account_settings')->with('fail_updateaddress','Địa chỉ vừa cập nhật đã có. Vui lòng nhập lại!');
+            }
+        } 
+        diachi::updateAddress($user,$phone, $address);
+        return redirect()->route('account_settings')->with('success_updateaddress', 'Đổi thông tin địa chỉ thành công');
+    }
+    public function defaultaddress(Request $request){
+        $username=$request->username;
+        $phone=$request->phone;
+        $status=$request->status;
+        if($status == 1){
+            return redirect()->route('account_settings')->with('notification','Đây là địa chỉ mặc định!');
+        }
+        diachi::changeAllStatus($username);
+        diachi::defaultAddress($phone);
+        return redirect()->route('account_settings')->with('success_changedefault','Đổi địa chỉ mặc định thành công!');
+    }
+    public function newaddress(Request $request){
+        $request->validate([
+            'newphone'=>'required|min:10|max:10',
+            'newaddress'=>'required|min:10'
+        ],[
+            'newphone.required'=>'Vui lòng nhập số điện thoại',
+            'newphone.min'=>'Vui lòng nhập tối thiểu :min số',
+            'newphone.max'=>'Vui lòng nhập tối đa :max số',
+            'newaddress.required'=>'Vui lòng nhập địa chỉ',
+            'newaddress.min'=>'Vui lòng nhập hơn :min ký tự'
+        ]);
+        $username=$_SESSION['user'][0]->username;
+        $phone=$request->newphone;
+        $address=$request->newaddress;
+        $data=diachi::findAddress($username);
+        if(count($data)==5){
+            return redirect()->route('account_settings')->with('fail_newaddress','Đã đạt số lượng tối đa địa chỉ không thể thêm!');
+        }
+        foreach($data as $dc){
+            if($phone == $dc->sdt){
+                return redirect()->route('account_settings')->with('warn_newaddress','Số điện thoại vừa cập nhật đã có. Vui lòng nhập lại!');
+            }else if($address == $dc->diachi){
+                return redirect()->route('account_settings')->with('warn_newaddress','Địa chỉ vừa cập nhật đã có. Vui lòng nhập lại!');
+            }
+        } 
+        diachi::addAddress($username,$phone,$address);
+        return redirect()->route('account_settings')->with('success_newaddress','Thêm địa chỉ mới thành công!');
+    }
     public function sendmail(Request $request){
         $request->validate([
             'hoten'=>'required|max:30|min:10',

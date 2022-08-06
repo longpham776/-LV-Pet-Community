@@ -45,5 +45,8 @@ Route::group(['namespace'=>'App\Http\Controllers'],function(){
     Route::get('/account_settings','FrontendController@account_settings')->name('account_settings');
     Route::post('/editInfo','FrontendController@editInfo')->name('editInfo');
     Route::post('/settingpass','FrontendController@settingpass')->name('settingpass');
+    Route::post('/editaddress','FrontendController@editaddress')->name('editaddress');
+    Route::post('/defaultaddress','FrontendController@defaultaddress')->name('defaultaddress');
+    Route::post('/newaddress','FrontendController@newaddress')->name('newaddress');
 }); 
 ?>

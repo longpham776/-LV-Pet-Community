@@ -76,4 +76,8 @@ return [
     'oldpassword' => 'Old password',
     'newpassword' => 'New password',
     'repeatnewpassword' => 'Repeat new password',
+    'status' => 'Status',
+    'default' => 'Default',
+    'notdefault' => 'Not default',
+    'newaddress' => 'New address',
 ];

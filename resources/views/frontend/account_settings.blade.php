@@ -6,7 +6,9 @@
     <div class="container page_address margin-bottom-20">
         <div class="row">
             <div class="col-xs-12 col-lg-12 adr_title">
-                <a class="f-right a_address" href="{{route('account')}}" style="text-decoration:none;" alt=""><i class="fa fa-arrow-left" aria-hidden="true"></i> Quay lại trang tài khoản</a>
+                <a class="f-right a_address" href="{{route('account')}}" style="text-decoration:none;color:#17A45A;" alt="">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i><strong style="line-height: 30px;">Quay lại trang tài khoản</strong>
+                </a>
             </div>
         </div>
     </div>
@@ -128,56 +130,133 @@
                         </div>
                         <div class="tab-pane fade" id="account-info">
                             <div class="card-body pb-2">
-
-                                <div class="form-group">
-                                    <label class="form-label">@lang('lang.address')</label>
-                                    <textarea class="form-control" rows="1"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Birthday</label>
-                                    <input type="number" class="form-control" value="May 3, 1995">
-                                </div>
+                                @if (session('fail_updateaddress'))
+                                    <div class="alert alert-danger" role="alert">
+                                            {{ session('fail_updateaddress') }}
+                                    </div>
+                                @endif
+                                @if (session('success_updateaddress'))
+                                    <div class="alert alert-success" role="alert">
+                                            {{ session('success_updateaddress') }}
+                                    </div>
+                                @endif
+                                @if($diachi->isEmpty())
+                                    <div class="form-group">
+                                        <label class="form-label">@lang('lang.phone')</label>
+                                        <input type="number" readonly class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">@lang('lang.address')</label>
+                                        <input type="text" readonly class="form-control">
+                                    </div>
+                                @else
+                                <form action="{{route('editaddress')}}" method="post">
+                                    @csrf
+                                    @foreach($diachi as $dc)
+                                    @if($dc->trangthai == 1)
+                                    <div class="form-group">
+                                        <label class="form-label">@lang('lang.phone')</label>
+                                        <input type="number" name="phone" class="form-control" value="0{{$dc->sdt}}">
+                                        @error('phone')
+                                            <span style="color: red;">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">@lang('lang.address')</label>
+                                        <input type="text" name="address" class="form-control" value="{{$dc->diachi}}">
+                                        @error('address')
+                                            <span style="color: red;">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    @endif
+                                    @endforeach
+                                    <input type="hidden" name="username" class="form-control" value="{{$dataUser[0]->username}}">
+                                    <div class="text-right mt-3">
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </form>
+                                @endif
+                            </div>
+                            <hr class="border-light m-0">
+                            <div class="row my-1 mx-3">
+                                @if (session('notification'))
+                                    <div class="alert alert-warning" role="alert">
+                                            {{ session('notification') }}
+                                    </div>
+                                @endif
+                                @if (session('success_changedefault'))
+                                    <div class="alert alert-success" role="alert">
+                                            {{ session('success_changedefault') }}
+                                    </div>
+                                @endif
+                                <table border="1" >
+                                    <tr>
+                                        <th>username</th>
+                                        <th>@lang('lang.phone')</th>
+                                        <th>@lang('lang.address')</th>
+                                        <th>@lang('lang.status')</th>
+                                    </tr>
+                                    @foreach($diachi as $dc)
+                                    <tr>
+                                        <td>{{$dc->username}}</td>
+                                        <td>0{{$dc->sdt}}</td>
+                                        <td>{{$dc->diachi}}</td>
+                                        <td>
+                                            <form action="{{route('defaultaddress')}}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="username" class="form-control" value="{{$dc->username}}">
+                                                <input type="hidden" name="phone" class="form-control" value="{{$dc->sdt}}">
+                                                <input type="hidden" name="status" class="form-control" value="{{$dc->trangthai}}">
+                                                @if($dc->trangthai == 1)
+                                                <button type="submit" class="btn btn-primary">@lang('lang.default')</button>
+                                                @else
+                                                <button type="submit" class="btn btn-primary">@lang('lang.notdefault')</button>
+                                                @endif
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </table>
 
                             </div>
                             <hr class="border-light m-0">
                             <div class="card-body pb-2">
-
-                                <div class="form-group">
-                                    <label class="form-label">@lang('lang.address')</label>
-                                    <textarea class="form-control" rows="1"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Birthday</label>
-                                    <input type="text" class="form-control" value="May 3, 1995">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Country</label>
-                                    <select class="custom-select">
-                                        <option>USA</option>
-                                        <option selected="">Canada</option>
-                                        <option>UK</option>
-                                        <option>Germany</option>
-                                        <option>France</option>
-                                    </select>
-                                </div>
-
-
-                            </div>
-                            <hr class="border-light m-0">
-                            <div class="card-body pb-2">
-
-                                <h6 class="mb-4">Contacts</h6>
-                                <div class="form-group">
-                                    <label class="form-label">Phone</label>
-                                    <input type="text" class="form-control" value="+0 (123) 456 7891">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Website</label>
-                                    <input type="text" class="form-control" value="">
-                                </div>
-                                <div class="text-right mt-3">
-                                    <button type="submit" class="btn btn-primary">Save changes</button>
-                                </div>
+                                @if (session('fail_newaddress'))
+                                    <div class="alert alert-danger" role="alert">
+                                            {{ session('fail_newaddress') }}
+                                    </div>
+                                @endif
+                                @if (session('warn_newaddress'))
+                                    <div class="alert alert-warning" role="alert">
+                                            {{ session('warn_newaddress') }}
+                                    </div>
+                                @endif
+                                @if (session('success_newaddress'))
+                                    <div class="alert alert-success" role="alert">
+                                            {{ session('success_newaddress') }}
+                                    </div>
+                                @endif
+                                <form action="{{route('newaddress')}}" method="post">
+                                    @csrf
+                                    <h4 class="mb-4">@lang('lang.newaddress')</h4>
+                                    <div class="form-group">
+                                        <label class="form-label">@lang('lang.phone')</label>
+                                        <input type="text" name="newphone" class="form-control" placeholder="+84 (123) 456 7891">
+                                        @error('newphone')
+                                            <span style="color: red;">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">@lang('lang.address')</label>
+                                        <input type="text" name="newaddress" class="form-control" placeholder="Street, Dictrict, City">
+                                        @error('newaddress')
+                                            <span style="color: red;">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="text-right mt-3">
+                                        <button type="submit" class="btn btn-primary">Add new</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="account-social-links">
@@ -319,18 +398,22 @@
     <style type="text/css">
         body {
             background: #f5f5f5;
-            margin-top: 20px;
         }
-
+        .btn-primary {
+            background-color: #17A45A;
+        }
+        .btn-primary:hover {
+            background-color: #555;
+        }
         .ui-w-80 {
             width: 80px !important;
             height: auto;
         }
 
         .btn-default {
-            border-color: rgba(24, 28, 33, 0.1);
+            border-color: #17A45A;
             background: rgba(0, 0, 0, 0);
-            color: #4E5155;
+            color: #17A45A;
         }
 
         label.btn {
@@ -338,9 +421,12 @@
         }
 
         .btn-outline-primary {
-            border-color: #26B4FF;
+            border-color: #17A45A;
             background: transparent;
-            color: #26B4FF;
+            color: #17A45A;
+        }
+        .btn-outline-primary:hover {
+            background-color: #555;
         }
 
         .btn {
