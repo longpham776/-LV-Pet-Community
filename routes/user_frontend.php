@@ -48,5 +48,6 @@ Route::group(['namespace'=>'App\Http\Controllers'],function(){
     Route::post('/editaddress','FrontendController@editaddress')->name('editaddress');
     Route::post('/defaultaddress','FrontendController@defaultaddress')->name('defaultaddress');
     Route::post('/newaddress','FrontendController@newaddress')->name('newaddress');
+    Route::post('/cancelorder','FrontendController@cancelorder')->name('cancelorder');
 }); 
 ?>

@@ -80,4 +80,6 @@ return [
     'default' => 'Mặc định',
     'notdefault' => 'Đặt mặc định',
     'newaddress' => 'Địa chỉ mới',
+    'cancelorder' => 'Đã hủy',
+    
 ];

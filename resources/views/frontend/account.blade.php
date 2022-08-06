@@ -14,6 +14,21 @@
 										@endforeach
 									</a>&nbsp;!</b></p>
 						</div>
+						@if (session('fail_cancelorder'))
+							<div class="alert alert-warning" role="alert">
+									{{ session('fail_cancelorder') }}
+							</div>
+						@endif
+						@if (session('warn_cancelorder'))
+							<div class="alert alert-danger" role="alert">
+									{{ session('warn_cancelorder') }}
+							</div>
+						@endif
+						@if (session('success_cancelorder'))
+							<div class="alert alert-success" role="alert">
+									{{ session('success_cancelorder') }}
+							</div>
+						@endif
 						<div class="col-xs-12 col-sm-12 col-lg-12 no-padding">
 
 							<div class="my-account">
@@ -61,15 +76,25 @@
 														<td>@lang('lang.waitingforthegoods')</td>
 														@elseif($dh->trangthai == 2)
 														<td>@lang('lang.indelivery')</td>
-														@else
+														@elseif($dh->trangthai == 3)
 														<td>@lang('lang.delivered')</td>
+														@elseif($dh->trangthai == 4)
+														<td>@lang('lang.cancelorder')</td>
 														@endif
 														<td><button class="btn btn-primary">@lang('lang.detail')</button></td>
-														<td>
-															<button class="btn btn-primary" type="submit"> <a href="#" style="text-decoration:none;color:white;" method="post">Hủy đơn</a> </button>
-														</td>
 													</form>
-
+														@if($dh->trangthai < 3)
+														<td>
+															<form action="{{route('cancelorder')}}" method="post">
+																@csrf
+																<input type="hidden" value="{{ $dh->madon }}" name="madon">
+																<input type="hidden" value="{{ $dh->trangthai }}" name="status">
+																<button class="btn btn-primary" type="submit">Hủy đơn</button>
+															</form>
+														</td>
+														@else
+														<td></td>
+														@endif
 													</tr>
 													@endforeach
 													@endif
@@ -94,7 +119,7 @@
 							</div>
 							@if($diachi->isEmpty())
 							<div class="block-content form-signup">
-								<p><i class="fa fa-user"></i> <strong style="line-height: 20px;">@lang('lang.fullname'):</strong> {{$a->hoten}}</p>
+								<p><i class="fa fa-user"></i> <strong style="line-height: 20px;">@lang('lang.fullname'): </strong>{{$a->hoten}}</p>
 								<p><i class="fa fa-home font-some" aria-hidden="true"></i> <strong style="line-height: 20px;">@lang('lang.address'): </strong></p>
 								<p><i class="fa fa-mobile font-some" aria-hidden="true"></i> <strong style="line-height: 20px;">@lang('lang.phone'): </strong> </p>
 								<p><i class="fa fa-envelope margin-icon"></i> <strong style="line-height: 20px;"> Email:</strong> {{$a->email}}</p>

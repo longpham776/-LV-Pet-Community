@@ -19,10 +19,34 @@
 					<div id="a" class="col-xs-12 col-sm-12 col-lg-9 col-left-account">
 						<h1>@lang('lang.detailorder')</h1>
 						<div class="col-xs-12 col-sm-12 col-lg-12 no-padding">
-
 							<div class="my-account">
 								<div class="dashboard">
-
+									<table class="thongtinnhanhang">
+										<tr>
+											<td width="20%"><strong style="line-height: 20px;">@lang('lang.fullname'):</strong></td>
+											<td>{{$thongtin[0]->hoten}}</td>
+										</tr>
+										<tr>
+											<td><strong style="line-height: 20px;">@lang('lang.address'):</strong></td>
+											<td>{{$thongtin[0]->diachi}}</td>
+										</tr>
+										<tr>
+											<td><strong style="line-height: 20px;">@lang('lang.phone'):</strong></td>
+											<td>0{{$thongtin[0]->dienthoai}}</td>
+										</tr>
+										<tr>
+											<td><strong style="line-height: 20px;">Email:</strong></td>
+											<td>{{$thongtin[0]->email}}</td>
+										</tr>
+										<tr>
+											<td><strong style="line-height: 20px;">@lang('lang.paymentmethods'):</strong></td>
+											@if($thongtin[0]->pttt == 0)
+											<td>Thanh toán khi nhận hàng</td>
+											@else
+											<td>Thanh toán online</td>
+											@endif
+										</tr>
+									</table>
 									<div class="recent-orders">
 										<div class="table-responsive tab-all" style="overflow-x:auto;">
 											<table class="table table-cart" id="my-orders-table">

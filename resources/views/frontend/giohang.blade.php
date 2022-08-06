@@ -130,7 +130,7 @@
                 </table>
             </div>
             <div class="row mb">
-                <input type="submit" value="@lang('lang.acceptorder')" name="submitcart">
+                <input type="submit" class="btn btn-primary" value="@lang('lang.acceptorder')" name="submitcart">
             </div>
         </div>
     </form>
@@ -144,11 +144,11 @@
     <br>
     <form id="form-payment" method="POST" action="{{route('vn_payment')}}">
         @csrf
-        <button type="submit" onclick="formDelivery()" name="redirect">@lang('lang.vnpaypayment')</button>
+        <button type="submit" class="btn btn-primary" onclick="formDelivery()" name="redirect">@lang('lang.vnpaypayment')</button>
     </form>
     <br>
-    <a href="{{route('sanpham')}}"><input type="button" value="@lang('lang.continue')"></a>
-    <a href="{{route('destroycart')}}"><input type="button" value="@lang('lang.deletecart')"></a>
+    <a href="{{route('sanpham')}}"><input type="button" class="btn btn-primary" value="@lang('lang.continue')"></a>
+    <a href="{{route('destroycart')}}"><input type="button" class="btn btn-primary" value="@lang('lang.deletecart')"></a>
 </div>
 <script>
     //Make sure that the dom is ready
@@ -161,4 +161,12 @@
         sessionStorage.setItem('pttt',$('#pttt').val());
     }
 </script>
+<style type="text/css">
+    .btn-primary {
+        background-color: #17A45A;
+    }
+    .btn-primary:hover {
+        background-color: #555;
+    }
+</style>
 @stop

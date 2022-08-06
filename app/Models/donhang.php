@@ -16,6 +16,7 @@ class donhang extends Model
             'diachi' => $diachi,
             'dienthoai' => $dienthoai,
             'email' => $email,
+            'date' => date('Y-m-d'),
             'pttt' => $pttt,
             'thanhtien' => $thanhtien
         ]);
@@ -33,5 +34,8 @@ class donhang extends Model
     }
     public static function findDH($id){
         return DB::select('SELECT * FROM donhangs WHERE username=? ORDER BY madon desc ',[$id]);    
+    }
+    public static function findByMaDon($id){
+        return DB::select('SELECT * FROM donhangs WHERE madon=?',[$id]);    
     }
 }

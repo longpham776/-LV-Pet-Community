@@ -25,13 +25,11 @@
                         <a class="list-group-item list-group-item-action active" data-toggle="list" href="#account-general">General</a>
                         <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-change-password">Change password</a>
                         <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-info">@lang('lang.address')</a>
-                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-social-links">Social links</a>
-                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-connections">Connections</a>
-                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-notifications">Notifications</a>
                     </div>
                 </div>
                 <div class="col-md-9">
                     <div class="tab-content">
+
                         <div class="tab-pane fade active show" id="account-general">
                             <form action="{{route('editInfo')}}" method="post" enctype="multipart/form-data">
                                 @csrf
@@ -102,7 +100,7 @@
                                     @endif
                                     <div class="form-group">
                                         <label class="form-label">@lang('lang.oldpassword')</label>
-                                        <input type="password" id="unvisiblepass" readonly name="oldpassword" value="{{$u->password}}" class="form-control">
+                                        <input type="password" id="unvisibleoldpass" readonly name="oldpassword" value="{{$u->password}}" class="form-control">
                                     </div>
 
                                     <div class="form-group">
@@ -236,6 +234,10 @@
                                             {{ session('success_newaddress') }}
                                     </div>
                                 @endif
+                                <div class="form-group">
+                                    <label>Location:</label>
+                                    <input type="text" class="form-control" id="search_input" placeholder="Type address..." />
+                                </div>
                                 <form action="{{route('newaddress')}}" method="post">
                                     @csrf
                                     <h4 class="mb-4">@lang('lang.newaddress')</h4>
@@ -257,135 +259,6 @@
                                         <button type="submit" class="btn btn-primary">Add new</button>
                                     </div>
                                 </form>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="account-social-links">
-                            <div class="card-body pb-2">
-
-                                <div class="form-group">
-                                    <label class="form-label">Twitter</label>
-                                    <input type="text" class="form-control" value="https://twitter.com/user">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Facebook</label>
-                                    <input type="text" class="form-control" value="https://www.facebook.com/user">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Google+</label>
-                                    <input type="text" class="form-control" value="">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">LinkedIn</label>
-                                    <input type="text" class="form-control" value="">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Instagram</label>
-                                    <input type="text" class="form-control" value="https://www.instagram.com/user">
-                                </div>
-                                <div class="text-right mt-3">
-                                    <button type="button" class="btn btn-primary">Save changes</button>&nbsp;
-                                    <button type="button" class="btn btn-default">Cancel</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="account-connections">
-                            <div class="card-body">
-                                <button type="button" class="btn btn-twitter">Connect to <strong>Twitter</strong></button>
-                            </div>
-                            <hr class="border-light m-0">
-                            <div class="card-body">
-                                <h5 class="mb-2">
-                                    <a href="javascript:void(0)" class="float-right text-muted text-tiny"><i class="ion ion-md-close"></i> Remove</a>
-                                    <i class="ion ion-logo-google text-google"></i>
-                                    You are connected to Google:
-                                </h5>
-                                nmaxwell@mail.com
-                            </div>
-                            <hr class="border-light m-0">
-                            <div class="card-body">
-                                <button type="button" class="btn btn-facebook">Connect to <strong>Facebook</strong></button>
-                            </div>
-                            <hr class="border-light m-0">
-                            <div class="card-body">
-                                <button type="button" class="btn btn-instagram">Connect to <strong>Instagram</strong></button>
-                            </div>
-                            <div class="text-right mt-3">
-                                <button type="button" class="btn btn-primary">Save changes</button>&nbsp;
-                                <button type="button" class="btn btn-default">Cancel</button>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="account-notifications">
-                            <div class="card-body pb-2">
-
-                                <h6 class="mb-4">Activity</h6>
-
-                                <div class="form-group">
-                                    <label class="switcher">
-                                        <input type="checkbox" class="switcher-input" checked="">
-                                        <span class="switcher-indicator">
-                                            <span class="switcher-yes"></span>
-                                            <span class="switcher-no"></span>
-                                        </span>
-                                        <span class="switcher-label">Email me when someone comments on my article</span>
-                                    </label>
-                                </div>
-                                <div class="form-group">
-                                    <label class="switcher">
-                                        <input type="checkbox" class="switcher-input" checked="">
-                                        <span class="switcher-indicator">
-                                            <span class="switcher-yes"></span>
-                                            <span class="switcher-no"></span>
-                                        </span>
-                                        <span class="switcher-label">Email me when someone answers on my forum thread</span>
-                                    </label>
-                                </div>
-                                <div class="form-group">
-                                    <label class="switcher">
-                                        <input type="checkbox" class="switcher-input">
-                                        <span class="switcher-indicator">
-                                            <span class="switcher-yes"></span>
-                                            <span class="switcher-no"></span>
-                                        </span>
-                                        <span class="switcher-label">Email me when someone follows me</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <hr class="border-light m-0">
-                            <div class="card-body pb-2">
-
-                                <h6 class="mb-4">Application</h6>
-
-                                <div class="form-group">
-                                    <label class="switcher">
-                                        <input type="checkbox" class="switcher-input" checked="">
-                                        <span class="switcher-indicator">
-                                            <span class="switcher-yes"></span>
-                                            <span class="switcher-no"></span>
-                                        </span>
-                                        <span class="switcher-label">News and announcements</span>
-                                    </label>
-                                </div>
-                                <div class="form-group">
-                                    <label class="switcher">
-                                        <input type="checkbox" class="switcher-input">
-                                        <span class="switcher-indicator">
-                                            <span class="switcher-yes"></span>
-                                            <span class="switcher-no"></span>
-                                        </span>
-                                        <span class="switcher-label">Weekly product updates</span>
-                                    </label>
-                                </div>
-                                <div class="form-group">
-                                    <label class="switcher">
-                                        <input type="checkbox" class="switcher-input" checked="">
-                                        <span class="switcher-indicator">
-                                            <span class="switcher-yes"></span>
-                                            <span class="switcher-no"></span>
-                                        </span>
-                                        <span class="switcher-label">Weekly blog digest</span>
-                                    </label>
-                                </div>
-
                             </div>
                         </div>
                     </div>
@@ -535,15 +408,40 @@
         });
 
         const unvisiblepass = document.querySelector("#unvisiblepass");
-        const currentType = unvisiblepass.getAttribute('type');
 
         unvisiblepass.addEventListener("mouseover", ()=>{
-            
             unvisiblepass.setAttribute('type', 'text');
         });
         unvisiblepass.addEventListener("mouseout", ()=>{
-            
             unvisiblepass.setAttribute('type', 'password');
         });
+
+        const unvisibleoldpass = document.querySelector("#unvisibleoldpass");
+
+        unvisibleoldpass.addEventListener("mouseover", ()=>{
+            unvisibleoldpass.setAttribute('type', 'text');
+        });
+        unvisibleoldpass.addEventListener("mouseout", ()=>{
+            unvisibleoldpass.setAttribute('type', 'password');
+        });
     </script>
+    <script>
+        var searchInput = 'search_input';
+
+        $(document).ready(function () {
+        var autocomplete;
+        autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
+            types: ['geocode'],
+            /*componentRestrictions: {
+            country: "USA"
+            }*/
+        });
+
+        google.maps.event.addListener(autocomplete, 'place_changed', function () {
+            var near_place = autocomplete.getPlace();
+        });
+        });
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyA66KwUrjxcFG5u0exynlJ45CrbrNe3hEc"></script>
+
     @stop

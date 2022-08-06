@@ -185,12 +185,15 @@
         <div class="be-comment">
             <div class="be-img-comment">	
                 <a href="#" style="text-decoration:none;">
-                    @if(!isset($_SESSION['user']))
-                    <img src="https://secure.gravatar.com/avatar/3dbbb7b9f09bd1f312374056bb92b3e1?s=96&d=https%3A%2F%2Fstatic.teamtreehouse.com%2Fassets%2Fcontent%2Fdefault_avatar-ea7cf6abde4eec089a4e03cc925d0e893e428b2b6971b12405a9b118c837eaa2.png&r=pg" alt="" class="be-ava-comment">
-                    @else
-                    <img src="{{url('public')}}/frontend/avatar/{{$_SESSION['user'][0]->hinh}}" alt="" class="be-ava-comment">
+                @foreach($getUsers as $user)
+                    @if($user->username == $bl->username)
+                        @if(!$user->hinh)
+                        <img src="https://secure.gravatar.com/avatar/3dbbb7b9f09bd1f312374056bb92b3e1?s=96&d=https%3A%2F%2Fstatic.teamtreehouse.com%2Fassets%2Fcontent%2Fdefault_avatar-ea7cf6abde4eec089a4e03cc925d0e893e428b2b6971b12405a9b118c837eaa2.png&r=pg" alt="" class="be-ava-comment">
+                        @else
+                        <img src="{{url('public')}}/frontend/avatar/{{$user->hinh}}" alt="" class="be-ava-comment">
+                        @endif
                     @endif
-                    
+                @endforeach
                 </a>
             </div>
             <div class="be-comment-content">

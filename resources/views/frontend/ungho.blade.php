@@ -23,4 +23,12 @@
     </div>
 </section>
 <br>
+<style type="text/css">
+        .btn-primary {
+            background-color: #17A45A;
+        }
+        .btn-primary:hover {
+            background-color: #555;
+        }
+    </style>
 @stop

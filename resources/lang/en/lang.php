@@ -80,4 +80,5 @@ return [
     'default' => 'Default',
     'notdefault' => 'Not default',
     'newaddress' => 'New address',
+    'cancelorder' => 'Cancel ordered',
 ];

@@ -269,7 +269,8 @@ class FrontendController extends Controller
         $getAll = sanpham::all();
         $getBl = binhluansp::getCommentSp($request->id);
         $getTH = thuonghieu::getTH();
-        return view('frontend.chitietsanpham',compact('getSP','getAll','getTH','getBl'));
+        $getUsers = admin::all();
+        return view('frontend.chitietsanpham',compact('getSP','getAll','getTH','getBl','getUsers'));
     }
     public function timkiem(Request $request){
         $getSP=sanpham::search($request->id);
@@ -587,10 +588,11 @@ class FrontendController extends Controller
     }
     public function chitietDH(Request $request){
         $user=$_SESSION['user'][0]->username;
+        $thongtin=donhang::findByMaDon($request->id);
         $diachi= diachi::findAddress($user);
         $getCTD=chitietdonhang::getById($request->id);
         $dataUser = admin::getByUser($user);
-        return view("frontend.chitietDH", compact('diachi','getCTD','dataUser'));
+        return view("frontend.chitietDH", compact('diachi','getCTD','dataUser','thongtin'));
     }
     public function editAccount(Request $request){
         $user=$_SESSION['user'][0]->username;
@@ -618,6 +620,7 @@ class FrontendController extends Controller
         }else if($hinh == NULL){
             $hinh = "";
         }
+        $_SESSION['user'][0]->hoten=$hoten;
         admin::updateuser($username,$hoten,$email,$hinh);
         return redirect()->route('account_settings');
     }
@@ -645,5 +648,14 @@ class FrontendController extends Controller
         admin::updateuser($user,$fullname,$email);
         return Redirect::to('/account');
 
+    }
+    public function cancelorder(Request $request){
+        if($request->status >= 1 && $request->status <= 3){
+            return redirect()->route('account')->with('fail_cancelorder','Không thể hủy đơn khi đã xác nhận!');
+        }else if($request->status == 4){
+            return redirect()->route('account')->with('warn_cancelorder','Không thể hủy đơn khi đã hủy!');
+        }
+        donhang::updateStatus($request->madon,4);
+        return redirect()->route('account')->with('success_cancelorder','Hủy đơn thành công!');
     }
 }
