@@ -43,14 +43,11 @@
                     @endif
                     <tr>
                         <td><b>Email</b></td>
-                        <td><input type="email" id="email" name="email" placeholder="@lang('lang.enteremail')" required class="form-control"value="{{$u->email}}"></td>
+                        <td><input type="email" readonly id="email" name="email" placeholder="@lang('lang.enteremail')" required class="form-control"value="{{$u->email}}"></td>
                     </tr>
                     <tr>
                         <td><b>@lang('lang.paymentmethods')</b></td>
-                        <td><select id="pttt" name="pttt" class="form-control">
-                            <option value="0">@lang('lang.paymentondelivery')</option>
-                            <option value="1">@lang('lang.onlinepayment')</option>
-                        </select></td>
+                        <td><input type="text" readonly id="pttt" name="pttt" class="form-control"></td>
                     </tr> 
 
                     @endforeach
@@ -130,7 +127,7 @@
                 </table>
             </div>
             <div class="row mb">
-                <input type="submit" class="btn btn-primary" value="@lang('lang.acceptorder')" name="submitcart">
+                <input type="submit" class="btn btn-primary" id="btnOrderOff" value="@lang('lang.acceptorder')" name="submitcart">
             </div>
         </div>
     </form>
@@ -144,7 +141,7 @@
     <br>
     <form id="form-payment" method="POST" action="{{route('vn_payment')}}">
         @csrf
-        <button type="submit" class="btn btn-primary" onclick="formDelivery()" name="redirect">@lang('lang.vnpaypayment')</button>
+        <button type="submit" class="btn btn-primary" id="btnOrderOn" onclick="formDelivery()" name="redirect">@lang('lang.vnpaypayment')</button>
     </form>
     <br>
     <a href="{{route('sanpham')}}"><input type="button" class="btn btn-primary" value="@lang('lang.continue')"></a>
@@ -169,4 +166,16 @@
         background-color: #555;
     }
 </style>
+<script>
+        const btnOrderOff = document.querySelector("#btnOrderOff");
+        const btnOrderOn = document.querySelector("#btnOrderOn");
+        const pttt = document.getElementById('pttt');
+
+        btnOrderOff.addEventListener("mouseover", ()=>{
+            pttt.value = "Thanh toán khi nhận hàng";
+        });
+        btnOrderOn.addEventListener("mouseover", ()=>{
+            pttt.value = "Thanh toán online";
+        });
+    </script>
 @stop

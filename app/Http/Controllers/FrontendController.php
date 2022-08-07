@@ -50,10 +50,15 @@ class FrontendController extends Controller
         ],[
             'mota.required'=>'Vui lòng nhập nội dung'
         ]);
+        $solanmuasp=$request->solanmuasp;
         $masp=$request->masp;
         $username=$request->username;
         $mota=$request->mota;
         $datetime = Carbon::now();
+        $datacmt=binhluansp::getCommentByUser($_SESSION['user'][0]->username,$masp);
+        if(count($datacmt) == $solanmuasp){
+            return redirect()->route('chitietsanpham',['id'=>$masp])->with('fail_cmt','Vui lòng mua hàng thêm để được bình luận!');
+        }
         binhluansp::commentSp($masp,$username,$mota,$datetime);
         return redirect()->route('chitietsanpham',['id'=>$masp]);
     }
@@ -270,7 +275,19 @@ class FrontendController extends Controller
         $getBl = binhluansp::getCommentSp($request->id);
         $getTH = thuonghieu::getTH();
         $getUsers = admin::all();
-        return view('frontend.chitietsanpham',compact('getSP','getAll','getTH','getBl','getUsers'));
+        $getDH = donhang::findDH($_SESSION['user'][0]->username);
+        $getCTDH = chitietdonhang::all();
+        $countSpDh=0;
+        foreach($getDH as $dh){
+            foreach($getCTDH as $ctdh){
+                if($dh->madon == $ctdh->madon){
+                    if($request->id == $ctdh->masp){
+                        $countSpDh++;
+                    }
+                }
+            }
+        }
+        return view('frontend.chitietsanpham',compact('getSP','getAll','getTH','getBl','getUsers','countSpDh'));
     }
     public function timkiem(Request $request){
         $getSP=sanpham::search($request->id);
@@ -423,6 +440,8 @@ class FrontendController extends Controller
         $dienthoai=$request->dienthoai;
         $email=$request->email;
         $pttt=$request->pttt;
+        if($pttt === "Thanh toán khi nhận hàng") $pttt=0;
+        else $pttt=1;
         $thanhtien=Cart::pricetotal();
         $content= Cart::content();
         donhang::addBill($_SESSION['user'][0]->username,$hoten,$diachi,$dienthoai,$email,$pttt,$thanhtien);

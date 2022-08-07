@@ -160,7 +160,7 @@ For what reason would it be advisable for me to think about business content? Th
                                     <tr>
                                         <td align="left" valign="top" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px;">
                                             <p style="font-weight: 800;">Delivery Address</p>
-                                            <p></p>
+                                            <p id="deliveryaddress"></p>
                                         </td>
                                     </tr>
                                 </table>
@@ -170,7 +170,7 @@ For what reason would it be advisable for me to think about business content? Th
                                     <tr>
                                         <td align="left" valign="top" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px;">
                                             <p style="font-weight: 800;">Estimated Delivery Date</p>
-                                            <p></p>
+                                            <p id="estimatedDeliDate"></p>
                                         </td>
                                     </tr>
                                 </table>
@@ -228,6 +228,18 @@ For what reason would it be advisable for me to think about business content? Th
     </tr>
 </table>
 <script>
+    const deliveryAddress = document.getElementById("deliveryaddress");
+    deliveryAddress.innerHTML = sessionStorage.getItem('diachi');
+
+    const estimatedDeliDate = document.getElementById("estimatedDeliDate");
+    //Date, Time, Timestamp
+    let today = new Date();
+    let DD = String(today.getDate()).padStart(2, '0');
+    let MM = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let YYYY = today.getFullYear();
+    today = YYYY + '/' + MM + '/' + DD + ' - ' + YYYY + '/' + MM + '/' + String(today.getDate()+6).padStart(2, '0');
+    estimatedDeliDate.innerHTML = today;
+
     //Make sure that the dom is ready
     function loadSessionStorage() {
         document.getElementById("hoten").value = sessionStorage.getItem('hoten');
