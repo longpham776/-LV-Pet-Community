@@ -45,6 +45,18 @@ class FrontendController extends Controller
     public function forgetpass(){
         return view('backend.forgetpass');
     }
+    public function autocomplete_ajax(Request $request){
+        $data = $request->all();
+        if($data['query']){
+            $getSP = sanpham::where('trangthai',0)->where('tensp','LIKE','%'.$data['query'].'%')->get();
+            $output = '<ul class="dropdown-menu" style="display:block; position:relative">';
+            foreach($getSP as $key => $val){
+                $output .= '<li class="li_search_ajax"><a href="#" class="nav-link" style="color:#17A45A;">'.$val->tensp.'</a></li>';
+            }
+            $output .= '</ul>';
+            echo $output;
+        }
+    }
     public function deleteFavPro(Request $request){
         $username = $_SESSION['user'][0]->username;
         $masp = $request->masp;

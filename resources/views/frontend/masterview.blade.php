@@ -275,13 +275,18 @@
             <div class="w-100 pt-1 mb-5 text-right">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="{{route('sanpham')}}" method="get" class="modal-content modal-body border-0 p-0">
+            <form action="{{route('sanpham')}}" autocomplete="off" method="get" class="modal-content modal-body border-0 p-0">
+                @csrf
                 <div class="input-group mb-2">
+
                     <input type="text" class="form-control" id="inputModalSearch" name="kw" placeholder="Search ...">
+                    
+
                     <button type="submit" class="input-group-text bg-success text-light">
                         <i class="fa fa-fw fa-search text-white"></i>
                     </button>
                 </div>
+                <div id="search_ajax"></div>
             </form>
         </div>
     </div>
@@ -379,7 +384,29 @@
     <!-- Your Plugin chat code -->
     <div id="fb-customer-chat" class="fb-customerchat">
     </div>
-
+    <script type="text/javascript">
+        $('#inputModalSearch').keyup(function(){
+            var query = $(this).val();
+            if(query != ''){
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url:"{{url('/autocomplete-ajax')}}",
+                    method:"POST",
+                    data:{query:query, _token:_token},
+                    success:function(data){
+                        $('#search_ajax').fadeIn();
+                        $('#search_ajax').html(data);
+                    }
+                });
+            }else{
+                $('#search_ajax').fadeOut();
+            }
+        });
+        $(document).on('click','.li_search_ajax',function(){
+            $('#inputModalSearch').val($(this).text());
+            $('#search_ajax').fadeOut();
+        });
+    </script>
     <script>
         var chatbox = document.getElementById('fb-customer-chat');
         chatbox.setAttribute("page_id", "102604329136085");

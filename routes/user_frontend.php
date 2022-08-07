@@ -51,5 +51,6 @@ Route::group(['namespace'=>'App\Http\Controllers'],function(){
     Route::post('/cancelorder','FrontendController@cancelorder')->name('cancelorder');
     Route::post('/sanphamyeuthich','FrontendController@sanphamyeuthich')->name('sanphamyeuthich');
     Route::post('/deleteFavPro','FrontendController@deleteFavPro')->name('deleteFavPro');
+    Route::post('/autocomplete-ajax','FrontendController@autocomplete_ajax');
 }); 
 ?>
