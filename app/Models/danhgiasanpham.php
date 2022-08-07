@@ -22,7 +22,7 @@ class danhgiasanpham extends Model
             'rate' => $rate
         ]);
     }
-    public static function updateRating($username,$rate){
-        return DB::table('danhgiasanphams')->where('username',$username)->update(['rate' => $rate]);
+    public static function updateRating($masp,$username,$rate){
+        return DB::table('danhgiasanphams')->where('username',$username)->where('masp',$masp)->update(['rate' => $rate]);
     }
 }

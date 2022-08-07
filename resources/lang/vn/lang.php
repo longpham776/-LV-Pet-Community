@@ -81,5 +81,12 @@ return [
     'notdefault' => 'Đặt mặc định',
     'newaddress' => 'Địa chỉ mới',
     'cancelorder' => 'Đã hủy',
+    'cancel' => 'Hủy đơn',
+    'general' => 'Chung',
+    'changepassword' => 'Đổi mật khẩu',
+    'accountsettings' => 'Tùy chỉnh tài khoản',
+    'signout' => 'Đăng xuất',
+    'account' => 'Tài khoản',
+    'favoriteproduct' => 'Sản phẩm yêu thích',
     
 ];

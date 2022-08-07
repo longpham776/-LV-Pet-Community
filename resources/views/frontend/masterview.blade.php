@@ -251,7 +251,7 @@
                     <div class="header__top__right__auth">
                         <i class="fa fa-user">
                             @lang('lang.hello'),
-                            <a href="{{route('account')}}" style="text-decoration:none;">
+                            <a href="{{route('account')}}" title="@lang('lang.account')" style="text-decoration:none;">
                                 @if(isset($_SESSION['user']))
                                 @foreach($_SESSION['user'] as $a)
                                 {{$a->hoten}}|
@@ -259,7 +259,7 @@
                                 @endif
                             </a>
                         </i>
-                        <a href="{{route('logout')}}" title="Sign Out" style="text-decoration:none;">Sign Out</a>
+                        <a href="{{route('logout')}}" title="@lang('lang.signout')" style="text-decoration:none;">@lang('lang.signout')</a>
                     </div>
                     @php } @endphp
                 </div>
@@ -454,7 +454,7 @@
         // khai báo hàm scrollFunction
         function scrollFunction() {
             // Kiểm tra vị trí hiện tại của con trỏ so với nội dung trang
-            if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
                 //nếu lớn hơn 50px thì hiện button
                 document.getElementById("myBtn").style.display = "block";
             } else {

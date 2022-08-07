@@ -42,9 +42,19 @@
                                     <img class="card-img rounded-0 img-fluid" src="{{url('public')}}/frontend/img/{{$sp->hinh}}">
                                     <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                         <ul class="list-unstyled">
-                                            <form action="#" method="post">
+                                            @if(isset($_SESSION['user']))
+                                            <form action="{{route('sanphamyeuthich')}}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="masp" value="{{$sp->masp}}">
+                                                <input type="hidden" name="tensp" value="{{$sp->tensp}}">
+                                                <input type="hidden" name="hinh" value="{{$sp->hinh}}">
                                                 <li><i class="btn btn-success text-white mt-2 far fa-heart"><input type="submit" class="btn btn-success far fa-heart" name="submit" value="@lang('lang.like')"></i></li>
                                             </form>
+                                            @else
+                                            <form action="{{route('ad.login')}}" method="get">
+                                                <li><i class="btn btn-success text-white mt-2 far fa-heart"><input type="submit" class="btn btn-success far fa-heart" name="submit" value="@lang('lang.like')"></i></li>
+                                            </form>
+                                            @endif
                                             <form action="{{route('chitietsanpham',['id'=>$sp->masp])}}" method="get">
                                                 <li><i class="btn btn-success text-white mt-2 far fa-eye"><input type="submit" class="btn btn-success far fa-eye" name="submit" value="@lang('lang.view')"></i></li>
                                             </form>
@@ -239,5 +249,4 @@
         </div>
     </div>
 </section>
-
 @stop

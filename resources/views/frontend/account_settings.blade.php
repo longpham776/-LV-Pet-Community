@@ -15,16 +15,17 @@
     <div class="container light-style flex-grow-1 container-p-y">
 
         <h4 class="font-weight-bold py-3 mb-4">
-            Account settings
+            @lang('lang.accountsettings')
         </h4>
 
         <div class="card overflow-hidden">
             <div class="row no-gutters row-bordered row-border-light">
                 <div class="col-md-3 pt-0">
                     <div class="list-group list-group-flush account-settings-links">
-                        <a class="list-group-item list-group-item-action active" data-toggle="list" href="#account-general">General</a>
-                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-change-password">Change password</a>
+                        <a class="list-group-item list-group-item-action active" data-toggle="list" href="#account-general">@lang('lang.general')</a>
+                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-change-password">@lang('lang.changepassword')</a>
                         <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-info">@lang('lang.address')</a>
+                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-social-links">@lang('lang.favoriteproduct')</a>
                     </div>
                 </div>
                 <div class="col-md-9">
@@ -259,6 +260,52 @@
                                         <button type="submit" class="btn btn-primary">Add new</button>
                                     </div>
                                 </form>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="account-social-links">
+                            <div class="row my-1 mx-5">
+                                @if (session('fail_addspyt'))
+                                    <div class="alert alert-warning" role="alert">
+                                            {{ session('fail_addspyt') }}
+                                    </div>
+                                @endif
+                                @if (session('success_addspyt'))
+                                    <div class="alert alert-success" role="alert">
+                                            {{ session('success_addspyt') }}
+                                    </div>
+                                @endif
+                                @if (session('success_deletespyt'))
+                                    <div class="alert alert-success" role="alert">
+                                            {{ session('success_deletespyt') }}
+                                    </div>
+                                @endif
+                                <table border="0" >
+                                    <tr>
+                                        <th>@lang('lang.nameproduct')</th>
+                                        <th>&ensp;&ensp;&ensp;@lang('lang.image')</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <hr class="border-light m-0">
+                                        </td>
+                                    </tr>
+                                    @foreach($spyt as $sp)
+                                    <tr>
+                                        <td><a href="{{route('chitietsanpham',['id'=>$sp->masp])}}" style="text-decoration: none"><font color="black">{{$sp->tensp}}</font></a></td>
+                                        <td><a href="{{route('chitietsanpham',['id'=>$sp->masp])}}"><img src="{{url('public')}}/frontend/img/{{$sp->hinh}}" style="width:100px;height:100px;" alt=""></a></td>
+                                        <td>
+                                            <form action="{{route('deleteFavPro')}}" method="post">
+                                                @csrf
+                                                <input type="hidden" value="{{$sp->masp}}" name="masp">
+                                                <button class="btn btn-primary" type="submit">@lang('lang.delete')</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </table>
+
+                            </div>
                             </div>
                         </div>
                     </div>

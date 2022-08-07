@@ -49,5 +49,7 @@ Route::group(['namespace'=>'App\Http\Controllers'],function(){
     Route::post('/defaultaddress','FrontendController@defaultaddress')->name('defaultaddress');
     Route::post('/newaddress','FrontendController@newaddress')->name('newaddress');
     Route::post('/cancelorder','FrontendController@cancelorder')->name('cancelorder');
+    Route::post('/sanphamyeuthich','FrontendController@sanphamyeuthich')->name('sanphamyeuthich');
+    Route::post('/deleteFavPro','FrontendController@deleteFavPro')->name('deleteFavPro');
 }); 
 ?>

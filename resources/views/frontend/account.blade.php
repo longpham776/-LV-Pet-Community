@@ -89,7 +89,7 @@
 																@csrf
 																<input type="hidden" value="{{ $dh->madon }}" name="madon">
 																<input type="hidden" value="{{ $dh->trangthai }}" name="status">
-																<button class="btn btn-primary" type="submit">Hủy đơn</button>
+																<button class="btn btn-primary" type="submit">@lang('lang.cancel')</button>
 															</form>
 														</td>
 														@else
@@ -103,6 +103,14 @@
 										</div>
 										<div class="paginate-pages pull-right page-account text-right col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
+										</div>
+										@php $i=0 @endphp
+										<div div="row">
+											<ul class="pagination pagination-lg justify-content-end">
+												@foreach($donhang->links()->elements[0] as $page)
+													<a class="page-link active rounded-0 mr-3 shadow-sm border-top-0 border-left-0" href="{{$page}}" tabindex="-1">@php echo $i+=1 @endphp</a>  
+												@endforeach
+											</ul>
 										</div>
 									</div>
 								</div>

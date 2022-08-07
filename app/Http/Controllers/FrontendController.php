@@ -9,6 +9,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\admin;
 use App\Models\sanpham;
+use App\Models\sanphamyeuthich;
 use App\Models\diachi;
 use App\Models\loaisp;
 use App\Models\thuonghieu;
@@ -44,6 +45,30 @@ class FrontendController extends Controller
     public function forgetpass(){
         return view('backend.forgetpass');
     }
+    public function deleteFavPro(Request $request){
+        $username = $_SESSION['user'][0]->username;
+        $masp = $request->masp;
+        sanphamyeuthich::deteleStatus($username,$masp);
+        return redirect()->route('account_settings')->with('success_deletespyt','Xóa sản phẩm thành công!');
+    }
+    public function sanphamyeuthich(Request $request){
+        $username = $_SESSION['user'][0]->username;
+        $masp = $request->masp;
+        $tensp = $request->tensp;
+        $hinh = $request->hinh;
+        $getSpYt = sanphamyeuthich::findByUserMasp($username,$masp);
+        if(!$getSpYt->isEmpty()){
+            if($getSpYt[0]->trangthai == 0){
+                return redirect()->route('account_settings')->with('fail_addspyt','Đã thêm sản phẩm rồi!');
+            }
+            else{
+                sanphamyeuthich::updateStatus($username,$masp);
+                return redirect()->route('account_settings')->with('success_addspyt','Thêm sản phẩm thành công!');
+            }
+        }
+        sanphamyeuthich::addSpYeuthich($username,$masp,$tensp,$hinh);
+        return redirect()->route('account_settings')->with('success_addspyt','Thêm sản phẩm thành công!');
+    }
     public function binhluansp(Request $request){
         $request->validate([
             'mota'=>'required'
@@ -70,7 +95,7 @@ class FrontendController extends Controller
         if($data->isEmpty()){
             danhgiasanpham::rating($masp,$username,$rate);
         }else{
-            danhgiasanpham::updateRating($username,$rate);
+            danhgiasanpham::updateRating($masp,$username,$rate);
         }
         $sum = 0;
         $count = 0;
@@ -275,19 +300,22 @@ class FrontendController extends Controller
         $getBl = binhluansp::getCommentSp($request->id);
         $getTH = thuonghieu::getTH();
         $getUsers = admin::all();
-        $getDH = donhang::findDH($_SESSION['user'][0]->username);
-        $getCTDH = chitietdonhang::all();
-        $countSpDh=0;
-        foreach($getDH as $dh){
-            foreach($getCTDH as $ctdh){
-                if($dh->madon == $ctdh->madon){
-                    if($request->id == $ctdh->masp){
-                        $countSpDh++;
+        if(isset($_SESSION['user'])){
+            $getDH = donhang::findDH($_SESSION['user'][0]->username);
+            $getCTDH = chitietdonhang::all();
+            $countSpDh=0;
+            foreach($getDH as $dh){
+                foreach($getCTDH as $ctdh){
+                    if($dh->madon == $ctdh->madon){
+                        if($request->id == $ctdh->masp){
+                            $countSpDh++;
+                        }
                     }
                 }
             }
+            return view('frontend.chitietsanpham',compact('getSP','getAll','getTH','getBl','getUsers','countSpDh'));
         }
-        return view('frontend.chitietsanpham',compact('getSP','getAll','getTH','getBl','getUsers','countSpDh'));
+        return view('frontend.chitietsanpham',compact('getSP','getAll','getTH','getBl','getUsers'));
     }
     public function timkiem(Request $request){
         $getSP=sanpham::search($request->id);
@@ -601,7 +629,7 @@ class FrontendController extends Controller
     public function account(){
         $user=$_SESSION['user'][0]->username;
         $diachi= diachi::findAddress($user);
-        $donhang= donhang::findDH($user);
+        $donhang= donhang::where('username','regexp',$user)->orderBy('madon','desc')->paginate(6);
         $dataUser = admin::getByUser($user);
         return view('frontend.account',compact('diachi','donhang','dataUser'));
     }
@@ -623,7 +651,8 @@ class FrontendController extends Controller
         $user=$_SESSION['user'][0]->username;
         $diachi= diachi::findAddress($user);
         $dataUser = admin::getByUser($user);
-        return view('frontend.account_settings',compact('diachi','dataUser'));
+        $spyt= sanphamyeuthich::where('username','regexp',$user)->where('trangthai',0)->orderBy('stt','desc')->paginate(6);
+        return view('frontend.account_settings',compact('diachi','dataUser','spyt'));
     }
     public function editInfo(Request $request){
         $username = $request->username;

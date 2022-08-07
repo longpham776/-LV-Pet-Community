@@ -81,4 +81,11 @@ return [
     'notdefault' => 'Not default',
     'newaddress' => 'New address',
     'cancelorder' => 'Cancel ordered',
+    'cancel' => 'Cancel',
+    'general' => 'General',
+    'changepassword' => 'Change password',
+    'accountsettings' => 'Account settings',
+    'signout' => 'Sign out',
+    'account' => 'Account',
+    'favoriteproduct' => 'Favorite products',
 ];
