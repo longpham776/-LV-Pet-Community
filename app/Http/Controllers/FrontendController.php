@@ -63,10 +63,10 @@ class FrontendController extends Controller
         return redirect()->route('chitietsanpham',['id'=>$masp]);
     }
     public function rating(Request $request){
-        $username = $request->username;
+        $username = $_SESSION['user'][0]->username;
         $masp = $request->masp;
         $rate = $request->rating_star;
-        $data = danhgiasanpham::getRatingUser($username);
+        $data = danhgiasanpham::getRatingUser($username,$masp);
         if($data->isEmpty()){
             danhgiasanpham::rating($masp,$username,$rate);
         }else{
@@ -74,8 +74,8 @@ class FrontendController extends Controller
         }
         $sum = 0;
         $count = 0;
-        $data = danhgiasanpham::getRatingSp($masp);
-        foreach($data as $sp){
+        $datarating = danhgiasanpham::getRatingSp($masp);
+        foreach($datarating as $sp){
             $sum += $sp->rate;
             $count++;
         }

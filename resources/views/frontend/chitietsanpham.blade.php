@@ -96,7 +96,6 @@
                                             <div class="form-group">
                                                 <input type="hidden" name="rating_star" id="rating_star">
                                                 <input type="hidden" name="masp" value="{{$sp->masp}}">
-                                                <input type="hidden" name="username" value="{{$_SESSION['user'][0]->username}}">
                                             </div>
                                         </form> 
                                     </span>
