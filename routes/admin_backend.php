@@ -19,6 +19,7 @@ Route::group(['prefix'=>'admin','namespace'=>'App\Http\Controllers\backend'],fun
     Route::get('/add_ad','DashboardController@add_ad')->name('ad.add_ad');
     Route::get('/delete_ad','DashboardController@delete_ad')->name('ad.delete_ad');
     Route::get('/edit_ad','DashboardController@edit_ad')->name('ad.edit_ad');
+    Route::get('/edittkadmin','DashboardController@edittkadmin')->name('ad.edittkadmin');
     Route::post('/insert_ad','DashboardController@insert_ad')->name('ad.insert_ad');
     Route::post('/update_ad','DashboardController@update_ad')->name('ad.update_ad');
     Route::get('/listdelete','DashboardController@listdelete')->name('ad.listdelete');

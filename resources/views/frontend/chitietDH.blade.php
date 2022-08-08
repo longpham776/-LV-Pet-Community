@@ -44,9 +44,9 @@
                                                     {{$ct->soluong}}
                                                     </td>
                                                     <td>{{$ct->thanhtien}}</td>
-																										<td>
+																										<!-- <td>
 																											<button class="btn btn-primary" type="submit">Đánh giá</button>
-																										</td>
+																										</td> -->
                                                     </form>
                                                     
                                                 </tr>

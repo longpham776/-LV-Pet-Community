@@ -21,7 +21,7 @@
           <form action="{{route('ad.xoaBinhLuan')}}" method="get">
               @csrf
             <td>{{$data->username}}</td>
-            <td>{{$data->binhluan}}</td>
+            <td>{{$data->mota}}</td>
             <td> 
                 {{$data->create_at}}
             </td>
