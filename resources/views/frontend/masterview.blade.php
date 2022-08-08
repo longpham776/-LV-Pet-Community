@@ -133,6 +133,12 @@
             /* Safari */
             text-decoration-line: line-through;
         }
+
+        .li_search_ajax:hover {
+            background-color: #555;
+        }
+
+        
     </style>
     <style>
         /* định dạng cho button */
@@ -275,20 +281,26 @@
             <div class="w-100 pt-1 mb-5 text-right">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="{{route('sanpham')}}" autocomplete="off" method="get" class="modal-content modal-body border-0 p-0">
+            <form action="{{route('sanpham')}}" id="formsearch" autocomplete="off" method="get" class="modal-content modal-body border-0 p-0">
                 @csrf
                 <div class="input-group mb-2">
 
                     <input type="text" class="form-control" id="inputModalSearch" name="kw" placeholder="Search ...">
                     
 
-                    <button type="submit" class="input-group-text bg-success text-light">
+                    <button type="submit" id="btnSearch" class="input-group-text bg-success text-light">
                         <i class="fa fa-fw fa-search text-white"></i>
+                    </button>
+                    <button id='btnTalk' type="button" class="input-group-text bg-success text-light">
+                        <i class="bi bi-mic text-white"></i>
                     </button>
                 </div>
                 <div id="search_ajax"></div>
+                <div id='message'></div>
             </form>
         </div>
+        
+        
     </div>
     <!--End Modal-->
     @yield('content')
@@ -384,6 +396,41 @@
     <!-- Your Plugin chat code -->
     <div id="fb-customer-chat" class="fb-customerchat">
     </div>
+    <script>
+        var message = document.querySelector('#message');
+        var inputsearch = document.querySelector('#inputModalSearch');
+
+        var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+        var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
+
+        var grammar = '#JSGF V1.0;'
+
+        var recognition = new SpeechRecognition();
+        var speechRecognitionList = new SpeechGrammarList();
+        speechRecognitionList.addFromString(grammar, 1);
+        recognition.grammars = speechRecognitionList;
+        recognition.lang = 'vi-VN';
+        recognition.interimResults = false;
+
+        recognition.onresult = function(event) {
+            var lastResult = event.results.length - 1;
+            var content = event.results[lastResult][0].transcript.slice(0, -1);
+            inputsearch.value = content;
+            document.querySelector('#formsearch').submit();
+        };
+
+        recognition.onspeechend = function() {
+            recognition.stop();
+        };
+
+        recognition.onerror = function(event) {
+            message.textContent = 'Error occurred in recognition: ' + event.error;
+        }
+
+        document.querySelector('#btnTalk').addEventListener('click', function(){
+            recognition.start();
+        });
+    </script>
     <script type="text/javascript">
         $('#inputModalSearch').keyup(function(){
             var query = $(this).val();
