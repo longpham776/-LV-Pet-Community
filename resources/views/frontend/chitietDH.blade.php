@@ -63,21 +63,32 @@
 												</thead>
 
 												<tbody>
-													@foreach($getCTD as $ct)
-													<tr>
-														<td>{{$ct->masp}}</td>
-														<td>{{$ct->tensp}}</td>
-														<td>{{$ct->gia}}VNĐ</td>
-														<td><img src="{{url('public')}}/frontend/img/{{$ct->hinh}}" style="width: 100px;"></td>
-														<td>
-															{{$ct->soluong}}
-														</td>
-														<td>{{$ct->thanhtien}}</td>
-														<td>
-															<button class="btn btn-primary" type="submit"> <a href="{{route('chitietsanpham',['id'=>$ct->masp])}}" style="text-decoration:none;color:white;" method="get">Đánh giá</a> </button>
-														</td>
-													</tr>
-													@endforeach
+                                                 @foreach($getCTD as $ct)
+                                                <form action="{{route('danhgia')}}" method="get">
+                                                    @csrf
+                                                    <input type="hidden" value="{{ $ct->stt }}" name="id">
+                                                    <input type="hidden" value="{{ $ct->masp }}" name="id_sp">
+                                                    <input type="hidden" value="{{ $ct->trangthai }}" name="tt">
+                                                    
+                                                    <td>{{$ct->masp}}</td>
+                                                    <td>{{$ct->tensp}}</td>
+                                                    <td>{{$ct->gia}}VNĐ</td>
+                                                    <td><img src="{{url('public')}}/frontend/img/{{$ct->hinh}}" 
+                                                        style="width: 100px;"></td>
+                                                    <td>
+                                                    {{$ct->soluong}}
+                                                    </td>
+                                                    <td>{{$ct->thanhtien}}</td>
+																										<td>
+																											<button class="btn btn-primary" type="submit">Đánh giá</button>
+																										</td>
+                                                    </form>
+                                                    
+                                                </tr>
+                                                
+                                                <tr>
+                                                @endforeach
+													
 												</tbody>
 											</table>
 										</div>

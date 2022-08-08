@@ -19,11 +19,13 @@ class DashboardController extends Controller
 {
   
     public function index(Request $request){
+        // dd($_SESSION['admin']);
         if(isset( $_SESSION['admin']))
         {
             if($request->kw){
                 $getSP=sanpham::search($request->kw);
-                return view('backend.index',compact('getSP'));
+                $getLoai = loaisp::getLoai();
+                return view('backend.index',compact('getSP','getLoai'));
             }else if(!$request->kw){
             $getSP=sanpham::where('trangthai','regexp',0)->orderByDesc('masp') ->paginate(5);
             $getLoai = loaisp::getLoai();
@@ -70,7 +72,7 @@ class DashboardController extends Controller
             
         } 
         
-        elseif($data[0]->quyen==2 || $data[0]->quyen==3){
+        elseif($data[0]->quyen==2 || $data[0]->quyen==3 || $data[0]->quyen==4){
                  $_SESSION['admin']=$data;
                 return Redirect::to('/admin');
           
@@ -244,7 +246,8 @@ class DashboardController extends Controller
          return redirect('admin/loaisp');
     }
     public function qlad(Request $request){
-        $quyen=$request->quyen;
+        $quyen=$_SESSION['admin'][0]->quyen;
+
         if($quyen==3)
         {
             $getAdmin= admin::getAdmin();
@@ -308,6 +311,11 @@ class DashboardController extends Controller
         $getAdmin= admin::getByEmail($e);
         return view('backend.editadmin',compact('getAdmin'));
     }
+    public function edittkadmin(Request $request){
+        $e=$request->email;
+        $getAdmin= admin::getByEmail($e);
+        return view('backend.edittkadmin',compact('getAdmin'));
+    }
     public function update_ad(Request $request){
 
         $request->validate([
@@ -348,8 +356,9 @@ class DashboardController extends Controller
     }
     public function donhang(){
         $datas =[];
+
         for($i=1;$i< 13; $i++)
-        {
+        {           
            $datas[] =  donhang::whereMonth('date', $i)->count();
         }
         // dd($datas);
@@ -372,7 +381,7 @@ class DashboardController extends Controller
     }
     public function khachhang(Request $request){
 
-        $quyen=$request->quyen;
+        $quyen=$_SESSION['admin'][0]->quyen;
         if($quyen==3 || $quyen==4)
         {
             $kh= admin::where('quyen', 1)->get();

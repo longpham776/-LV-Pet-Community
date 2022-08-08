@@ -75,13 +75,13 @@
                         </li>
                         <li>
                             @foreach($_SESSION['admin'] as $a)
-                            <a href="{{route('ad.qlad',['quyen'=>$a->quyen])}}">
+                            <a href="{{route('ad.qlad')}}">
                                 <i class="zmdi zmdi-account"></i>Quản lý nhân viên</a>
                             @endforeach
                         </li>
                         <li>
                             @foreach($_SESSION['admin'] as $a)
-                                <a href="{{route('ad.khachhang',['quyen'=>$a->quyen])}}"><i class="zmdi zmdi-account"></i>Quản lý khách hàng</a>
+                                <a href="{{route('ad.khachhang')}}"><i class="zmdi zmdi-account"></i>Quản lý khách hàng</a>
                             @endforeach
                         </li>
                         <!-- <li>
@@ -316,7 +316,7 @@
                                             </div>
                                             <div class="account-dropdown__body">
                                                 <div class="account-dropdown__item">
-                                                    <a href="#">
+                                                    <a href="{{route('ad.edittkadmin',['email'=>$_SESSION['admin'][0]->email])}}">
                                                         <i class="zmdi zmdi-account"></i>Account</a>
                                                 </div>
                                                 <div class="account-dropdown__item">
