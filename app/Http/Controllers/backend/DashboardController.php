@@ -70,8 +70,11 @@ class DashboardController extends Controller
             
             return redirect()->route('ad.login')->with('fail', 'Đăng nhập không thành công. Email hoặc mật khẩu không đúng');
             
-        } 
-        
+        }
+        elseif($data[0]->trangthai ==1)
+        {
+            return redirect()->route('ad.login')->with('no', 'Tài khoản của bạn chưa được kích hoạt');
+        }
         elseif($data[0]->quyen==2 || $data[0]->quyen==3 || $data[0]->quyen==4){
                  $_SESSION['admin']=$data;
                 return Redirect::to('/admin');
@@ -282,6 +285,7 @@ class DashboardController extends Controller
         $q=$request->quyen;
         $data=admin::getByEmail($e);
         $hinh="";
+        $tt=0;
         if($request->hasFile('image'))
         {
             
@@ -292,7 +296,7 @@ class DashboardController extends Controller
         if($data!=NULL){
             return view('backend.themadmin');
         }else{
-           admin::addAdmin($u,$p,$n,$e, $hinh,$q);
+           admin::addAdmin($u,$p,$n,$e, $hinh,$q,$tt);
             return Redirect::to('/admin/qlad');
         }
     }

@@ -20,7 +20,9 @@ use App\Models\chitietdonhang;
 use App\Mail\contactMail;
 use App\Mail\forgetpassMail;
 use App\Mail\confirmOrderMail;
+use App\Mail\activelogin;
 use Illuminate\Support\Facades\Mail;
+use Str;
 class FrontendController extends Controller
 {
     public function index(){
@@ -370,12 +372,16 @@ class FrontendController extends Controller
         $dc=$request->address;
         $p=md5($request->password);
         $data=admin::getByEmail($e);
+        $token = Str::random(10);
         if($data!=NULL){
-            return view('backend.register');
+            return redirect()->route('register')->with('fail', 'Email đã được sử dụng!');;
         }else{
-            admin::addUser($u,$p,$n,$e);
+            admin::addUser($u,$p,$n,$e,$token);
             diachi::addAddress($u,$ph,$dc);
-            return Redirect::to('/admin/login');
+            $data = admin::getByEmail($e);
+            $mailable = new activelogin($data);
+            Mail::to($e)->send($mailable);
+            return Redirect::to('/login');
         }
     }
     public function giohang(){
@@ -717,5 +723,17 @@ class FrontendController extends Controller
         }
         donhang::updateStatus($request->madon,4);
         return redirect()->route('account')->with('success_cancelorder','Hủy đơn thành công!');
+    }
+    public function activeLogin( $email, $token)
+    {
+        $e= $email;
+        $token =$token;
+        $data = admin::getByEmail($e);
+        if($token == $data[0]->token)
+        {
+            admin::where('email',$e)->update(['trangthai'=>0, 'token'=>null]);
+            return redirect()->route('ad.login')->with('fail','Xác thực thành công mời bạn đăng nhập!');
+        }
+        return redirect()->route('ad.login')->with('no','Sai mã xác thực!');
     }
 }

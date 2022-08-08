@@ -9,7 +9,7 @@ class binhluansp extends Model
 {
     use HasFactory;
     public static function getCommentSp($masp){
-        return DB::table('binhluansp')->where('masp',$masp)->get();
+        return DB::table('binhluansps')->where('masp',$masp)->get();
     }
     public static function getCommentByUser($username,$masp){
         return DB::table('binhluansps')->where('username',$username)->where('masp',$masp)->get();

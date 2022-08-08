@@ -47,6 +47,11 @@
                         <div class="login-form" >
                             <form action="{{route('postregister')}}" method="post">
                                 @csrf
+                                @if (session('fail'))
+                                <div class="alert alert-danger" role="alert">
+                                        {{ session('fail') }}
+                                </div>
+                                @endif
                                 <div class="form-group">
                                     <label>Username</label>
                                      <input class="au-input au-input--full" type="text" name="username" placeholder="Username">

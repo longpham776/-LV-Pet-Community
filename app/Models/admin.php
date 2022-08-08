@@ -22,14 +22,14 @@ class admin extends Model
     public static function getByUser($u){
         return DB::select('SELECT * FROM quantri WHERE username=?  ',[$u]);
     }
-    public static function addUser($u,$p,$n,$e, $h){
-        return DB::select('INSERT INTO quantri(username,password, hoten,email, hinh) VALUES (?,?,?,?,?)',[$u,$p,$n,$e, $h]);
+    public static function addUser($u,$p,$n,$e,$token){
+        return DB::select('INSERT INTO quantri(username,password, hoten,email,token) VALUES (?,?,?,?,?)',[$u,$p,$n,$e,$token]);
     }
     public static function getAdmin(){
        return  DB::select('SELECT * FROM quantri  WHERE quyen=2 OR quyen=4');
     }
-    public static function addAdmin($u,$p,$n,$e,$h,$q){
-        return DB::select('INSERT INTO quantri(username,password, hoten,email,hinh,quyen) VALUES (?,?,?,?,?,?)',[$u,$p,$n,$e,$h,$q]);
+    public static function addAdmin($u,$p,$n,$e,$h,$q,$tt){
+        return DB::select('INSERT INTO quantri(username,password, hoten,email,hinh,quyen,trangthai) VALUES (?,?,?,?,?,?,?)',[$u,$p,$n,$e,$h,$q,$tt]);
     }
     public static function delete_Ad($u){
         return DB::select('DELETE FROM quantri WHERE username=?',[$u]);

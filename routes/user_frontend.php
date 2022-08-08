@@ -10,6 +10,7 @@ Route::group(['namespace'=>'App\Http\Controllers'],function(){
     Route::get('/logout','FrontendController@logout')->name('logout');
     Route::get('/register','FrontendController@register')->name('register');
     Route::post('/postregister','FrontendController@postregister')->name('postregister');
+    Route::get('/activeLogin/{email}/{token}','FrontendController@activeLogin')->name('activeLogin');
     Route::post('/postcart','FrontendController@postcart')->name('postcart');
     Route::get('/delcart/{id}','FrontendController@delcart')->name('delcart');
     Route::get('/destroycart','FrontendController@destroycart')->name('destroycart');
@@ -52,5 +53,6 @@ Route::group(['namespace'=>'App\Http\Controllers'],function(){
     Route::post('/sanphamyeuthich','FrontendController@sanphamyeuthich')->name('sanphamyeuthich');
     Route::post('/deleteFavPro','FrontendController@deleteFavPro')->name('deleteFavPro');
     Route::post('/autocomplete-ajax','FrontendController@autocomplete_ajax');
+    
 }); 
 ?>

@@ -54,9 +54,9 @@
                                         {{ session('fail') }}
                                 </div>
                             @endif
-                            @if (session('success'))
-                                <div class="alert alert-success" role="alert">
-                                        {{ session('success') }}
+                            @if (session('no'))
+                                <div class="alert alert-danger" role="alert">
+                                        {{ session('no') }}
                                 </div>
                             @endif
                                 <div class="form-group">
