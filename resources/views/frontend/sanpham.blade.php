@@ -2,160 +2,163 @@
 @section('content')
 <!-- Start Content -->
 <div class="container py-5">
-        <div class="row">
-            <div class="col-lg-3">
-                <h1 class="h2 pb-4">@lang('lang.category')</h1>
-                <ul class="list-unstyled templatemo-accordion">
-                    <li class="pb-3">
-                        <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
-                            @lang('lang.kindofproduct')
-                            <i class="fa fa-fw fa-chevron-circle-down mt-1"></i>
-                        </a>
-                        <ul class="collapse show list-unstyled pl-3">
+    <div class="row">
+        <div class="col-lg-3">
+            <h1 class="h2 pb-4">@lang('lang.category')</h1>
+            <ul class="list-unstyled templatemo-accordion">
+                <li class="pb-3">
+                    <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
+                        @lang('lang.kindofproduct')
+                        <i class="fa fa-fw fa-chevron-circle-down mt-1"></i>
+                    </a>
+                    <ul class="collapse show list-unstyled pl-3">
                         @foreach($getLoai as $lsp)
-                            <li><a class="text-decoration-none" href="{{route('locLoai',['id'=>$lsp->maloai])}}">{{$lsp->tenloai}}</a></li>
-                        @endforeach
-                        </ul>
-                    </li>
-                    <li class="pb-3">
-                        <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
-                            @lang('lang.brand')
-                            <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
-                        </a>
-                        <ul id="collapseTwo" class="collapse list-unstyled pl-3">
-                        @foreach($getTH as $th)
-                            <li><a class="text-decoration-none" href="{{route('locTH',['id'=>$th->math])}}">{{$th->tenth}}</a></li>
-                        @endforeach
-                        </ul>
-                    </li>
-                    
-                </ul>
-            </div>
-
-            <div class="col-lg-9">
-               
-                <div class="row">
-                    @foreach($getSP as $sp)
-                        <div class="col-md-4">
-                            <div class="card mb-4 product-wap rounded-0">
-                                <div class="card rounded-0">
-                                    <img class="card-img rounded-0 img-fluid" src="{{url('public')}}/frontend/img/{{$sp->hinh}}">
-                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                        <ul class="list-unstyled">
-                                            @if(isset($_SESSION['user']))
-                                            <form action="{{route('sanphamyeuthich')}}" method="post">
-                                                @csrf
-                                                <input type="hidden" name="masp" value="{{$sp->masp}}">
-                                                <input type="hidden" name="tensp" value="{{$sp->tensp}}">
-                                                <input type="hidden" name="hinh" value="{{$sp->hinh}}">
-                                                <li><i class="btn btn-success text-white mt-2 far fa-heart"><input type="submit" class="btn btn-success far fa-heart" name="submit" value="@lang('lang.like')"></i></li>
-                                            </form>
-                                            @else
-                                            <form action="{{route('ad.login')}}" method="get">
-                                                <li><i class="btn btn-success text-white mt-2 far fa-heart"><input type="submit" class="btn btn-success far fa-heart" name="submit" value="@lang('lang.like')"></i></li>
-                                            </form>
-                                            @endif
-                                            <form action="{{route('chitietsanpham',['id'=>$sp->masp])}}" method="get">
-                                                <li><i class="btn btn-success text-white mt-2 far fa-eye"><input type="submit" class="btn btn-success far fa-eye" name="submit" value="@lang('lang.view')"></i></li>
-                                            </form>
-                                            <form action="{{route('postcart')}}" method="post">
-                                                @csrf
-                                                <input type="hidden" name="soluong" value="1">
-                                                <input type="hidden" name="masp" value="{{$sp->masp}}">
-                                                <li><i class="btn btn-success text-white mt-2 fas fa-cart-plus"><input type="submit" class="btn btn-success fas fa-cart-plus" name="submit" value="@lang('lang.addcart')"></i></li>
-                                            </form>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <a href="{{route('chitietsanpham',['id'=>$sp->masp])}}" class="h3 text-decoration-none">{{$sp->tensp}}</a>
-                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
-                                        <li class="pt-2">
-                                            <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
-                                            <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
-                                            <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
-                                            <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
-                                            <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
-                                        </li>
-                                    </ul>
-                                    @if($sp->danhgia <= 1)
-                                    <ul class="list-unstyled d-flex justify-content-center mb-1">
-                                        <li>
-                                            <i class="fa fa-star text-warning"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                        </li>
-                                    </ul>
-                                    @elseif($sp->danhgia <= 2)
-                                    <ul class="list-unstyled d-flex justify-content-center mb-1">
-                                        <li>
-                                            <i class="fa fa-star text-warning"></i>
-                                            <i class="fa fa-star text-warning"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                        </li>
-                                    </ul>
-                                    @elseif($sp->danhgia <= 3)
-                                    <ul class="list-unstyled d-flex justify-content-center mb-1">
-                                        <li>
-                                            <i class="fa fa-star text-warning"></i>
-                                            <i class="fa fa-star text-warning"></i>
-                                            <i class="fa fa-star text-warning"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                        </li>
-                                    </ul>
-                                    @elseif($sp->danhgia <= 4)
-                                    <ul class="list-unstyled d-flex justify-content-center mb-1">
-                                        <li>
-                                            <i class="fa fa-star text-warning"></i>
-                                            <i class="fa fa-star text-warning"></i>
-                                            <i class="fa fa-star text-warning"></i>
-                                            <i class="fa fa-star text-warning"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                        </li>
-                                    </ul>
-                                    @elseif($sp->danhgia <= 5)
-                                    <ul class="list-unstyled d-flex justify-content-center mb-1">
-                                        <li>
-                                            <i class="fa fa-star text-warning"></i>
-                                            <i class="fa fa-star text-warning"></i>
-                                            <i class="fa fa-star text-warning"></i>
-                                            <i class="fa fa-star text-warning"></i>
-                                            <i class="fa fa-star text-warning"></i>
-                                        </li>
-                                    </ul>
-                                    @endif
-                                    <p class="text-center mb-0">{{$sp->gia}}<u>đ</u></p>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-                @php $i=0 @endphp
-                <div div="row">
-                    <ul class="pagination pagination-lg justify-content-end">
-                        @foreach($getSP->links()->elements[0] as $page)
-                            <a class="page-link active rounded-0 mr-3 shadow-sm border-top-0 border-left-0" href="{{$page}}" tabindex="-1">@php echo $i+=1 @endphp</a>  
+                        <li><a class="text-decoration-none" href="{{route('locLoai',['id'=>$lsp->maloai])}}">{{$lsp->tenloai}}</a></li>
                         @endforeach
                     </ul>
-                </div>
-                
-            </div>
+                </li>
+                <li class="pb-3">
+                    <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
+                        @lang('lang.brand')
+                        <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
+                    </a>
+                    <ul id="collapseTwo" class="collapse list-unstyled pl-3">
+                        @foreach($getTH as $th)
+                        <li><a class="text-decoration-none" href="{{route('locTH',['id'=>$th->math])}}">{{$th->tenth}}</a></li>
+                        @endforeach
+                    </ul>
+                </li>
 
+            </ul>
         </div>
+
+        <div class="col-lg-9">
+            @if($getSP->isEmpty())
+            <div class="row justify-content-center">
+                <div class="col-md-12 text-center">
+                    <span class="display-1 d-block">Oops!</span>
+                    <div class="mb-4 lead">@lang('lang.notfounddecription')</div>
+                    <a href="{{route('sanpham')}}" style="text-decoration:none; color:#17A45A;" class="btn btn-link">@lang('lang.backtoproduct')</a>
+                </div>
+            </div>
+            @else
+            <div class="row">
+                @foreach($getSP as $sp)
+                <div class="col-md-4">
+                    <div class="card mb-4 product-wap rounded-0">
+                        <div class="card rounded-0">
+                            <img class="card-img rounded-0 img-fluid" src="{{url('public')}}/frontend/img/{{$sp->hinh}}">
+                            <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                <ul class="list-unstyled">
+                                    @if(isset($_SESSION['user']))
+                                    <form action="{{route('sanphamyeuthich')}}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="masp" value="{{$sp->masp}}">
+                                        <input type="hidden" name="tensp" value="{{$sp->tensp}}">
+                                        <input type="hidden" name="hinh" value="{{$sp->hinh}}">
+                                        <li><i class="btn btn-success text-white mt-2 far fa-heart"><input type="submit" class="btn btn-success far fa-heart" name="submit" value="@lang('lang.like')"></i></li>
+                                    </form>
+                                    @else
+                                    <form action="{{route('ad.login')}}" method="get">
+                                        <li><i class="btn btn-success text-white mt-2 far fa-heart"><input type="submit" class="btn btn-success far fa-heart" name="submit" value="@lang('lang.like')"></i></li>
+                                    </form>
+                                    @endif
+                                    <form action="{{route('chitietsanpham',['id'=>$sp->masp])}}" method="get">
+                                        <li><i class="btn btn-success text-white mt-2 far fa-eye"><input type="submit" class="btn btn-success far fa-eye" name="submit" value="@lang('lang.view')"></i></li>
+                                    </form>
+                                    <form action="{{route('postcart')}}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="soluong" value="1">
+                                        <input type="hidden" name="masp" value="{{$sp->masp}}">
+                                        <li><i class="btn btn-success text-white mt-2 fas fa-cart-plus"><input type="submit" class="btn btn-success fas fa-cart-plus" name="submit" value="@lang('lang.addcart')"></i></li>
+                                    </form>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <a href="{{route('chitietsanpham',['id'=>$sp->masp])}}" class="h3 text-decoration-none">{{$sp->tensp}}</a>
+                            <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                                <li class="pt-2">
+                                    <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                                    <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                                    <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                                    <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                                    <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                                </li>
+                            </ul>
+                            @if($sp->danhgia <= 1) <ul class="list-unstyled d-flex justify-content-center mb-1">
+                                <li>
+                                    <i class="fa fa-star text-warning"></i>
+                                    <i class="fa fa-star text-secondary"></i>
+                                    <i class="fa fa-star text-secondary"></i>
+                                    <i class="fa fa-star text-secondary"></i>
+                                    <i class="fa fa-star text-secondary"></i>
+                                </li>
+                                </ul>
+                                @elseif($sp->danhgia <= 2) <ul class="list-unstyled d-flex justify-content-center mb-1">
+                                    <li>
+                                        <i class="fa fa-star text-warning"></i>
+                                        <i class="fa fa-star text-warning"></i>
+                                        <i class="fa fa-star text-secondary"></i>
+                                        <i class="fa fa-star text-secondary"></i>
+                                        <i class="fa fa-star text-secondary"></i>
+                                    </li>
+                                    </ul>
+                                    @elseif($sp->danhgia <= 3) <ul class="list-unstyled d-flex justify-content-center mb-1">
+                                        <li>
+                                            <i class="fa fa-star text-warning"></i>
+                                            <i class="fa fa-star text-warning"></i>
+                                            <i class="fa fa-star text-warning"></i>
+                                            <i class="fa fa-star text-secondary"></i>
+                                            <i class="fa fa-star text-secondary"></i>
+                                        </li>
+                                        </ul>
+                                        @elseif($sp->danhgia <= 4) <ul class="list-unstyled d-flex justify-content-center mb-1">
+                                            <li>
+                                                <i class="fa fa-star text-warning"></i>
+                                                <i class="fa fa-star text-warning"></i>
+                                                <i class="fa fa-star text-warning"></i>
+                                                <i class="fa fa-star text-warning"></i>
+                                                <i class="fa fa-star text-secondary"></i>
+                                            </li>
+                                            </ul>
+                                            @elseif($sp->danhgia <= 5) <ul class="list-unstyled d-flex justify-content-center mb-1">
+                                                <li>
+                                                    <i class="fa fa-star text-warning"></i>
+                                                    <i class="fa fa-star text-warning"></i>
+                                                    <i class="fa fa-star text-warning"></i>
+                                                    <i class="fa fa-star text-warning"></i>
+                                                    <i class="fa fa-star text-warning"></i>
+                                                </li>
+                                                </ul>
+                                                @endif
+                                                <p class="text-center mb-0">{{$sp->gia}}<u>đ</u></p>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            @php $i=0 @endphp
+            <div div="row">
+                <ul class="pagination pagination-lg justify-content-end">
+                    @foreach($getSP->links()->elements[0] as $page)
+                    <a class="page-link active rounded-0 mr-3 shadow-sm border-top-0 border-left-0" href="{{$page}}" tabindex="-1">@php echo $i+=1 @endphp</a>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+        </div>
+
     </div>
-    <!-- End Content -->
+</div>
+<!-- End Content -->
 <section class="bg-light py-5">
     <div class="container my-4">
         <div class="row text-center py-3">
             <div class="col-lg-6 m-auto">
                 <h1 class="h1">@lang('lang.petfoodbrand')</h1>
                 <p>
-                @lang('lang.petfooddescription')
+                    @lang('lang.petfooddescription')
                 </p>
             </div>
             <div class="col-lg-9 m-auto tempaltemo-carousel">
