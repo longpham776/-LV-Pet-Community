@@ -42,5 +42,15 @@ Route::group(['namespace'=>'App\Http\Controllers'],function(){
     Route::post('/postchangepass','FrontendController@postchangepass')->name('postchangepass');
     Route::post('/rating','FrontendController@rating')->name('rating');
     Route::post('/binhluansp','FrontendController@binhluansp')->name('binhluansp');
+    Route::get('/account_settings','FrontendController@account_settings')->name('account_settings');
+    Route::post('/editInfo','FrontendController@editInfo')->name('editInfo');
+    Route::post('/settingpass','FrontendController@settingpass')->name('settingpass');
+    Route::post('/editaddress','FrontendController@editaddress')->name('editaddress');
+    Route::post('/defaultaddress','FrontendController@defaultaddress')->name('defaultaddress');
+    Route::post('/newaddress','FrontendController@newaddress')->name('newaddress');
+    Route::post('/cancelorder','FrontendController@cancelorder')->name('cancelorder');
+    Route::post('/sanphamyeuthich','FrontendController@sanphamyeuthich')->name('sanphamyeuthich');
+    Route::post('/deleteFavPro','FrontendController@deleteFavPro')->name('deleteFavPro');
+    Route::post('/autocomplete-ajax','FrontendController@autocomplete_ajax');
 }); 
 ?>

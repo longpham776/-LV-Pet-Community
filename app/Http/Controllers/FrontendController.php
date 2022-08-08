@@ -9,6 +9,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\admin;
 use App\Models\sanpham;
+use App\Models\sanphamyeuthich;
 use App\Models\diachi;
 use App\Models\loaisp;
 use App\Models\thuonghieu;
@@ -18,6 +19,7 @@ use App\Models\binhluansp;
 use App\Models\chitietdonhang;
 use App\Mail\contactMail;
 use App\Mail\forgetpassMail;
+use App\Mail\confirmOrderMail;
 use Illuminate\Support\Facades\Mail;
 class FrontendController extends Controller
 {
@@ -43,33 +45,74 @@ class FrontendController extends Controller
     public function forgetpass(){
         return view('backend.forgetpass');
     }
+    public function autocomplete_ajax(Request $request){
+        $data = $request->all();
+        if($data['query']){
+            $getSP = sanpham::where('trangthai',0)->where('tensp','LIKE','%'.$data['query'].'%')->get();
+            $output = '<ul class="dropdown-menu" style="display:block; position:relative">';
+            foreach($getSP as $key => $val){
+                $output .= '<li class="li_search_ajax"><a href="#" class="nav-link" style="color:#17A45A;">'.$val->tensp.'</a></li>';
+            }
+            $output .= '</ul>';
+            echo $output;
+        }
+    }
+    public function deleteFavPro(Request $request){
+        $username = $_SESSION['user'][0]->username;
+        $masp = $request->masp;
+        sanphamyeuthich::deteleStatus($username,$masp);
+        return redirect()->route('account_settings')->with('success_deletespyt','Xóa sản phẩm thành công!');
+    }
+    public function sanphamyeuthich(Request $request){
+        $username = $_SESSION['user'][0]->username;
+        $masp = $request->masp;
+        $tensp = $request->tensp;
+        $hinh = $request->hinh;
+        $getSpYt = sanphamyeuthich::findByUserMasp($username,$masp);
+        if(!$getSpYt->isEmpty()){
+            if($getSpYt[0]->trangthai == 0){
+                return redirect()->route('account_settings')->with('fail_addspyt','Đã thêm sản phẩm rồi!');
+            }
+            else{
+                sanphamyeuthich::updateStatus($username,$masp);
+                return redirect()->route('account_settings')->with('success_addspyt','Thêm sản phẩm thành công!');
+            }
+        }
+        sanphamyeuthich::addSpYeuthich($username,$masp,$tensp,$hinh);
+        return redirect()->route('account_settings')->with('success_addspyt','Thêm sản phẩm thành công!');
+    }
     public function binhluansp(Request $request){
         $request->validate([
             'mota'=>'required'
         ],[
             'mota.required'=>'Vui lòng nhập nội dung'
         ]);
+        $solanmuasp=$request->solanmuasp;
         $masp=$request->masp;
         $username=$request->username;
         $mota=$request->mota;
         $datetime = Carbon::now();
+        $datacmt=binhluansp::getCommentByUser($_SESSION['user'][0]->username,$masp);
+        if(count($datacmt) == $solanmuasp){
+            return redirect()->route('chitietsanpham',['id'=>$masp])->with('fail_cmt','Vui lòng mua hàng thêm để được bình luận!');
+        }
         binhluansp::commentSp($masp,$username,$mota,$datetime);
         return redirect()->route('chitietsanpham',['id'=>$masp]);
     }
     public function rating(Request $request){
-        $username = $request->username;
+        $username = $_SESSION['user'][0]->username;
         $masp = $request->masp;
         $rate = $request->rating_star;
-        $data = danhgiasanpham::getRatingUser($username);
+        $data = danhgiasanpham::getRatingUser($username,$masp);
         if($data->isEmpty()){
             danhgiasanpham::rating($masp,$username,$rate);
         }else{
-            danhgiasanpham::updateRating($username,$rate);
+            danhgiasanpham::updateRating($masp,$username,$rate);
         }
         $sum = 0;
         $count = 0;
-        $data = danhgiasanpham::getRatingSp($masp);
-        foreach($data as $sp){
+        $datarating = danhgiasanpham::getRatingSp($masp);
+        foreach($datarating as $sp){
             $sum += $sp->rate;
             $count++;
         }
@@ -122,6 +165,92 @@ class FrontendController extends Controller
             admin::updatePassword($email,$cnp);
             return redirect()->route('ad.login')->with('success', 'Đổi password thành công');
         }
+    }
+    public function settingpass(Request $request)
+    {
+        $request->validate([
+            'newpassword'=>'required|max:100',
+            'confirmpassword'=>'required|max:100'
+        ],[
+            'newpassword.required'=>'Vui lòng nhập mật khẩu',
+            'newpassword.max'=>'Vui lòng nhập dưới 100 ký tự',
+            'confirmpassword.required'=>'Vui lòng nhập lại mật khẩu mới',
+            'confirmpassword.max'=>'Vui lòng nhập dưới 100 ký tự'
+        ]);
+        if($request->newpassword != $request->confirmpassword){
+            return redirect()->route('account_settings')->with('fail', 'Mật khẩu mới và mật khẩu mới xác nhận không trùng. Vui lòng nhập lại!');
+        }else if(md5($request->newpassword) == $request->oldpassword){
+            return redirect()->route('account_settings')->with('fail','Mật khẩu mới trùng với mật khẩu cũ. Vui lòng nhập lại!');
+        }
+        $email=$request->email;
+        $np=md5($request->newpassword);
+        $cnp=md5($request->confirmpassword);
+        admin::updatePassword($email,$np);
+        return redirect()->route('account_settings')->with('success', 'Đổi password thành công');
+    }
+    public function editaddress(Request $request){
+        $request->validate([
+            'phone'=>'required|min:10|max:10',
+            'address'=>'required|min:10'
+        ],[
+            'phone.required'=>'Vui lòng nhập :attribute',
+            'phone.min'=>'Vui lòng nhập tối thiểu :min số',
+            'phone.max'=>'Vui lòng nhập tối đa :max số',
+            'address.required'=>'Vui lòng nhập :attribute',
+            'address.min'=>'Vui lòng nhập hơn :min ký tự'
+        ]);
+        $user=$request->username;
+        $phone=$request->phone;
+        $address=$request->address;
+        $data=diachi::findAddress($user);
+        foreach($data as $dc){
+            if($phone == $dc->sdt && $dc->trangthai == 0){
+                return redirect()->route('account_settings')->with('fail_updateaddress','Số điện thoại vừa cập nhật đã có. Vui lòng nhập lại!');
+            }else if($address == $dc->diachi && $dc->trangthai == 0){
+                return redirect()->route('account_settings')->with('fail_updateaddress','Địa chỉ vừa cập nhật đã có. Vui lòng nhập lại!');
+            }
+        } 
+        diachi::updateAddress($user,$phone, $address);
+        return redirect()->route('account_settings')->with('success_updateaddress', 'Đổi thông tin địa chỉ thành công');
+    }
+    public function defaultaddress(Request $request){
+        $username=$request->username;
+        $phone=$request->phone;
+        $status=$request->status;
+        if($status == 1){
+            return redirect()->route('account_settings')->with('notification','Đây là địa chỉ mặc định!');
+        }
+        diachi::changeAllStatus($username);
+        diachi::defaultAddress($phone);
+        return redirect()->route('account_settings')->with('success_changedefault','Đổi địa chỉ mặc định thành công!');
+    }
+    public function newaddress(Request $request){
+        $request->validate([
+            'newphone'=>'required|min:10|max:10',
+            'newaddress'=>'required|min:10'
+        ],[
+            'newphone.required'=>'Vui lòng nhập số điện thoại',
+            'newphone.min'=>'Vui lòng nhập tối thiểu :min số',
+            'newphone.max'=>'Vui lòng nhập tối đa :max số',
+            'newaddress.required'=>'Vui lòng nhập địa chỉ',
+            'newaddress.min'=>'Vui lòng nhập hơn :min ký tự'
+        ]);
+        $username=$_SESSION['user'][0]->username;
+        $phone=$request->newphone;
+        $address=$request->newaddress;
+        $data=diachi::findAddress($username);
+        if(count($data)==5){
+            return redirect()->route('account_settings')->with('fail_newaddress','Đã đạt số lượng tối đa địa chỉ không thể thêm!');
+        }
+        foreach($data as $dc){
+            if($phone == $dc->sdt){
+                return redirect()->route('account_settings')->with('warn_newaddress','Số điện thoại vừa cập nhật đã có. Vui lòng nhập lại!');
+            }else if($address == $dc->diachi){
+                return redirect()->route('account_settings')->with('warn_newaddress','Địa chỉ vừa cập nhật đã có. Vui lòng nhập lại!');
+            }
+        } 
+        diachi::addAddress($username,$phone,$address);
+        return redirect()->route('account_settings')->with('success_newaddress','Thêm địa chỉ mới thành công!');
     }
     public function sendmail(Request $request){
         $request->validate([
@@ -182,7 +311,23 @@ class FrontendController extends Controller
         $getAll = sanpham::all();
         $getBl = binhluansp::getCommentSp($request->id);
         $getTH = thuonghieu::getTH();
-        return view('frontend.chitietsanpham',compact('getSP','getAll','getTH','getBl'));
+        $getUsers = admin::all();
+        if(isset($_SESSION['user'])){
+            $getDH = donhang::findDH($_SESSION['user'][0]->username);
+            $getCTDH = chitietdonhang::all();
+            $countSpDh=0;
+            foreach($getDH as $dh){
+                foreach($getCTDH as $ctdh){
+                    if($dh->madon == $ctdh->madon){
+                        if($request->id == $ctdh->masp){
+                            $countSpDh++;
+                        }
+                    }
+                }
+            }
+            return view('frontend.chitietsanpham',compact('getSP','getAll','getTH','getBl','getUsers','countSpDh'));
+        }
+        return view('frontend.chitietsanpham',compact('getSP','getAll','getTH','getBl','getUsers'));
     }
     public function timkiem(Request $request){
         $getSP=sanpham::search($request->id);
@@ -228,7 +373,7 @@ class FrontendController extends Controller
         if($data!=NULL){
             return view('backend.register');
         }else{
-           admin::addUser($u,$p,$n,$e);
+            admin::addUser($u,$p,$n,$e);
             diachi::addAddress($u,$ph,$dc);
             return Redirect::to('/admin/login');
         }
@@ -236,22 +381,18 @@ class FrontendController extends Controller
     public function giohang(){
         if(isset($_SESSION['user'])){
             $getDC=diachi::findAddress($_SESSION['user'][0]->username);
-        //dd($getDC);
-        return view('frontend.giohang',compact('getDC'));
+            return view('frontend.giohang',compact('getDC'));
         }
         return view('frontend.giohang');
         
     }
     public function postcart(Request $request){
-        if(isset($_SESSION['user'])){
-            $getDC=diachi::findAddress($_SESSION['user'][0]->username);
-            $masp=$request->masp;
-            $sl=$request->soluong;
-            if(($sl==0) || ($sl>=5)){
-                $getSP=sanpham::getById($masp);
-                $getAll= sanpham::all();
-                return view('frontend.chitietsanpham',compact('getSP','getAll'));
-            }
+        $masp=$request->masp;
+        $sl=$request->soluong;
+        if(($sl==0) || ($sl>=4)){
+            return redirect()->route('chitietsanpham',['id'=>$masp]);
+        }
+        if(Cart::content()->isEmpty()){
             $spdetail=sanpham::getById($masp);
             Cart::add([
                 'id' => $spdetail[0]->masp, 
@@ -261,14 +402,14 @@ class FrontendController extends Controller
                 'weight' => 1, 
                 'options' => ['images' => $spdetail[0]->hinh]
             ]);
-            return view('frontend.giohang',compact('getDC'));
+            return redirect()->route('giohang');
         }
-        $masp=$request->masp;
-        $sl=$request->soluong;
-        if(($sl==0) || ($sl>=5)){
-            $getSP=sanpham::getById($masp);
-            $getAll= sanpham::all();
-            return view('frontend.chitietsanpham',compact('getSP','getAll'));
+        foreach(Cart::content() as $cart){
+            if($cart->id == $masp){
+                if((($cart->qty+$sl) >= 4)){
+                    return redirect()->route('chitietsanpham',['id'=>$masp]);
+                }
+            }
         }
         $spdetail=sanpham::getById($masp);
         Cart::add([
@@ -279,8 +420,30 @@ class FrontendController extends Controller
             'weight' => 1, 
             'options' => ['images' => $spdetail[0]->hinh]
         ]);
-        return view('frontend.giohang');
+        return redirect()->route('giohang');
 
+        if(isset($_SESSION['user'])){
+            if(($sl==0) || ($sl>=4)){
+                return redirect()->route('chitietsanpham',['id'=>$masp]);
+            }
+            foreach(Cart::content() as $cart){
+                if($cart->id == $masp){
+                    if((($cart->qty+$sl) >= 4)){
+                        return redirect()->route('chitietsanpham',['id'=>$masp]);
+                    }
+                }
+            }
+            $spdetail=sanpham::getById($masp);
+            Cart::add([
+                'id' => $spdetail[0]->masp, 
+                'name' => $spdetail[0]->tensp, 
+                'qty' => $sl, 
+                'price' => $spdetail[0]->gia, 
+                'weight' => 1, 
+                'options' => ['images' => $spdetail[0]->hinh]
+            ]);
+            return redirect()->route('giohang');
+        }
     }
     public function delcart($rowId)
     {
@@ -310,14 +473,15 @@ class FrontendController extends Controller
         if(!isset($_SESSION['user'])){ 
             return redirect()->route('ad.login');
         }else if(Cart::count()==0){
-            $getSP=sanpham::where('trangthai','regexp',0)->paginate(4);
-            return view('frontend.sanpham',compact('getSP'));
+            return redirect()->route('sanpham');
         }
         $hoten=$request->hoten;
         $diachi=$request->diachi;
         $dienthoai=$request->dienthoai;
         $email=$request->email;
         $pttt=$request->pttt;
+        if($pttt === "Thanh toán khi nhận hàng") $pttt=0;
+        else $pttt=1;
         $thanhtien=Cart::pricetotal();
         $content= Cart::content();
         donhang::addBill($_SESSION['user'][0]->username,$hoten,$diachi,$dienthoai,$email,$pttt,$thanhtien);
@@ -341,6 +505,8 @@ class FrontendController extends Controller
         else $thongtin['pttt']='Thanh Toán Khi Nhận Hàng';
         $lastIdWithUser=donhang::lastIdWithUser($_SESSION['user'][0]->username);
         $SpDonhang=chitietdonhang::getById($lastIdWithUser->madon);
+        $mailable = new confirmOrderMail($thongtin,$content,Cart::total());
+        Mail::to('lpham776@gmail.com')->send($mailable);
         return view('frontend.donhang',compact('thongtin','SpDonhang'));
     }
     public function execPostRequest($url, $data)
@@ -474,24 +640,49 @@ class FrontendController extends Controller
     }
     public function account(){
         $user=$_SESSION['user'][0]->username;
-       $diachi= diachi::findAddress($user);
-       $donhang= donhang::findDH($user);
-       $dataUser = admin::getByUser($user);
-      // dd($donhang);
+        $diachi= diachi::findAddress($user);
+        $donhang= donhang::where('username','regexp',$user)->orderBy('madon','desc')->paginate(6);
+        $dataUser = admin::getByUser($user);
         return view('frontend.account',compact('diachi','donhang','dataUser'));
     }
     public function chitietDH(Request $request){
         $user=$_SESSION['user'][0]->username;
+        $thongtin=donhang::findByMaDon($request->id);
         $diachi= diachi::findAddress($user);
         $getCTD=chitietdonhang::getById($request->id);
         $dataUser = admin::getByUser($user);
-        return view("frontend.chitietDH", compact('diachi','getCTD','dataUser'));
+        return view("frontend.chitietDH", compact('diachi','getCTD','dataUser','thongtin'));
     }
     public function editAccount(Request $request){
         $user=$_SESSION['user'][0]->username;
         $diachi= diachi::findAddress($user);
         $dataUser = admin::getByUser($user);
         return view('frontend.edit_account',compact('diachi','dataUser'));
+    }
+    public function account_settings(Request $request){
+        $user=$_SESSION['user'][0]->username;
+        $diachi= diachi::findAddress($user);
+        $dataUser = admin::getByUser($user);
+        $spyt= sanphamyeuthich::where('username','regexp',$user)->where('trangthai',0)->orderBy('stt','desc')->paginate(6);
+        return view('frontend.account_settings',compact('diachi','dataUser','spyt'));
+    }
+    public function editInfo(Request $request){
+        $username = $request->username;
+        $hoten = $request->hoten;
+        $email = $request->email;
+        $hinh = $request->hinh;
+        if($request->hasFile('image'))
+        {
+            if ($_FILES['image']['error']==0) {
+                $hinh = $_FILES['image']['name'];
+                move_uploaded_file($_FILES['image']['tmp_name'], "public/frontend/avatar/$hinh");
+            }
+        }else if($hinh == NULL){
+            $hinh = "";
+        }
+        $_SESSION['user'][0]->hoten=$hoten;
+        admin::updateuser($username,$hoten,$email,$hinh);
+        return redirect()->route('account_settings');
     }
     public function updateAddress(Request $request){
         $request->validate([
@@ -518,5 +709,13 @@ class FrontendController extends Controller
         return Redirect::to('/account');
 
     }
-} 
-?>
+    public function cancelorder(Request $request){
+        if($request->status >= 1 && $request->status <= 3){
+            return redirect()->route('account')->with('fail_cancelorder','Không thể hủy đơn khi đã xác nhận!');
+        }else if($request->status == 4){
+            return redirect()->route('account')->with('warn_cancelorder','Không thể hủy đơn khi đã hủy!');
+        }
+        donhang::updateStatus($request->madon,4);
+        return redirect()->route('account')->with('success_cancelorder','Hủy đơn thành công!');
+    }
+}

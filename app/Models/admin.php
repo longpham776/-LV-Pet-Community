@@ -42,12 +42,13 @@ class admin extends Model
     public static function updatePassword($email,$password){
         return DB::select('UPDATE quantri SET password=? WHERE quantri.email =?',[$password,$email]);
     }
-    public static function updateuser($user,$hoten, $email){
+    public static function updateuser($user,$hoten, $email,$hinh){
         DB::table('quantri')
               ->where('username', $user)
               ->update([
                 'hoten' => $hoten,
-                'email' =>$email
+                'email' =>$email,
+                'hinh' =>$hinh
             ]);
     }
 }

@@ -9,8 +9,8 @@ use DB;
 class danhgiasanpham extends Model
 {
     use HasFactory;
-    public static function getRatingUser($username){
-        return DB::table('danhgiasanphams')->where('username', $username)->get();
+    public static function getRatingUser($username,$masp){
+        return DB::table('danhgiasanphams')->where('username', $username)->where('masp',$masp)->get();
     }
     public static function getRatingSp($masp){
         return DB::table('danhgiasanphams')->where('masp', $masp)->get();
@@ -22,7 +22,7 @@ class danhgiasanpham extends Model
             'rate' => $rate
         ]);
     }
-    public static function updateRating($username,$rate){
-        return DB::table('danhgiasanphams')->where('username',$username)->update(['rate' => $rate]);
+    public static function updateRating($masp,$username,$rate){
+        return DB::table('danhgiasanphams')->where('username',$username)->where('masp',$masp)->update(['rate' => $rate]);
     }
 }

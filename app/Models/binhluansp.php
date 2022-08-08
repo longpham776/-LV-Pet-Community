@@ -11,6 +11,9 @@ class binhluansp extends Model
     public static function getCommentSp($masp){
         return DB::table('binhluansp')->where('masp',$masp)->get();
     }
+    public static function getCommentByUser($username,$masp){
+        return DB::table('binhluansps')->where('username',$username)->where('masp',$masp)->get();
+    }
     public static function commentSp($masp,$username,$mota,$datetime){
         return DB::table('binhluansp')->insert([
             'masp' => $masp,

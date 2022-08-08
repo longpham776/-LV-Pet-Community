@@ -86,14 +86,7 @@
                         <div class="card-body">
                             <h1 class="h2">{{$sp->tensp}}</h1>
                             <p class="h3 py-2">{{$sp->gia}}<u>đ</u></p>
-                            @if(!isset($_SESSION['user']))
-                                <div id="rateYo1"></div>
-                                <p class="py-2">
-                                    <span class="list-inline-item text-dark">
-                                        Rating {{$sp->danhgia}} | {{count($getBl)}} Comments
-                                    </span>
-                                </p>
-                            @else
+                            @if(isset($_SESSION['user']) && $countSpDh >= 1)
                                 <div id="rateYo"></div>
                                 <p class="py-2">
                                     <span class="list-inline-item text-dark">
@@ -103,9 +96,15 @@
                                             <div class="form-group">
                                                 <input type="hidden" name="rating_star" id="rating_star">
                                                 <input type="hidden" name="masp" value="{{$sp->masp}}">
-                                                <input type="hidden" name="username" value="{{$_SESSION['user'][0]->username}}">
                                             </div>
                                         </form> 
+                                    </span>
+                                </p>
+                            @else
+                                <div id="rateYo1"></div>
+                                <p class="py-2">
+                                    <span class="list-inline-item text-dark">
+                                        Rating {{$sp->danhgia}} | {{count($getBl)}} Comments
                                     </span>
                                 </p>
                             @endif
@@ -180,12 +179,25 @@
 <!-- Close Content -->
 <div class="container">
     <div class="be-comment-block">
+        @if (session('fail_cmt'))
+            <div class="alert alert-warning" role="alert">
+                    {{ session('fail_cmt') }}
+            </div>
+        @endif
         <h1 class="comments-title">Comments ({{count($getBl)}})</h1>
         @foreach($getBl as $bl)
         <div class="be-comment">
             <div class="be-img-comment">	
                 <a href="#" style="text-decoration:none;">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="be-ava-comment">
+                @foreach($getUsers as $user)
+                    @if($user->username == $bl->username)
+                        @if(!$user->hinh)
+                        <img src="https://secure.gravatar.com/avatar/3dbbb7b9f09bd1f312374056bb92b3e1?s=96&d=https%3A%2F%2Fstatic.teamtreehouse.com%2Fassets%2Fcontent%2Fdefault_avatar-ea7cf6abde4eec089a4e03cc925d0e893e428b2b6971b12405a9b118c837eaa2.png&r=pg" alt="" class="be-ava-comment">
+                        @else
+                        <img src="{{url('public')}}/frontend/avatar/{{$user->hinh}}" alt="" class="be-ava-comment">
+                        @endif
+                    @endif
+                @endforeach
                 </a>
             </div>
             <div class="be-comment-content">
@@ -204,10 +216,11 @@
             </div>
         </div>
         @endforeach
-        @if(isset($_SESSION['user']))
+        @if(isset($_SESSION['user']) && $countSpDh >= 1)
         <form class="form-block" action="{{route('binhluansp')}}" method="post">
             @csrf
             <div class="row">
+                <input type="hidden" name="solanmuasp" value="{{$countSpDh}}">
                 <input type="hidden" name="masp" value="{{$getSP[0]->masp}}">
                 <input type="hidden" name="username" value="{{$_SESSION['user'][0]->username}}">
                 @error('mota')
@@ -301,9 +314,11 @@
 </section>
 <!-- End Article -->
 <style type="text/css">
-    body{
-        margin-top:20px;
-        background-color:#e9ebee;
+    .btn-primary {
+        background-color: #17A45A;
+    }
+    .btn-primary:hover {
+        background-color: #555;
     }
 
     .be-comment-block {
@@ -431,7 +446,7 @@
         $("#rateYo1").rateYo({
             rating: rateAvg
         }).on("rateyo.set", function (e, data) {
-            alert("Vui lòng đăng nhập để được đánh giá!");
+            alert("Vui lòng đăng nhập hoặc mua hàng để được đánh giá!");
         });
     });
 </script>
@@ -439,7 +454,7 @@
     //Make sure that the dom is ready
     $(function () {
         $("#form-comment").on("click", function () {
-            alert("Vui lòng đăng nhập để được bình luận!");
+            alert("Vui lòng đăng nhập hoặc mua hàng để được bình luận!");
         });
     });
 </script>

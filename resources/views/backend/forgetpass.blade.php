@@ -45,7 +45,7 @@
                         <h1><b class="text-success">PET </b></h1><h3>Community</h3>
                         </div>
                         <div class="login-form" >
-                            <form action="{{route('postchangepass')}}" method="post">
+                            <form action="{{route('postforgetpass')}}" method="post">
                                 @csrf
                                 @if (session('fail'))
                                     <div class="alert alert-danger" role="alert">
