@@ -6,6 +6,9 @@
   <div style="width: 1000px;  margin:auto;">
   <canvas id="myChart" width="1000px" ></canvas>
   </div>
+  <div style="width: 1000px;  margin:auto;">
+  <canvas id="myChart2" width="1000px" ></canvas>
+  </div>
   <section id="main-content">
     <section class="wrapper">
       <div class="container py-5">
@@ -101,6 +104,35 @@ var myChart = new Chart(ctx, {
         datasets: [{
             label: 'Đơn hàng',
             data: <?php echo json_encode($datas);  ?> ,
+            backgroundColor: [
+              'red','green','blue','yellow','brown','black','violet','orange','pink','indigo','purple','silver'
+            ],
+            borderColor: [
+              'red','green','blue','yellow','brown','black','violet','orange','pink','indigo','purple','silver'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+</script>
+<script>
+var ctx = document.getElementById('myChart2').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+        datasets: [{
+            label: 'Doanh thu',
+            data: <?php echo json_encode($thang);  ?> ,
             backgroundColor: [
               'red','green','blue','yellow','brown','black','violet','orange','pink','indigo','purple','silver'
             ],

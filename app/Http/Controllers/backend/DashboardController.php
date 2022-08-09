@@ -360,14 +360,27 @@ class DashboardController extends Controller
     }
     public function donhang(){
         $datas =[];
-
         for($i=1;$i< 13; $i++)
         {           
            $datas[] =  donhang::whereMonth('date', $i)->count();
         }
-        // dd($datas);
+        $thang = [];
+        $tong = [];
+        for($i =1; $i<13; $i++)
+        {
+            $tong[] =json_decode(json_encode( donhang::whereMonth('date',$i)->get('thanhtien')),true);
+        }
+        for($i=0; $i<12; $i++)
+        {
+            $sum = 0;
+            foreach($tong[$i] as $item)
+            {
+                $sum = $sum + (float)$item['thanhtien'];
+            }
+            $thang[]= $sum.'000';
+        }
         $getDH= donhang::orderBy('madon', 'desc')->get();
-        return view("backend.donhang", compact('getDH','datas'));
+        return view("backend.donhang", compact('getDH','datas','thang'));
     }
     public function chitietDH(Request $request){
         
