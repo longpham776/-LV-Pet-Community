@@ -88,5 +88,7 @@ return [
     'signout' => 'Đăng xuất',
     'account' => 'Tài khoản',
     'favoriteproduct' => 'Sản phẩm yêu thích',
-    
+    'productportfolio' => 'Danh mục sản phẩm',
+    'notfounddecription' => 'Sản phẩm bạn đang tìm kiếm không có.',
+    'backtoproduct' => 'Trở về trang sản phẩm',
 ];

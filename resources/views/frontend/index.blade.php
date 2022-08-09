@@ -79,93 +79,197 @@
         <div class="col-lg-6 m-auto">
             <h1 class="h1">@lang('lang.product')</h1>
             <p>
-                
+
             </p>
         </div>
     </div>
     <section class="services  service-service" id="service-service-0">
-    <div class="row">
-                    @foreach($getSP as $sp)
-                        <div class="col-md-4">
-                            <div class="card mb-4 product-wap rounded-0">
-                                <div class="card rounded-0">
-                                    <img class="card-img rounded-0 img-fluid" src="{{url('public')}}/frontend/img/{{$sp->hinh}}">
-                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                        
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <a href="{{route('chitietsanpham',['id'=>$sp->masp])}}" class="h3 text-decoration-none">{{$sp->tensp}}</a>
-                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
-                                        <li class="pt-2">
-                                            <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
-                                            <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
-                                            <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
-                                            <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
-                                            <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
-                                        </li>
-                                    </ul>
-                                    @if($sp->danhgia <= 1)
-                                    <ul class="list-unstyled d-flex justify-content-center mb-1">
-                                        <li>
-                                            <i class="fa fa-star text-warning"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                        </li>
-                                    </ul>
-                                    @elseif($sp->danhgia <= 2)
-                                    <ul class="list-unstyled d-flex justify-content-center mb-1">
-                                        <li>
-                                            <i class="fa fa-star text-warning"></i>
-                                            <i class="fa fa-star text-warning"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                        </li>
-                                    </ul>
-                                    @elseif($sp->danhgia <= 3)
-                                    <ul class="list-unstyled d-flex justify-content-center mb-1">
-                                        <li>
-                                            <i class="fa fa-star text-warning"></i>
-                                            <i class="fa fa-star text-warning"></i>
-                                            <i class="fa fa-star text-warning"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                        </li>
-                                    </ul>
-                                    @elseif($sp->danhgia <= 4)
-                                    <ul class="list-unstyled d-flex justify-content-center mb-1">
-                                        <li>
-                                            <i class="fa fa-star text-warning"></i>
-                                            <i class="fa fa-star text-warning"></i>
-                                            <i class="fa fa-star text-warning"></i>
-                                            <i class="fa fa-star text-warning"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                        </li>
-                                    </ul>
-                                    @elseif($sp->danhgia <= 5)
-                                    <ul class="list-unstyled d-flex justify-content-center mb-1">
-                                        <li>
-                                            <i class="fa fa-star text-warning"></i>
-                                            <i class="fa fa-star text-warning"></i>
-                                            <i class="fa fa-star text-warning"></i>
-                                            <i class="fa fa-star text-warning"></i>
-                                            <i class="fa fa-star text-warning"></i>
-                                        </li>
-                                    </ul>
-                                    @endif
-                                    <p class="text-center mb-0">{{$sp->gia}}<u>đ</u></p>
+        <div class="row">
+            <section class="pt-5 pb-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6">
+                            <h3 class="mb-3">@lang('lang.productportfolio')</h3>
+                        </div>
+                        <div class="col-6 text-right">
+                            <a class="btn btn-primary mb-3 mr-1" href="#carouselExampleIndicators2" role="button" data-slide="prev">
+                                <i class="fa fa-arrow-left"></i>
+                            </a>
+                            <a class="btn btn-primary mb-3 " href="#carouselExampleIndicators2" role="button" data-slide="next">
+                                <i class="fa fa-arrow-right"></i>
+                            </a>
+                        </div>
+                        <div class="col-12">
+                            <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner">
+                                    @for($i=0;$i<=count($getSP);$i++) @if($i<=3) <div class="carousel-item active">
+                                        <div class="row">
+                                            @for($i=0;$i < 3;$i++) <div class="col-md-4">
+                                                <div class="card mb-4 product-wap rounded-0">
+                                                    <div class="card rounded-0">
+                                                        <img class="card-img rounded-0 img-fluid" src="{{url('public')}}/frontend/img/{{$getSP[$i]->hinh}}">
+                                                        <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <a href="{{route('chitietsanpham',['id'=>$getSP[$i]->masp])}}" class="h3 text-decoration-none">{{$getSP[$i]->tensp}}</a>
+                                                        <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                                                            <li class="pt-2">
+                                                                <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                                                                <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                                                                <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                                                                <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                                                                <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                                                            </li>
+                                                        </ul>
+                                                        @if($getSP[$i]->danhgia <= 1) <ul class="list-unstyled d-flex justify-content-center mb-1">
+                                                            <li>
+                                                                <i class="fa fa-star text-warning"></i>
+                                                                <i class="fa fa-star text-secondary"></i>
+                                                                <i class="fa fa-star text-secondary"></i>
+                                                                <i class="fa fa-star text-secondary"></i>
+                                                                <i class="fa fa-star text-secondary"></i>
+                                                            </li>
+                                                            </ul>
+                                                            @elseif($getSP[$i]->danhgia <= 2) <ul class="list-unstyled d-flex justify-content-center mb-1">
+                                                                <li>
+                                                                    <i class="fa fa-star text-warning"></i>
+                                                                    <i class="fa fa-star text-warning"></i>
+                                                                    <i class="fa fa-star text-secondary"></i>
+                                                                    <i class="fa fa-star text-secondary"></i>
+                                                                    <i class="fa fa-star text-secondary"></i>
+                                                                </li>
+                                                                </ul>
+                                                                @elseif($getSP[$i]->danhgia <= 3) <ul class="list-unstyled d-flex justify-content-center mb-1">
+                                                                    <li>
+                                                                        <i class="fa fa-star text-warning"></i>
+                                                                        <i class="fa fa-star text-warning"></i>
+                                                                        <i class="fa fa-star text-warning"></i>
+                                                                        <i class="fa fa-star text-secondary"></i>
+                                                                        <i class="fa fa-star text-secondary"></i>
+                                                                    </li>
+                                                                    </ul>
+                                                                    @elseif($getSP[$i]->danhgia <= 4) <ul class="list-unstyled d-flex justify-content-center mb-1">
+                                                                        <li>
+                                                                            <i class="fa fa-star text-warning"></i>
+                                                                            <i class="fa fa-star text-warning"></i>
+                                                                            <i class="fa fa-star text-warning"></i>
+                                                                            <i class="fa fa-star text-warning"></i>
+                                                                            <i class="fa fa-star text-secondary"></i>
+                                                                        </li>
+                                                                        </ul>
+                                                                        @elseif($getSP[$i]->danhgia <= 5) <ul class="list-unstyled d-flex justify-content-center mb-1">
+                                                                            <li>
+                                                                                <i class="fa fa-star text-warning"></i>
+                                                                                <i class="fa fa-star text-warning"></i>
+                                                                                <i class="fa fa-star text-warning"></i>
+                                                                                <i class="fa fa-star text-warning"></i>
+                                                                                <i class="fa fa-star text-warning"></i>
+                                                                            </li>
+                                                                            </ul>
+                                                                            @endif
+                                                                            <p class="text-center mb-0">{{$getSP[$i]->gia}}<u>đ</u></p>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                        @endfor
                                 </div>
                             </div>
+                            @else
+                            <div class="carousel-item">
+                                <div class="row">
+                                    @for($i=3;$i < count($getSP);$i++) <div class="col-md-4">
+                                        <div class="card mb-4 product-wap rounded-0">
+                                            <div class="card rounded-0">
+                                                <img class="card-img rounded-0 img-fluid" src="{{url('public')}}/frontend/img/{{$getSP[$i]->hinh}}">
+                                                <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <a href="{{route('chitietsanpham',['id'=>$getSP[$i]->masp])}}" class="h3 text-decoration-none">{{$getSP[$i]->tensp}}</a>
+                                                <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                                                    <li class="pt-2">
+                                                        <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                                                        <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                                                        <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                                                        <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                                                        <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                                                    </li>
+                                                </ul>
+                                                @if($getSP[$i]->danhgia <= 1) <ul class="list-unstyled d-flex justify-content-center mb-1">
+                                                    <li>
+                                                        <i class="fa fa-star text-warning"></i>
+                                                        <i class="fa fa-star text-secondary"></i>
+                                                        <i class="fa fa-star text-secondary"></i>
+                                                        <i class="fa fa-star text-secondary"></i>
+                                                        <i class="fa fa-star text-secondary"></i>
+                                                    </li>
+                                                    </ul>
+                                                    @elseif($getSP[$i]->danhgia <= 2) <ul class="list-unstyled d-flex justify-content-center mb-1">
+                                                        <li>
+                                                            <i class="fa fa-star text-warning"></i>
+                                                            <i class="fa fa-star text-warning"></i>
+                                                            <i class="fa fa-star text-secondary"></i>
+                                                            <i class="fa fa-star text-secondary"></i>
+                                                            <i class="fa fa-star text-secondary"></i>
+                                                        </li>
+                                                        </ul>
+                                                        @elseif($getSP[$i]->danhgia <= 3) <ul class="list-unstyled d-flex justify-content-center mb-1">
+                                                            <li>
+                                                                <i class="fa fa-star text-warning"></i>
+                                                                <i class="fa fa-star text-warning"></i>
+                                                                <i class="fa fa-star text-warning"></i>
+                                                                <i class="fa fa-star text-secondary"></i>
+                                                                <i class="fa fa-star text-secondary"></i>
+                                                            </li>
+                                                            </ul>
+                                                            @elseif($getSP[$i]->danhgia <= 4) <ul class="list-unstyled d-flex justify-content-center mb-1">
+                                                                <li>
+                                                                    <i class="fa fa-star text-warning"></i>
+                                                                    <i class="fa fa-star text-warning"></i>
+                                                                    <i class="fa fa-star text-warning"></i>
+                                                                    <i class="fa fa-star text-warning"></i>
+                                                                    <i class="fa fa-star text-secondary"></i>
+                                                                </li>
+                                                                </ul>
+                                                                @elseif($getSP[$i]->danhgia <= 5) <ul class="list-unstyled d-flex justify-content-center mb-1">
+                                                                    <li>
+                                                                        <i class="fa fa-star text-warning"></i>
+                                                                        <i class="fa fa-star text-warning"></i>
+                                                                        <i class="fa fa-star text-warning"></i>
+                                                                        <i class="fa fa-star text-warning"></i>
+                                                                        <i class="fa fa-star text-warning"></i>
+                                                                    </li>
+                                                                    </ul>
+                                                                    @endif
+                                                                    <p class="text-center mb-0">{{$getSP[$i]->gia}}<u>đ</u></p>
+                                            </div>
+                                        </div>
+                                </div>
+                                @endfor
+                            </div>
+                            @endif
+                            @endfor
                         </div>
-                    @endforeach
+                    </div>
                 </div>
+        </div>
+        </div>
     </section>
+    </div>
+</section>
 </section>
 <!-- End Categories of The Month -->
 <!-- Start Featured Product -->
 
 <!-- End Featured Product -->
+<style type="text/css">
+    .btn-primary {
+        background-color: #17A45A;
+    }
+
+    .btn-primary:hover {
+        background-color: #555;
+    }
+</style>
 @stop

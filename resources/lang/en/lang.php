@@ -88,4 +88,7 @@ return [
     'signout' => 'Sign out',
     'account' => 'Account',
     'favoriteproduct' => 'Favorite products',
+    'productportfolio' => 'Product portfolio',
+    'notfounddecription' => 'The product you are looking for was not found.',
+    'backtoproduct' => 'Back to Products',
 ];
